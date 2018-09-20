@@ -1,0 +1,278 @@
+@import 'mixins';
+@import 'variables';
+
+@import 'normalize';
+
+/**
+/// GLOBAL DEFAULT STYLES
+**/
+
+* {
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+html {
+    font-size: 65%;
+}
+
+body {
+    background: #FCF6F2;
+}
+
+input, textarea {
+    outline: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+button {
+    outline: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+
+    cursor: pointer;
+}
+
+a ,a:link, a:visited {
+    text-decoration: inherit;
+    color: inherit;
+    cursor: auto;
+}
+
+h1 {
+    margin: 0;
+}
+
+*:focus {
+    outline: none;
+}
+
+/**
+/// GLOBAL COMPONENTS
+**/
+
+$header-z: 90;
+$header-height: 8vh;
+$header-min-height: 60px;
+
+$menu-time: 0.5s;
+
+.global-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    transition: background $menu-time;
+
+    /*&.inactive {
+        margin-left: 80vw;
+        @include for-tablet-portrait-up {
+            margin-left: 450px;
+        }
+
+        transition: margin $menu-time;
+    }*/
+
+    &::after {
+        content: "";
+        visibility: hidden;
+        position: absolute;
+        z-index: $header-z + 1; //Higher than header
+        height: 100%;
+        width: 100%;
+
+        background: rgba(0,0,0,0);
+    }
+
+    &.inactive::after {
+        content: "";
+        visibility: visible;
+        position: absolute;
+        z-index: $header-z + 1; //Higher than header
+        height: 100%;
+        width: 100%;
+
+        background: rgba(0,0,0, 0.4);
+
+        transition: background $menu-time;
+    }
+}
+
+.global-header {
+    z-index: $header-z;
+
+    width: 100%;
+    flex: 0 0 $header-height;
+    min-height: $header-min-height;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: linear-gradient(to right, #ff730a, #ff8120, #ff8e31, #ff9a41, #ffa551);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+
+    &-menu {
+        font-size: 2rem;
+        @include for-tablet-portrait-up {
+            font-size: 3rem;
+        }
+        color: #FFF5EE;
+
+        i {
+            margin-left: 2vw;
+        }
+    }
+
+    &-logo {
+        height: 100%;
+
+        font-size: 2.5rem;
+        @include for-tablet-portrait-up {
+            font-size: 3rem;
+        }
+        color: white;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            height: 80%;
+            @include for-tablet-portrait-up {
+                height: 90%;
+            }
+            width: auto;
+        }
+    }
+
+    &-options {
+        font-size: 2rem;
+        @include for-tablet-portrait-up {
+            font-size: 2.5rem;
+        }
+        color: #FFF5EE;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        i {
+            margin-right: 2vw;
+        }
+    }
+
+}
+
+.global-main {
+    position: relative;
+
+    width: 100vw;
+    height: 100%;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.global-menu {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 70vw;
+    @include for-tablet-portrait-up {
+        max-width: 300px;
+    }
+
+    z-index: $header-z + 2; //Higher than header
+
+    background: #FF7610;
+
+    transform: translateX(-100%);
+    transition: transform $menu-time;
+
+    &.active {
+        box-shadow: 10px 0px 20px -5px rgba(0,0,0,0.4);
+
+        transform: translateX(0%);
+        transition: transform $menu-time;
+    }
+
+    &-close {
+        margin-bottom: 1.25rem;
+        margin-right: 0.5rem;
+
+        height: $header-height;
+        min-height: $header-min-height;
+
+        @include pad-hor(1rem);
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        font-size: 1.5rem;
+        @include for-tablet-portrait-up {
+            font-size: 2rem;
+        }
+        color: white;
+        font-weight: bold;
+
+        background: rgba(#ff730a, .5);
+
+        cursor: pointer;
+
+        i {
+            font-size: 2.5rem;
+        }
+    }
+
+    &-welcome {
+        margin-bottom: 2rem;
+
+        height: 5rem;
+
+        background: #FFDAB9;
+
+        @extend %flex-center;
+        flex-direction: column;
+
+        font-size:2rem;
+
+        strong {
+            color: #ff730a;
+        }
+    }
+
+    &-button {
+        margin-bottom: 1rem;
+
+        height: 5rem;
+        width: 100%;
+
+        background: transparent;
+
+        font-size: 1.8rem;
+        color: white;
+        font-weight: 500;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        * {
+            margin-left: 2rem;
+        }
+    }
+}

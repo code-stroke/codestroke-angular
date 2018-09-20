@@ -45,7 +45,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles/global.scss"
             ],
             "scripts": []
           },
@@ -143,6 +143,11 @@
           }
         }
       }
+    }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
     }
   },
   "defaultProject": "codestroke-angular"
