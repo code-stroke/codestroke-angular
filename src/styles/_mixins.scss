@@ -1,8 +1,9 @@
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-
-/**
-/// MIXINS
-**/
 
 @mixin for-phone-only {
   @media (max-width: 599px) { @content; }
@@ -29,15 +30,4 @@
 @mixin pad-vert ($value) {
     padding-top: $value;
     padding-bottom: $value;
-}
-
-
-/**
-/// EXTENSIONS
-**/
-
-%flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }

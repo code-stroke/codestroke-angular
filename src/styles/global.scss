@@ -245,7 +245,7 @@ $menu-time: 0.5s;
 
         background: #FFDAB9;
 
-        @extend %flex-center;
+        @include flex-center;
         flex-direction: column;
 
         font-size:2rem;
