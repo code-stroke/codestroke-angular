@@ -1,0 +1,28 @@
+    <tr>
+        <td colspan="3" class="list-table-title">
+            {{status | uppercase}}
+        </td>
+    </tr>
+    <tr class="list-table-divider"></tr>
+    <tr class="list-table-header">
+        <td>
+            Patient
+        </td>
+        <td>
+            Age / Sex
+        </td>
+        <td>
+            ETA
+        </td>
+    </tr>
+    <tr *ngFor="let case of cases">
+        <td>
+            {{case.first_name + " " + case.last_name}}
+        </td>
+        <td>
+            {{case.dob}}
+        </td>
+        <td>
+            {{case.eta}}
+        </td>
+    </tr>
