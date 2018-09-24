@@ -15,7 +15,7 @@
             ETA
         </td>
     </tr>
-    <tr *ngFor="let case of cases">
+    <tr *ngFor="let case of cases" (click)="onClick()">
         <td>
             {{case.first_name + " " + case.last_name}}
         </td>

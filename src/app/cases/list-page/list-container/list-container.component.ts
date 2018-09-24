@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, HostBinding, SimpleChanges } from '@angular/core';
 import { CaseDetails } from '../../case-details';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: '[csListContainer]',
@@ -19,14 +20,14 @@ export class ListContainerComponent implements OnInit {
         return this._cases;
     }
 
-    constructor() { }
+    constructor(private router : Router, private route : ActivatedRoute) { }
 
     ngOnInit() {
         //console.log(status);
     }
 
-    ngOnChanges(changes : SimpleChanges) {
-
+    onClick() {
+        this.router.navigate(['../edit'], { relativeTo: this.route});
     }
 
 }

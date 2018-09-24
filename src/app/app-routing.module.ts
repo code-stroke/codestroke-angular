@@ -28,7 +28,7 @@ const routes: Routes = [
         path: 'login',
         component: LoginLayoutComponent,
         canActivate: [LoginLayoutGuard]
-     },
+    },
     { path: '**', redirectTo: '/login'}
 ];
 
