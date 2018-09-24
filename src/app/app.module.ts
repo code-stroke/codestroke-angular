@@ -5,25 +5,23 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { ListPageComponent } from './list-page/list-page.component';
-import { ListContainerComponent } from './list-page/list-container/list-container.component';
-import { MainComponentComponent } from './main-component/main-component.component';
-import { LoginComponentComponent } from './login-component.component';
+import { MainLayoutComponent } from './main-layout.component';
+import { LoginLayoutComponent } from './login-layout.component';
+import { CasesModule } from './cases/cases.module';
 
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        ListPageComponent,
-        ListContainerComponent,
-        MainComponentComponent,
-        LoginComponentComponent
-    ],
     imports: [
         BrowserModule,
         HttpClientModule,
-        AppRoutingModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        //CasesModule,
+        AppRoutingModule
+    ],
+    declarations: [
+        AppComponent,
+        MainLayoutComponent,
+        LoginLayoutComponent
     ],
     providers: [],
     bootstrap: [AppComponent]
