@@ -178,6 +178,43 @@ export class CaseAssessmentComponent extends AbstractCaseComponent implements On
 
     ngOnInit() {
         super.ngOnInit();
+
+        this.checkScore(this.form.getRawValue());
+
+        this.form.valueChanges.subscribe(val => {
+            this.checkScore(val);
+        });
+    }
+
+    race = 0;
+    nihss = 0;
+    rankin = 0;
+    checkScore(val) {
+        this.race = 0;
+        this.race += parseInt(val.facial_palsy_race);
+        this.race += parseInt(val.arm_motor_impair);
+        this.race += parseInt(val.leg_motor_impair);
+        this.race += parseInt(val.head_gaze_deviate);
+
+        this.nihss = 0;
+        this.nihss += parseInt(val.conscious_level);
+        this.nihss += parseInt(val.month_age);
+        this.nihss += parseInt(val.blink_squeeze);
+        this.nihss += parseInt(val.horizontal_gaze);
+        this.nihss += parseInt(val.visual_fields);
+        this.nihss += parseInt(val.facial_palsy_nihss);
+        this.nihss += parseInt(val.left_arm_drift);
+        this.nihss += parseInt(val.right_arm_drift);
+        this.nihss += parseInt(val.left_leg_drift);
+        this.nihss += parseInt(val.right_leg_drift);
+        this.nihss += parseInt(val.limb_ataxia);
+        this.nihss += parseInt(val.sensation);
+        this.nihss += parseInt(val.aphasia);
+        this.nihss += parseInt(val.dysarthria);
+        this.nihss += parseInt(val.neglect);
+
+        this.rankin = 0;
+        this.rankin += parseInt(val.rankin_conscious);
     }
 
     onSave = () => {

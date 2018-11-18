@@ -22,6 +22,17 @@ form {
 
 .group {
     @include row-group;
+
+    header span {
+        margin-left: 2rem;
+
+        @include pad-hor(1rem);
+
+        background: orange;
+
+        font-size: 2rem;
+        color: white;
+    }
 }
 
 .bp {
