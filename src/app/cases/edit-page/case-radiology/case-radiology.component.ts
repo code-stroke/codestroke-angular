@@ -50,6 +50,35 @@ export class CaseRadiologyComponent extends AbstractCaseComponent implements OnI
 
     ngOnInit() {
         super.ngOnInit();
+
+        this.checkProgress(this.form.getRawValue());
+
+        this.form.valueChanges.subscribe(val => {
+            this.checkProgress(val);
+        });
+    }
+
+    progress = 0;
+    checkProgress(val) {
+        this.progress = 0;
+        if (val.ct_available === 1) {
+            this.progress++;
+        } else {return;}
+        if (val.arrived_to_ct === 1) {
+            this.progress++;
+        } else {return;}
+        if (val.ct_complete === 1) {
+            this.progress++;
+        } else {return;}
+        if (val.ich_found === 0) {
+            this.progress++;
+        } else {return;}
+        if (val.do_cta_ctp === 1) {
+            this.progress++;
+        } else {return;}
+        if (val.cta_ctp_complete === 1) {
+            this.progress++;
+        } else {return;}
     }
 
     onSave = () => {

@@ -3,31 +3,31 @@
         <label>CT Available</label>
         <cs-toggle [name]="'available'" [options]="radioYN" formControlName="ct_available" type="number"></cs-toggle>
     </div>
-    <div class="radiology-row">
+    <div class="radiology-row" *ngIf="progress > 0">
         <label>Location of Available CT</label>
         <input type="text" formControlName="ct_available_loc"/>
     </div>
-    <div class="radiology-row">
+    <div class="radiology-row" *ngIf="progress > 0">
         <label>Patient Arrived in CT </label>
         <cs-toggle [name]="'arrived'" [options]="radioYN" formControlName="arrived_to_ct"></cs-toggle>
     </div>
-    <div class="radiology-row">
+    <div class="radiology-row" *ngIf="progress > 1">
         <label>CT Complete</label>
         <cs-toggle [name]="'complete'" [options]="radioYN" formControlName="ct_complete"></cs-toggle>
     </div>
-    <div class="radiology-row">
+    <div class="radiology-row" *ngIf="progress > 2">
         <label>ICH on Non-Contrast CT</label>
         <cs-toggle [name]="'ich'" [options]="radioYN" formControlName="ich_found"></cs-toggle>
     </div>
-    <div class="radiology-row">
+    <div class="radiology-row" *ngIf="progress > 3">
         <label>Proceed with CTA/CTP</label>
         <cs-toggle [name]="'proceed'" [options]="radioYN" formControlName="do_cta_ctp"></cs-toggle>
     </div>
-    <div class="radiology-row">
+    <div class="radiology-row" *ngIf="progress > 4">
         <label>CTA/CTP Complete</label>
         <cs-toggle [name]="'ctp'" [options]="radioYN" formControlName="cta_ctp_complete"></cs-toggle>
     </div>
-    <div class="radiology-row">
+    <div class="radiology-row" *ngIf="progress > 5">
         <label>Large Vessel Occlusion</label>
         <cs-toggle [name]="'lvo'" [options]="radioYN" formControlName="large_vessel_occlusion"></cs-toggle>
     </div>
