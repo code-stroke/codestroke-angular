@@ -1,0 +1,43 @@
+@import 'variables';
+@import 'mixins';
+
+@import '../case';
+
+:host {
+    height: 100%;
+    width: 100%;
+}
+
+form {
+    @include form;
+}
+
+.manage-row {
+    @include case-row;
+
+    &.options {
+        @include case-row-options;
+    }
+}
+
+.group {
+    @include row-group;
+}
+
+.heading {
+    @include for-tablet-portrait-up {
+        margin-left: 14rem !important;
+    }
+
+    width: 100% !important;
+    @include for-tablet-portrait-up {
+        width: unset !important;
+    }
+
+    justify-content: center !important;
+    @include for-tablet-portrait-up {
+        justify-content: flex-start !important;
+    }
+
+    color: #ff6c00 !important;
+}

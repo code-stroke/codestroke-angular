@@ -1,0 +1,31 @@
+<form [formGroup]="form">
+    <div class="ed-row">
+        <label>Location</label>
+        <input type="text" formControlName="location"/>
+    </div>
+    <div class="ed-row">
+        <label>Registered in ED?</label>
+        <input type="checkbox" id="registered" name="registered" formControlName="registered"/>
+        <label for="registered" class="check"></label>
+    </div>
+    <div class="ed-row">
+        <label>Triaged in ED?</label>
+        <input type="checkbox" id="triaged" name="triaged" formControlName="triaged"/>
+        <label for="triaged" class="check"></label>
+    </div>
+    <div class="ed-row">
+        <label>Primary Survey Completed?</label>
+        <input type="checkbox" id="primary_survey" name="primary_survey" formControlName="primary_survey"/>
+        <label for="primary_survey" class="check"></label>
+    </div>
+
+    <div class="ed-row options">
+        <label></label>
+        <button>SAVE
+            <cs-double-click [func]="onSave"></cs-double-click>
+        </button>
+        <button>RESET
+            <cs-double-click [func]="onReset"></cs-double-click>
+        </button>
+    </div>
+</form>

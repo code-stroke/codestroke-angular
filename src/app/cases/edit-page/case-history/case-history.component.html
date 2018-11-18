@@ -1,0 +1,45 @@
+<form [formGroup]="form">
+    <div class="history-row textarea">
+        <label>HOPC</label>
+        <textarea formControlName="hopc"></textarea>
+    </div>
+    <div class="history-row textarea">
+        <label>PMHx</label>
+        <textarea formControlName="pmhx"></textarea>
+    </div>
+    <div class="history-row textarea">
+        <label>Medications</label>
+        <textarea formControlName="meds"></textarea>
+    </div>
+    <article class="group">
+        <header>
+            Anticoagulation
+        </header>
+        <div class="history-row">
+            <label>Taken?</label>
+            <cs-toggle [name]="'anticoags'" [options]="radioYNU" formControlName="anticoags"></cs-toggle>
+        </div>
+        <div class="history-row" *ngIf="form.get('anticoags').value == 'yes'">
+            <label>Last Dose</label>
+            <input formControlName="anticoags_last_dose" type="datetime-local"/>
+        </div>
+    </article>
+    <div class="history-row">
+        <label>Weight (Kg)</label>
+        <input formControlName="weight" type="number"/>
+    </div>
+    <div class="history-row">
+        <label>Last Oral Intake</label>
+        <input formControlName="last_meal" type="datetime-local"/>
+    </div>
+
+    <div class="history-row options">
+        <label></label>
+        <button>SAVE
+            <cs-double-click [func]="onSave"></cs-double-click>
+        </button>
+        <button>RESET
+            <cs-double-click [func]="onReset"></cs-double-click>
+        </button>
+    </div>
+</form>

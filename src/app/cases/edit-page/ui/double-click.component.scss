@@ -1,0 +1,40 @@
+:host {
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+
+    overflow: hidden;
+}
+
+span {
+    position: absolute;
+    z-index: 4;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+
+    font-weight: 600;
+}
+
+.white {
+    position: absolute;
+    z-index: 2;
+    top: 0; bottom: 0; left: 0; right: 0;
+
+    background: white;
+}
+
+.orange {
+    position: absolute;
+    z-index: 3;
+    top: 0; bottom: 0; left: 0; right: 0;
+
+    background: orange;
+}
+
+.green {
+    position: absolute;
+    z-index: 5;
+    top: 0; bottom: 0; left: 0; right: 0;
+
+    background: lightgreen;
+}

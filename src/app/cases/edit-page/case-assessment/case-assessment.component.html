@@ -1,0 +1,185 @@
+<form [formGroup]="form">
+    <article class="group">
+        <header>
+            MASS
+        </header>
+        <div class="assess-row">
+            <label>Facial Droop</label>
+            <cs-toggle [name]="'facial'" [options]="radioYNU" formControlName="facial_droop"></cs-toggle>
+        </div>
+        <div class="assess-row">
+            <label>Arm Drift</label>
+            <cs-toggle [name]="'arm'" [options]="radioYNU" formControlName="arm_drift"></cs-toggle>
+        </div>
+        <div class="assess-row">
+            <label>Weak Grip</label>
+            <cs-toggle [name]="'grip'" [options]="radioYNU" formControlName="weak_grip"></cs-toggle>
+        </div>
+        <div class="assess-row">
+            <label>Speech Difficulty</label>
+            <cs-toggle [name]="'speech'" [options]="radioYNU" formControlName="speech_difficulty"></cs-toggle>
+        </div>
+    </article>
+
+    <article class="group">
+        <header>
+            Vital Signs
+        </header>
+        <div class="assess-row bp">
+            <label>Blood Pressure (mmHg)</label>
+            <input type="number" class="bp" formControlName="bp_systolic"/>
+            <span>/</span>
+            <input type="number" class="bp" formControlName="bp_diastolic"/>
+        </div>
+        <div class="assess-row">
+            <label>Heart Rate (bpm)</label>
+            <input type="number" formControlName="heart_rate"/>
+        </div>
+        <div class="assess-row">
+            <label></label>
+            <cs-toggle [name]="'hr'" [options]="radioHR" formControlName="heart_rhythm"></cs-toggle>
+        </div>
+        <div class="assess-row">
+            <label>Resp Rate (BPM)</label>
+            <input type="number" formControlName="rr"/>
+        </div>
+        <div class="assess-row">
+            <label>O2 Saturation (%)</label>
+            <input type="number" formControlName="o2sats"/>
+        </div>
+        <div class="assess-row">
+            <label>Temperature (oC)</label>
+            <input type="number" formControlName="temp"/>
+        </div>
+        <div class="assess-row">
+            <label>GCS</label>
+            <input type="number" formControlName="gcs"/>
+        </div>
+        <div class="assess-row">
+            <label>Blood Glucose (mmol/L)</label>
+            <input type="number" formControlName="blood_glucose"/>
+        </div>
+    </article>
+
+    <article class="group">
+        <header>
+            RACE
+        </header>
+        <div class="assess-row">
+            <label>Facial Palsy</label>
+            <cs-select-score [options]="selectFacial" formControlName="facial_palsy_race"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Arm Motor Impairment</label>
+            <cs-select-score [options]="selectRaceLimb" formControlName="arm_motor_impair"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Leg Motor Impairment</label>
+            <cs-select-score [options]="selectRaceLimb" formControlName="leg_motor_impair"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Head & Gaze Deviation</label>
+            <cs-select-score [options]="selectHead" formControlName="head_gaze_deviate"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Hemiparesis</label>
+            <cs-toggle [name]="'hemi'" [options]="radioHemi" formControlName="hemiparesis"></cs-toggle>
+        </div>
+    </article>
+
+    <article class="group">
+        <header>
+            Cannula
+        </header>
+        <div class="assess-row">
+            <label>18G IV Cannula in Cubital Fossa</label>
+            <cs-toggle [name]="'cannula'" [options]="radioYNU" formControlName="cannula"></cs-toggle>
+        </div>
+    </article>
+
+    <article class="group">
+        <header>
+            NIHSS
+        </header>
+        <div class="assess-row">
+            <label>Level of Consciousness</label>
+            <cs-select-score [options]="selectConscious" formControlName="conscious_level"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Month & Age</label>
+            <cs-select-score [options]="selectMonth" formControlName="month_age"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Blink Eyes & Squeeze Hands</label>
+            <cs-select-score [options]="selectSqueeze" formControlName="blink_squeeze"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Horizontal Gaze</label>
+            <cs-select-score [options]="selectHorizontal" formControlName="horizontal_gaze"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Visual Fields</label>
+            <cs-select-score [options]="selectVisual" formControlName="visual_fields"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Facial Palsy</label>
+            <cs-select-score [options]="selectFacialNihss" formControlName="facial_palsy_nihss"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Left Arm Drift</label>
+            <cs-select-score [options]="selectDrift" formControlName="left_arm_drift"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Right Arm Drift</label>
+            <cs-select-score [options]="selectDrift" formControlName="right_arm_drift"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Left Leg Drift</label>
+            <cs-select-score [options]="selectDrift" formControlName="left_leg_drift"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Right Leg Drift</label>
+            <cs-select-score [options]="selectDrift" formControlName="right_leg_drift"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Limb Ataxia</label>
+            <cs-select-score [options]="selectAtaxia" formControlName="limb_ataxia"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Sensation</label>
+            <cs-select-score [options]="selectSensation" formControlName="sensation"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Aphasia</label>
+            <cs-select-score [options]="selectAphasia" formControlName="aphasia"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Dysarthria</label>
+            <cs-select-score [options]="selectDysarthria" formControlName="dysarthria"></cs-select-score>
+        </div>
+        <div class="assess-row">
+            <label>Extinction / Inattention / Neglect</label>
+            <cs-select-score [options]="selectExtinction" formControlName="neglect"></cs-select-score>
+        </div>
+    </article>
+
+    <article class="group">
+        <header>
+            Modified Rankin Scale (Premorbid)
+        </header>
+        <div class="assess-row">
+            <label>Level of Consciousness</label>
+            <cs-select-score [options]="selectRankin" formControlName="rankin_conscious"></cs-select-score>
+        </div>
+    </article>
+
+    <div class="assess-row options">
+        <label></label>
+        <button>SAVE
+            <cs-double-click [func]="onSave"></cs-double-click>
+        </button>
+        <button>RESET
+            <cs-double-click [func]="onReset"></cs-double-click>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,125 @@
+<form [formGroup]="form">
+    <div class="manage-row">
+        <label>Thrombolysis?</label>
+        <cs-toggle [name]="'thromb'" [options]="radioYN" formControlName="thrombolysis"></cs-toggle>
+    </div>
+    <article class="group" *ngIf="form.get('thrombolysis').value === 1">
+        <header>
+            Thrombolysis Contraindications
+        </header>
+
+        <div class="manage-row">
+            <label class="heading">Inclusion Criteria</label>
+        </div>
+        <div class="manage-row">
+            <label>Age > 18</label>
+            <cs-toggle [name]="'18'" [options]="radioYN" formControlName="thrombolysis"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>LVO</label>
+            <cs-toggle [name]="'lvo'" [options]="radioYN" formControlName="thrombolysis"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Time of Onset < 4.5hr</label>
+            <cs-toggle [name]="'onset'" [options]="radioYN" formControlName="thrombolysis"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>No Evidence of ICH</label>
+            <cs-toggle [name]="ich" [options]="radioYN" formControlName="thrombolysis"></cs-toggle>
+        </div>
+
+        <div class="manage-row">
+            <label class="heading">Absolute Contraindications</label>
+        </div>
+        <div class="manage-row">
+            <label>Recent Head Trauma or Stroke</label>
+            <cs-toggle [name]="'new_trauma_haemorrhage'" [options]="radioYN" formControlName="new_trauma_haemorrhage"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Uncontrolled HTN (sBP > 180)</label>
+            <cs-toggle [name]="'uncontrolled_htn'" [options]="radioYN" formControlName="uncontrolled_htn"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>History of ICH</label>
+            <cs-toggle [name]="'history_ich'" [options]="radioYN" formControlName="history_ich"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Known Intracranial AVM, Neoplasm or Aneurysm</label>
+            <cs-toggle [name]="'known_intracranial'" [options]="radioYN" formControlName="known_intracranial"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Active Bleeding</label>
+            <cs-toggle [name]="'active_bleed'" [options]="radioYN" formControlName="active_bleed"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Endocarditis (incl. Suspected)</label>
+            <cs-toggle [name]="'endocarditis'" [options]="radioYN" formControlName="endocarditis"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Known Bleeding Diathesis</label>
+            <cs-toggle [name]="'bleeding_diathesis'" [options]="radioYN" formControlName="bleeding_diathesis"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Abnormal Blood Glucose</label>
+            <cs-toggle [name]="'abnormal_blood_glucose'" [options]="radioYN" formControlName="abnormal_blood_glucose"></cs-toggle>
+        </div>
+
+        <div class="manage-row">
+            <label class="heading">Relative Contraindications</label>
+        </div>
+        <div class="manage-row">
+            <label>Rapidly Improving</label>
+            <cs-toggle [name]="'rapidly_improving'" [options]="radioYN" formControlName="rapidly_improving"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Major Trauma or Surgery in Last 3 Weeks</label>
+            <cs-toggle [name]="'recent_trauma_surgery'" [options]="radioYN" formControlName="recent_trauma_surgery"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Active Bleeding in Last 3 Weeks</label>
+            <cs-toggle [name]="'recent_active_bleed'" [options]="radioYN" formControlName="recent_active_bleed"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Seizure at Onset</label>
+            <cs-toggle [name]="'seizure_onset'" [options]="radioYN" formControlName="seizure_onset"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Recent Arterial Puncture</label>
+            <cs-toggle [name]="'recent_arterial_puncture'" [options]="radioYN" formControlName="recent_arterial_puncture"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Recent Lumbar Puncture</label>
+            <cs-toggle [name]="'recent_lumbar_puncture'" [options]="radioYN" formControlName="recent_lumbar_puncture"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Post ACS Pericarditis</label>
+            <cs-toggle [name]="'post_acs_pericarditis'" [options]="radioYN" formControlName="post_acs_pericarditis"></cs-toggle>
+        </div>
+        <div class="manage-row">
+            <label>Pregnant</label>
+            <cs-toggle [name]="'pregnant'" [options]="radioYN" formControlName="pregnant"></cs-toggle>
+        </div>
+    </article>
+    <div class="manage-row">
+        <label>ECR</label>
+        <cs-toggle [name]="'ecr'" [options]="radioYN" formControlName="ecr"></cs-toggle>
+    </div>
+    <div class="manage-row">
+        <label>Surgical Mx</label>
+        <cs-toggle [name]="'surgical_rx'" [options]="radioYN" formControlName="surgical_rx"></cs-toggle>
+    </div>
+    <div class="manage-row">
+        <label>Conservative Mx</label>
+        <cs-toggle [name]="'conservative_rx'" [options]="radioYN" formControlName="conservative_rx"></cs-toggle>
+    </div>
+
+    <div class="manage-row options">
+        <label></label>
+        <button>SAVE
+            <cs-double-click [func]="onSave"></cs-double-click>
+        </button>
+        <button>RESET
+            <cs-double-click [func]="onReset"></cs-double-click>
+        </button>
+    </div>
+</form>

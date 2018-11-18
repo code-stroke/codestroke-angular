@@ -1,0 +1,51 @@
+@import 'variables';
+@import 'mixins';
+
+@import '../case';
+
+:host {
+    height: 100%;
+    width: 100%;
+}
+
+form {
+    @include form;
+}
+
+.ed-row {
+    @include case-row;
+
+    &.options {
+        @include case-row-options;
+    }
+}
+
+.check {
+    margin-left: 0;
+    @include for-tablet-portrait-up {
+        margin-left: 2rem;
+    }
+
+    border: 2px solid #D8D8D8;
+
+    min-height: unset !important;
+    height: 3rem !important;
+    min-width: unset !important;
+    width: 3rem !important;
+
+    background: white;
+
+    display: flex;
+}
+
+input[type="checkbox"] {
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &:checked +label {background: lightgreen;}
+
+    &:disabled +label {background: coral;}
+}

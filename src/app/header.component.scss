@@ -1,0 +1,70 @@
+@import 'mixins';
+@import 'variables';
+
+:host {
+    z-index: $header-z;
+
+    width: 100%;
+    flex: 0 0 $header-height;
+    min-height: $header-min-height;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: linear-gradient(to right, #ff730a, #ff8120, #ff8e31, #ff9a41, #ffa551);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+}
+
+.global-header-menu {
+    font-size: 2rem;
+    @include for-tablet-portrait-up {
+        font-size: 3rem;
+    }
+    color: #FFF5EE;
+
+    fa-icon {
+        margin-left: 2vw;
+    }
+}
+
+.global-header-logo {
+    height: 100%;
+
+    font-size: 2.5rem;
+    @include for-tablet-portrait-up {
+        font-size: 3rem;
+    }
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    img {
+        height: 80%;
+        @include for-tablet-portrait-up {
+            height: 90%;
+        }
+        width: auto;
+    }
+}
+
+.global-header-options {
+    font-size: 2rem;
+    @include for-tablet-portrait-up {
+        font-size: 2.5rem;
+    }
+    color: #FFF5EE;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    fa-icon {
+        margin-right: 2vw;
+    }
+}

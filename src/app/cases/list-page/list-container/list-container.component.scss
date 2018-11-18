@@ -31,10 +31,6 @@
         .list-table-title {background: $colour-completed-dark;}
     }
 
-    tr {
-        cursor: pointer;
-    }
-
     td {
         vertical-align: middle;
         text-align: center;
@@ -79,4 +75,12 @@
 
 .list-table-divider {
     height: 0.5rem;
+}
+
+.list-table-row {
+    cursor: pointer;
+
+    &:hover {
+        background: darken(#E8E8E8,15) !important;
+    }
 }

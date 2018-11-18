@@ -16,4 +16,65 @@ export class CaseDetails {
     incoming_timestamp ?: Date;
     active_timestamp ?: Date;
     completed_timestamp ?: Date;
+
+    test : string = "Woooo";
+
+    static create(obj) : CaseDetails {
+        return Object.assign(new CaseDetails(), obj);
+    }
+
+
+    getName() {
+        return `${this.first_name} ${this.last_name}`;
+    }
+
+    getAge() {
+        if (!this.dob) {
+            return "??";
+        }
+
+        let agemilli = new Date().getTime() - new Date(this.dob).getTime();
+        return Math.floor(agemilli / 31536000000);
+    }
+    getAgeGender() {
+        return this.getAge() + "" + this.gender.toUpperCase();
+    }
+
+    getStatusTime() : any {
+        switch (this.status) {
+            case "incoming":
+                return this.eta;
+            case "active":
+                return this.active_timestamp;
+            case "completed":
+                return this.completed_timestamp;
+        }
+    }
+
+    static toDBDate(date : Date) {
+        function pad(number) {
+            if (number < 10) {
+                return '0' + number;
+            }
+            return number;
+        }
+
+        return date.getFullYear()
+                + "-" + pad(date.getMonth() + 1)
+                + "-" + pad(date.getDate());
+
+    }
+
+    static toDBDateTime(date : Date) {
+        function pad(number) {
+            if (number < 10) {
+                return '0' + number;
+            }
+            return number;
+        }
+
+        return this.toDBDate(date)
+                + " " + pad(date.getHours())
+                + ":" + pad(date.getMinutes());
+    }
 }

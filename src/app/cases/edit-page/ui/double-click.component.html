@@ -1,0 +1,16 @@
+<span [@fadein]="active" >Click again to confirm</span>
+<div [@fadein]="active"  class="white">
+
+</div>
+<div [@fadein]="active"
+(@fadein.done)="fadeDone()"
+[@down]="down"
+(@down.done)="downDone()"
+class="orange">
+
+</div>
+<div [@green]="green"
+(@green.done)="greenDone()"
+class="green">
+
+</div>

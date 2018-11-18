@@ -1,20 +1,25 @@
 <div class="global-container">
-    <header class="global-header">
-        <button id="js-menu-open" class="global-header-menu">
-            <fa-icon [icon]="icon_bars"></fa-icon>
-        </button>
-        <div class="global-header-logo">
-            <img src="assets/logo-white.png"/>
-            <strong>CODE</strong> STROKE
-        </div>
-        <div class="global-header-options">
-            <div>
-                <fa-icon [icon]="icon_bell_slash"></fa-icon>
-            </div>
-            <fa-icon [icon]="icon_signout"></fa-icon>
-        </div>
-    </header>
+    <cs-header></cs-header>
     <main class="global-main">
         <router-outlet></router-outlet>
     </main>
+    <div class="notif-bar">
+        <div *ngFor="let notif of notifs" class="notif"
+        [ngClass]="{
+            'success': notif.type == 'success',
+            'error': notif.type == 'error',
+            'warning': notif.type == 'warning'
+        }"
+        (click)="onNotifClick(notif.id)"
+        [@notif]>
+            <div class="notif-box">
+                <header>
+                    {{notif.type | uppercase}}:
+                </header>
+                <span [innerHtml]="notif.html">
+
+                </span>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,59 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+
+import { AbstractCaseComponent } from '../abstract-case';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EditStatusService } from '../edit-status.service';
+import { BackendCaseService } from '../../backend-case.service';
+import { NotifService } from '../../../notif.service';
+import { PopupService } from '../popup.service';
+
+
+@Component({
+    selector: 'cs-case-radiology',
+    templateUrl: './case-radiology.component.html',
+    styleUrls: ['./case-radiology.component.scss']
+})
+export class CaseRadiologyComponent extends AbstractCaseComponent implements OnInit {
+    static backendTable = "case_radiologies";
+
+    radioYN = [
+        { value: 1, text: "Yes", class: "yes" },
+        { value: 0, text: "No", class: "no" }
+    ];
+
+    constructor(private fb : FormBuilder,
+                private ar: ActivatedRoute,
+                private statusService : EditStatusService,
+                private bs : BackendCaseService,
+                private router : Router,
+                private ns : NotifService,
+                private ps : PopupService) {
+        super();
+
+        this.form = this.fb.group({
+          ct_available: [null],
+          ct_available_loc: [null],
+          arrived_to_ct: [null],
+          ct_complete: [null],
+          ich_found: [null],
+          do_cta_ctp: [null],
+          cta_ctp_complete: [null],
+          large_vessel_occlusion: [null]
+        });
+
+        this.route = ar;
+        this.backendService = bs;
+        this.notifService = ns;
+        this.ps = ps;
+    }
+
+    ngOnInit() {
+        super.ngOnInit();
+    }
+
+    onSave = () => {
+        console.log(this.form.getRawValue());
+        this.save(CaseRadiologyComponent.backendTable);
+    }
+}

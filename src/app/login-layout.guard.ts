@@ -11,7 +11,7 @@ export class LoginLayoutGuard implements CanActivate {
 
     canActivate( next: ActivatedRouteSnapshot, state: RouterStateSnapshot)
     : Observable<boolean> | Promise<boolean> | boolean {
-        if (this.auth.isLoggedIn) {
+        if (this.auth.loginState.value) {
             this.router.navigate([""]);
             return false;
         } else {

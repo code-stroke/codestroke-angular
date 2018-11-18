@@ -1,0 +1,50 @@
+@import 'variables';
+@import 'mixins';
+
+div {
+    margin-left: 0;
+    @include for-tablet-portrait-up {
+        margin-left: 2rem;
+    }
+
+    border: 2px solid #D8D8D8;
+
+    height: 3.5rem;
+
+    background: white;
+
+    display: flex;
+
+    input[type="radio"] {
+        margin: 0;
+        padding: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+
+        &:checked {
+            +label.yes {background: lightgreen;}
+            +label.no {background: lightcoral;}
+            +label.unknown {background: lightgray;}
+        }
+    }
+
+    label {
+        height: 100%;
+        min-width: 9rem;
+
+        @include pad-hor(2rem);
+
+        @include flex-center;
+
+        cursor: pointer;
+
+        &:not(:last-of-type) {
+            border-right: 2px solid #D8D8D8;
+        }
+
+        &:hover {
+            background: #EEEEEE;
+        }
+    }
+}

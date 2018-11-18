@@ -1,0 +1,45 @@
+<form [formGroup]="form">
+    <div class="details-row">
+        <label>First Name</label>
+        <input type="text" formControlName="first_name"/>
+    </div>
+    <div class="details-row">
+        <label>Last Name</label>
+        <input type="text" formControlName="last_name"/>
+    </div>
+    <div class="details-row">
+        <label>DOB</label>
+        <input type="date" formControlName="dob"/>
+    </div>
+    <div class="details-row">
+        <label>Gender</label>
+        <cs-toggle [name]="'gender'" [options]="radioGender" formControlName="gender"></cs-toggle>
+    </div>
+    <div class="details-row">
+        <label>Address</label>
+        <input type="text" formControlName="address"/>
+    </div>
+    <div class="details-row">
+        <label>NOK Name</label>
+        <input type="text" formControlName="nok"/>
+    </div>
+    <div class="details-row">
+        <label>NOK No.</label>
+        <input type="text" formControlName="nok_phone"/>
+    </div>
+    <div class="details-row">
+        <label>Last Well</label>
+        <input type="datetime-local" formControlName="last_well"/>
+    </div>
+
+    <div class="details-row options">
+        <label></label>
+        <button>SAVE
+            <cs-double-click [func]="onSave"></cs-double-click>
+        </button>
+        <button>RESET
+            <cs-double-click [func]="onReset"></cs-double-click>
+        </button>
+    </div>
+
+</form>

@@ -1,0 +1,155 @@
+@mixin form {
+    height: 100%;
+    width: 100%;
+
+    font-size: 1.4rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+@mixin case-input {
+    margin-left: 0;
+    @include for-tablet-portrait-up {
+        margin-left: 2rem;
+    }
+
+    border: 2px solid #D8D8D8;
+
+    min-height: 3.5rem;
+    min-width: 95%;
+    max-width: 500px;
+    @include for-tablet-portrait-up {
+        min-width: unset;
+        width: 500px;
+    }
+    flex-shrink: 0;
+
+    @include pad-hor(1rem);
+
+    &:focus {
+        background: #EEEEEE;
+    }
+}
+
+@mixin case-row {
+    margin-bottom: 1.5rem;
+    @include for-tablet-portrait-up {
+        margin-bottom: 0;
+    }
+
+    width: 100%;
+    @include for-tablet-portrait-up {
+        min-width: 600px;
+    }
+    min-height: 4rem;
+    flex-shrink: 0;
+
+    @include pad-vert(0.35rem);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    @include for-tablet-portrait-up {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    & > label {
+        width: 14rem;
+        height: 100%;
+        min-height: 4rem;
+        flex-shrink: 0;
+
+        color: #ff9539;
+        font-weight: bold;
+        text-align: right;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        @include for-tablet-portrait-up {
+            justify-content: flex-end;
+        }
+    }
+
+    input:not([type="radio"]):not([type="checkbox"]),textarea {
+        @include case-input;
+    }
+
+    textarea {
+        min-height: 12rem;
+
+        @include pad-vert(0.6rem);
+    }
+}
+
+@mixin case-row-options {
+    margin-top: 1.25rem;
+
+    align-items: center;
+
+    label {
+        display: none;
+        @include for-tablet-portrait-up {
+            display: flex;
+        }
+    }
+
+    button {
+        position: relative;
+
+        margin-bottom: 0.5rem;
+
+        border: 2px solid #A9A9A9;
+
+        min-height: 3.5rem;
+        width: 60%;
+        max-width: 20rem;
+
+        @include pad-hor(1rem);
+
+        @include for-tablet-portrait-up {
+            margin-left: 2rem;
+        }
+    }
+}
+
+@mixin row-group {
+    position: relative;
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    border: 1px solid orange;
+
+    height: auto;
+    width: 100%;
+
+    //display: flex;
+    //flex-direction: column;
+
+    @include pad-vert(1rem);
+    padding-right: 1.5rem;
+
+    //background: lighten(#FAFAD2, 5);
+
+    header {
+        position: absolute;
+        top: 0;
+        left: 2rem;
+        transform: translateY(-50%);
+
+        @include pad-vert(0.5rem);
+        @include pad-hor(1rem);
+
+        font-weight: bold;
+        text-align: center;
+
+        background: white;
+    }
+}

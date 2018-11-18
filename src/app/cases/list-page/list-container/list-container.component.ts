@@ -20,14 +20,26 @@ export class ListContainerComponent implements OnInit {
         return this._cases;
     }
 
+    get time() {
+        switch (this.status) {
+            case "incoming":
+                return "ETA";
+            case "active":
+                return "Arrived";
+            case "completed":
+                return "Completed";
+
+        }
+    }
+
     constructor(private router : Router, private route : ActivatedRoute) { }
 
     ngOnInit() {
-        //console.log(status);
+
     }
 
-    onClick() {
-        this.router.navigate(['../edit'], { relativeTo: this.route});
+    onClick(case_id : number) {
+        this.router.navigate([`../edit/${case_id}`], { relativeTo: this.route});
     }
 
 }

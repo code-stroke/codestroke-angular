@@ -1,4 +1,4 @@
-<div id="login-container" class="login-container">
+<form id="login-container" [formGroup]='loginForm' (ngSubmit)='onSubmit()' class="login-container">
     <header class="login-header">
         <div>
             <img src="assets/logo-white.png"/>
@@ -7,16 +7,10 @@
     </header>
 
     <div class="login-inputs">
-        <input type="text" class="login-input" placeholder="Username"/>
-        <input type="text" class="login-input" placeholder="Password"/>
-        <select class="login-input">
-            <option selected disabled hidden value="">Hospital</option>
-            <option>
-                Austin
-            </option>
-        </select>
+        <input type="text" class="login-input" placeholder="Username" formControlName="username"/>
+        <input type="text" class="login-input" placeholder="Password" formControlName="password"/>
     </div>
     <div class="login-submit">
         <button><Strong>Login</Strong></button>
     </div>
-</div>
+</form>

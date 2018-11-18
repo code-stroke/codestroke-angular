@@ -1,0 +1,44 @@
+<form [formGroup]="form">
+    <div class="radiology-row">
+        <label>CT Available</label>
+        <cs-toggle [name]="'available'" [options]="radioYN" formControlName="ct_available" type="number"></cs-toggle>
+    </div>
+    <div class="radiology-row">
+        <label>Location of Available CT</label>
+        <input type="text" formControlName="ct_available_loc"/>
+    </div>
+    <div class="radiology-row">
+        <label>Patient Arrived in CT </label>
+        <cs-toggle [name]="'arrived'" [options]="radioYN" formControlName="arrived_to_ct"></cs-toggle>
+    </div>
+    <div class="radiology-row">
+        <label>CT Complete</label>
+        <cs-toggle [name]="'complete'" [options]="radioYN" formControlName="ct_complete"></cs-toggle>
+    </div>
+    <div class="radiology-row">
+        <label>ICH on Non-Contrast CT</label>
+        <cs-toggle [name]="'ich'" [options]="radioYN" formControlName="ich_found"></cs-toggle>
+    </div>
+    <div class="radiology-row">
+        <label>Proceed with CTA/CTP</label>
+        <cs-toggle [name]="'proceed'" [options]="radioYN" formControlName="do_cta_ctp"></cs-toggle>
+    </div>
+    <div class="radiology-row">
+        <label>CTA/CTP Complete</label>
+        <cs-toggle [name]="'ctp'" [options]="radioYN" formControlName="cta_ctp_complete"></cs-toggle>
+    </div>
+    <div class="radiology-row">
+        <label>Large Vessel Occlusion</label>
+        <cs-toggle [name]="'lvo'" [options]="radioYN" formControlName="large_vessel_occlusion"></cs-toggle>
+    </div>
+
+    <div class="radiology-row options">
+        <label></label>
+        <button>SAVE
+            <cs-double-click [func]="onSave"></cs-double-click>
+        </button>
+        <button>RESET
+            <cs-double-click [func]="onReset"></cs-double-click>
+        </button>
+    </div>
+</form>

@@ -12,17 +12,17 @@
             Age / Sex
         </td>
         <td>
-            ETA
+            {{time}}
         </td>
     </tr>
-    <tr *ngFor="let case of cases" (click)="onClick()">
+    <tr class="list-table-row" *ngFor="let case of cases" (click)="onClick(case.case_id)">
         <td>
-            {{case.first_name + " " + case.last_name}}
+            {{case.getName()}}
         </td>
         <td>
-            {{case.dob}}
+            {{case.getAgeGender()}}
         </td>
         <td>
-            {{case.eta}}
+            {{case.getStatusTime() | date:"HH:mm (dd/MM)"}}
         </td>
     </tr>

@@ -1,0 +1,31 @@
+@import 'variables';
+@import 'mixins';
+
+@import '../case';
+
+:host {
+    height: 100%;
+    width: 100%;
+}
+
+form {
+    @include form;
+}
+
+.history-row {
+    @include case-row;
+
+    &.options {
+        @include case-row-options;
+    }
+}
+
+.history-row.textarea {
+    label {
+        align-self: flex-start;
+    }
+}
+
+.group {
+    @include row-group;
+}

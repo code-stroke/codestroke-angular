@@ -1,99 +1,40 @@
-<nav class="edit-nav">
-    <div class="edit-nav-patient">
-        <header>
-            Incoming <i class="fas fa-ambulance"></i>
+<div class="edit-container">
+    <nav class="edit-nav">
+        <a *ngFor="let tab of nav" routerLink="./{{tab.path}}" routerLinkActive="selected">
+            {{tab.name}}
+        </a>
+    </nav>
+    <main class="edit-main">
+        <header class="edit-status">
+            <header>
+                {{status.name | async}}
+            </header>
+            <div class="{{status.status | async}}">
+                <fa-icon [icon]="icon_status"></fa-icon> {{status_text}} {{(status.statusTime | async) | date:"HH:mm (dd/MM)"}}
+            </div>
+            <div>
+                <fa-icon [icon]="icon_well"></fa-icon> Last Well {{(status.lastWell | async) | date:"HH:mm (dd/MM)"}}
+            </div>
         </header>
-        <div>
-            Abdullah Jaffar
-        </div>
-        <div>
-            46M
-        </div>
-        <div>
-            ETA Unknown
-        </div>
-        <div>
-            Last Well 3h ago
-        </div>
-    </div>
-
-    <button class="edit-nav-button selected">
-        Details <i class="far fa-id-card"></i>
-    </button>
-    <button class="edit-nav-button">
-        History <i class="fas fa-notes-medical"></i>
-    </button>
-    <button class="edit-nav-button">
-        ED <i class="fas fa-users"></i>
-    </button>
-    <button class="edit-nav-button">
-        Assessment <i class="fas fa-eye"></i>
-    </button>
-    <button class="edit-nav-button">
-        Radiology <i class="fas fa-desktop"></i>
-    </button>
-    <button class="edit-nav-button">
-        Management <i class="fas fa-syringe"></i>
-    </button>
-</nav>
-<main class="edit-main">
-    <section class="details-section">
-        <div class="details-articles">
-            <article class="details-card">
+        <article class="edit-content">
+            <router-outlet></router-outlet>
+        </article>
+        <aside class="edit-popup" [@popup] *ngIf="displayPopup">
+            <div class="popup-main">
                 <header>
-                    Details <i class="far fa-id-card"></i>
+                    W a r n i n g
                 </header>
-                <div class="details-card-row">
-                    <label>First Name</label>
-                    <input />
-                </div>
-                <div class="details-card-row">
-                    <label>Last Name</label>
-                    <input />
-                </div>
-                <div class="details-card-row">
-                    <label>DOB</label>
-                    <input type="date"/>
-                </div>
-                <div class="details-card-row">
-                    <label>Gender</label>
-                    <input />
-                </div>
-                <div class="details-card-row">
-                    <label>Address</label>
-                    <input />
-                </div>
-            </article>
-            <article class="details-card">
-                <header>
-                    NOK <i class="far fa-id-card"></i>
-                </header>
-                <div class="details-card-row">
-                    <label>NOK Name</label>
-                    <input />
-                </div>
-                <div class="details-card-row">
-                    <label>NOK Contact No.</label>
-                    <input />
-                </div>
-                <div class="details-card-row">
-                    <label>HOPC</label>
-                    <textarea></textarea>
-                </div>
-            </article>
-        </div>
-        <div class="details-actions">
-            <article class="details-card actions">
-                <header>
-                    Actions <i class="fas fa-edit"></i>
-                </header>
-                <div class="details-card-row">
-                    <button>Submit</button>
-                </div>
-                <div class="details-card-row">
-                    <button>Reset</button>
-                </div>
-            </article>
-        </div>
-    </section>
-</main>
+                <article>
+                    {{popup.html}}
+                </article>
+                <nav >
+                    <button *ngFor="let button of popup.buttons"
+                    [class]="button.class"
+                    (click)="executePopup(button.click)">
+                        {{button.text}}
+                    </button>
+                </nav>
+            </div>
+        </aside>
+    </main>
+</div>
