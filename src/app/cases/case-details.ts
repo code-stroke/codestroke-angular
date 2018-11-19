@@ -25,7 +25,11 @@ export class CaseDetails {
 
 
     getName() {
-        return `${this.first_name} ${this.last_name}`;
+        if (this.first_name && this.last_name) {
+            return `${this.first_name} ${this.last_name}`;
+        } else {
+            return '';
+        }
     }
 
     getAge() {

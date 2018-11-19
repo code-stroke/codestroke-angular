@@ -218,7 +218,6 @@ export class CaseAssessmentComponent extends AbstractCaseComponent implements On
     }
 
     onSave = () => {
-        console.log(this.form.getRawValue());
         this.save(CaseAssessmentComponent.backendTable);
     }
 }

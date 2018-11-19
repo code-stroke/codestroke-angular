@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import { BackendCaseService } from '../backend-case.service';
@@ -7,6 +7,7 @@ import { CaseDetails } from '../case-details';
 import { HeaderService } from '../../header.service';
 
 import { faSignOutAlt, faPlus, faTimes, faListAlt, faCog } from '@fortawesome/free-solid-svg-icons';
+import { NotifService } from '../../notif.service';
 
 
 
@@ -20,8 +21,10 @@ export class ListPageComponent implements OnInit {
     index : number = 1;
 
     constructor(private backendService : BackendCaseService,
-        private hs : HeaderService,
-        private route: ActivatedRoute) { }
+                private hs : HeaderService,
+                private route: ActivatedRoute,
+                private notifs : NotifService,
+                private router : Router) { }
 
     ngOnInit() {
         this.cases = new BehaviorSubject(new Array<CaseDetails>());
@@ -47,5 +50,18 @@ export class ListPageComponent implements OnInit {
     icon_times = faTimes;
     icon_list = faListAlt;
     icon_cog = faCog;
+
+    onMenuClick(option : string) {
+        switch (option) {
+            case "new":
+                this.router.navigate([`../add/`], { relativeTo: this.route});
+                break;
+            default:
+                this.notifs.addNotif({
+                    type: "error",
+                    html: `Unfortunately, this feature is not enabled yet.`
+                });
+        }
+    }
 
 }

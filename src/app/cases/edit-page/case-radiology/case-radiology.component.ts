@@ -82,7 +82,6 @@ export class CaseRadiologyComponent extends AbstractCaseComponent implements OnI
     }
 
     onSave = () => {
-        console.log(this.form.getRawValue());
         this.save(CaseRadiologyComponent.backendTable);
     }
 }

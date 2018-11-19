@@ -1,0 +1,259 @@
+@import 'variables';
+@import 'mixins';
+@import '../edit-page/case.scss';
+
+:host {
+    position: relative;
+
+    width: 100%;
+    flex: 0 0 100%;
+
+    @include pad-hor(4vw);
+    @include pad-vert(4vh);
+
+    overflow: auto;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+
+    background: transparent;
+}
+
+.edit-container {
+    width: 100%;
+    max-width: 1400px;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-nav {
+    z-index: 1000;
+
+    width: 100%;
+    min-height: 5rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    @include for-tablet-portrait-up {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+    }
+
+
+    a {
+        @include for-tablet-portrait-up {
+            margin-left: 0.5rem;
+        }
+
+        @include for-tablet-portrait-up {
+            border-top-left-radius: 0.8rem;
+            border-top-right-radius: 0.8rem;
+        }
+
+        height: 5rem;
+        min-width: 50%;
+        flex: 1;
+        @include for-tablet-portrait-up {
+            min-width: unset;
+            //width: 12rem;
+            max-width: 12rem;
+        }
+
+
+        background: #ff9539;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        color: white;
+        font-weight: 600;
+        font-size: 1.6rem;
+        font-variant-caps: all-small-caps;
+
+        cursor: pointer;
+
+        &.selected {
+            background: #ff6c00;
+        }
+    }
+}
+
+.edit-main {
+    position: relative;
+
+    border: 2px solid #ff810e;
+
+    width: 100%;
+    flex: 1;
+
+    background: white;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-status {
+    position: relative;
+
+    width: 100%;
+    height: 6rem;
+
+    background: #ff8324;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & > header {
+        @include pad-hor(2rem);
+
+        font-size: 1.7rem;
+        color: white;
+
+        display: flex;
+        align-items: center;
+    }
+
+    & > div {
+        margin-right: 1rem;
+
+        border-radius: 0.5rem;
+
+        height: 60%;
+
+        @include pad-hor(1rem);
+
+        font-size: 1.5rem;
+
+        background: $colour-background;
+
+        display: flex;
+        align-items: center;
+
+        &.incoming {background: $colour-incoming-light;}
+        &.active {background: $colour-active-light;}
+        &.completed {background: $colour-completed-light;}
+
+        fa-icon {
+            margin-right: 1rem;
+        }
+    }
+}
+
+.edit-content {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    overflow: auto;
+
+    padding: 2rem;
+
+    background: white;
+}
+
+.edit-popup {
+    position: absolute;
+    z-index: 10;
+    top: 0; left: 0; right: 0; bottom: 0;
+
+    background: rgba(#ff8324, 1);
+
+    display: flex;
+    justify-content: center;
+}
+
+.popup-main {
+    width: 90%;
+    max-width: 600px;
+
+    header {
+        margin-top: 2rem;
+
+        border: 0.3rem solid white;
+        border-radius: 0.5rem;
+
+        @include pad-vert(1.8rem);
+
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: white;
+    }
+
+    article {
+        margin-top: 2rem;
+
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    nav {
+        margin-top: 5rem;
+
+        color: white;
+        font-size: 1.5rem;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        @include for-tablet-portrait-up {
+            justify-content: flex-end;
+
+        }
+
+        button {
+            @include for-tablet-portrait-up {
+                margin-left: 2rem;
+            }
+
+            height: 3rem;
+            @include pad-hor(2rem);
+
+            &.primary {
+                border: 0.2rem solid white;
+                border-radius: 0.5rem;
+                background: white;
+
+                color: rgba(#ff8324, 1);
+            }
+            &.secondary {
+                border: 0.2rem solid white;
+                border-radius: 0.5rem;
+
+                color: white;
+            }
+            &.tertiary {
+                //border: 0.05rem solid white;
+                //border-radius: 0.5rem;
+                padding-left: 0;
+
+                color: white;
+            }
+
+        }
+    }
+}
+
+form {
+    @include form;
+
+    height: 100%;
+    width: 100%;
+}
+
+.details-row {
+    @include case-row;
+
+    &.options {
+        @include case-row-options;
+    }
+}

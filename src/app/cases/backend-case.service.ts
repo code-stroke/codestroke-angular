@@ -40,7 +40,8 @@ export class BackendCaseService {
     }
 
     addCase(data : CaseDetails) {
-        return this.http.post(`${this.server_url}/`, data, this.auth.httpOptions).pipe(
+        console.log(data);
+        return this.http.post(`${this.server_url}/cases/`, data, this.auth.httpOptions).pipe(
             tap((data) => console.log(data)),
         )
     }

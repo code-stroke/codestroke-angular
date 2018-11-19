@@ -11,6 +11,7 @@ import { CaseAssessmentComponent } from './edit-page/case-assessment/case-assess
 import { CaseManagementComponent } from './edit-page/case-management/case-management.component';
 import { CaseResolverService } from './edit-page/case-resolver.service';
 import { ListResolverService } from './list-page/list-resolver.service';
+import { AddPageComponent } from './add-page/add-page.component';
 
 const caseResolver = {
     case: CaseResolverService
@@ -26,6 +27,7 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'list', pathMatch: 'full' },
             { path: 'list', component: ListPageComponent, resolve: listResolver },
+            { path: 'add', component: AddPageComponent },
             {
                 path: 'edit/:id',
                 component: EditPageComponent,

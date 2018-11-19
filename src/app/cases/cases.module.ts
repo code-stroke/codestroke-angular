@@ -17,6 +17,7 @@ import { CaseManagementComponent } from './edit-page/case-management/case-manage
 import { SelectScoreComponent } from './edit-page/ui/select-score.component';
 import { ToggleComponent } from './edit-page/ui/toggle.component';
 import { DoubleClickComponent } from './edit-page/ui/double-click.component';
+import { AddPageComponent } from './add-page/add-page.component';
 
 
 
@@ -41,7 +42,8 @@ import { DoubleClickComponent } from './edit-page/ui/double-click.component';
         CaseManagementComponent,
         SelectScoreComponent,
         ToggleComponent,
-        DoubleClickComponent
+        DoubleClickComponent,
+        AddPageComponent
     ]
 })
 export class CasesModule { }
