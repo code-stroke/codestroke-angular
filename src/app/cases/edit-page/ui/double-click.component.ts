@@ -72,10 +72,8 @@ export class DoubleClickComponent implements OnInit {
     }
 
     @HostListener('click') onClick() {
-        console.log("click");
         if (this.active == "inactive") {
             this.active = "active";
-            console.log("to true: " + this.down);
         } else {
             this.green = "active";
             this.func();
@@ -92,10 +90,7 @@ export class DoubleClickComponent implements OnInit {
 
     downDone() {
         if (this.down == "end") {
-            console.log("done");
             this.active = "inactive";
-
-            console.log("done: " +this.down);
         }
     }
 

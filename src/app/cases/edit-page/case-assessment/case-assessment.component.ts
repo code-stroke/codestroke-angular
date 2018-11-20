@@ -217,6 +217,10 @@ export class CaseAssessmentComponent extends AbstractCaseComponent implements On
         this.rankin += parseInt(val.rankin_conscious);
     }
 
+    onLVO = () => {
+        this.form.get("likely_lvo").setValue(1);
+    }
+
     onSave = () => {
         this.save(CaseAssessmentComponent.backendTable);
     }

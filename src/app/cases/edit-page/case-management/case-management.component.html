@@ -99,6 +99,19 @@
             <label>Pregnant</label>
             <cs-toggle [name]="'pregnant'" [options]="radioYN" formControlName="pregnant"></cs-toggle>
         </div>
+        <div class="manage-row">
+            <label class="heading">Deliver Thrombolysis</label>
+        </div>
+        <div class="manage-row" *ngIf="!form.get('thrombolysis_time_given').value">
+            <label></label>
+            <button>Click when Thrombolysis has been delivered
+                <cs-double-click [func]="onThromb"></cs-double-click>
+            </button>
+        </div>
+        <div class="manage-row" *ngIf="form.get('thrombolysis_time_given').value">
+            <label>Time given</label>
+            <cs-date-time formControlName="thrombolysis_time_given"></cs-date-time>
+        </div>
     </article>
     <div class="manage-row">
         <label>ECR</label>
@@ -111,6 +124,10 @@
     <div class="manage-row">
         <label>Conservative Mx</label>
         <cs-toggle [name]="'conservative_rx'" [options]="radioYN" formControlName="conservative_rx"></cs-toggle>
+    </div>
+    <div class="manage-row">
+        <label></label>
+        <button class="complete" (click)="onComplete()">Mark Case as Completed</button>
     </div>
 
     <div class="manage-row options">

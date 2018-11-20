@@ -57,7 +57,7 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
           this.route = ar;
           this.backendService = bs;
           this.notifService = ns;
-          this.ps = ps;
+          this.popupService = ps;
       }
 
       ngOnInit() {
@@ -66,5 +66,32 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
 
       onSave = () => {
           this.save(CaseManagementComponent.backendTable);
+      }
+
+      onThromb = () => {
+          this.form.get("thrombolysis_time_given").setValue(new Date());
+      }
+
+      onComplete() {
+          this.popupService.popup.next({
+              html: `Are you sure you want to mark the case as completed?
+                    All data will be locked from editing and the current time of completion will be recorded.`,
+              buttons: [
+                  {
+                      class: "primary",
+                      text: "Complete",
+                      click: function() {
+                          //TODO
+                      }
+                  },
+                  {
+                      class: "tertiary",
+                      text: "Cancel",
+                      click: function() {
+                          //TODO
+                      }
+                  }
+              ]
+          })
       }
 }

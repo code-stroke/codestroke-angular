@@ -173,6 +173,18 @@
         </div>
     </article>
 
+    <article class="group">
+        <header>
+            LVO
+        </header>
+        <div class="assess-row" *ngIf="!form.get('likely_lvo').value">
+            <label></label>
+            <button>Click to Notify angiography staff of a likely LVO
+                <cs-double-click [func]="onLVO"></cs-double-click>
+            </button>
+        </div>
+    </article>
+
     <div class="assess-row options">
         <label></label>
         <button>SAVE

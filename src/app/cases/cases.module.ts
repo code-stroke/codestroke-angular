@@ -18,6 +18,7 @@ import { SelectScoreComponent } from './edit-page/ui/select-score.component';
 import { ToggleComponent } from './edit-page/ui/toggle.component';
 import { DoubleClickComponent } from './edit-page/ui/double-click.component';
 import { AddPageComponent } from './add-page/add-page.component';
+import { DateTimeComponent } from './edit-page/ui/date-time.component';
 
 
 
@@ -43,7 +44,8 @@ import { AddPageComponent } from './add-page/add-page.component';
         SelectScoreComponent,
         ToggleComponent,
         DoubleClickComponent,
-        AddPageComponent
+        AddPageComponent,
+        DateTimeComponent
     ]
 })
 export class CasesModule { }

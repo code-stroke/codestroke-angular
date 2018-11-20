@@ -21,7 +21,7 @@
         </div>
         <div class="history-row" *ngIf="form.get('anticoags').value == 'yes'">
             <label>Last Dose</label>
-            <input formControlName="anticoags_last_dose" type="datetime-local"/>
+            <cs-date-time formControlName="anticoags_last_dose"></cs-date-time>
         </div>
     </article>
     <div class="history-row">
@@ -30,7 +30,7 @@
     </div>
     <div class="history-row">
         <label>Last Oral Intake</label>
-        <input formControlName="last_meal" type="datetime-local"/>
+        <cs-date-time formControlName="last_meal"></cs-date-time>
     </div>
 
     <div class="history-row options">
