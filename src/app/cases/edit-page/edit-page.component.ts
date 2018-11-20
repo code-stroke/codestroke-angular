@@ -85,7 +85,7 @@ export class EditPageComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private bs: BackendCaseService,
-                private status : EditStatusService,
+                public status : EditStatusService,
                 private popupService : PopupService
                 ) { }
 

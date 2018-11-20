@@ -25,7 +25,7 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
 
     constructor(private fb : FormBuilder,
                 private ar: ActivatedRoute,
-                private statusService : EditStatusService,
+                public statusService : EditStatusService,
                 private bs : BackendCaseService,
                 private router : Router,
                 private ns : NotifService,
