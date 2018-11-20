@@ -110,7 +110,7 @@ export class EditPageComponent implements OnInit {
                     this.status_text = "Arrived";
                     this.icon_status = this.icon_active;
                     break;
-                case "active":
+                case "completed":
                     this.status_text = "Completed";
                     this.icon_status = this.icon_completed;
                     break;

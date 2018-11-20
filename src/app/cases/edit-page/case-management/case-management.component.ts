@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -7,6 +7,8 @@ import { EditStatusService } from '../edit-status.service';
 import { BackendCaseService } from '../../backend-case.service';
 import { NotifService } from '../../../notif.service';
 import { PopupService } from '../popup.service';
+import { CaseDetailsComponent } from '../case-details/case-details.component';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'cs-case-management',
@@ -27,7 +29,8 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
                 private bs : BackendCaseService,
                 private router : Router,
                 private ns : NotifService,
-                private ps : PopupService) {
+                private ps : PopupService,
+                @Inject(LOCALE_ID) private locale: string) {
         super();
 
         this.form = this.fb.group({
@@ -70,18 +73,40 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
 
       onThromb = () => {
           this.form.get("thrombolysis_time_given").setValue(new Date());
+
       }
 
       onComplete() {
+          console.log(this.statusService.status.value);
+          let instance = this;
           this.popupService.popup.next({
               html: `Are you sure you want to mark the case as completed?
-                    All data will be locked from editing and the current time of completion will be recorded.`,
+                    The current time of completion will be recorded and in future versions, this will lock all data from future editing.`,
               buttons: [
                   {
                       class: "primary",
                       text: "Complete",
                       click: function() {
-                          //TODO
+                          instance.save(CaseManagementComponent.backendTable);
+                          instance.backendService.updateCase(instance.case.case_id,
+                              CaseDetailsComponent.backendTable,
+                              {
+                                  status: "completed",
+                                  completed_timestamp: formatDate(new Date(), "yyyy-MM-dd HH:mm", instance.locale)
+                              })
+                          .subscribe((data) => {
+                              if (data["success"]) {
+                                  instance.notifService.addNotif({
+                                      type: "success",
+                                      html: `Succesfully marked this case as Completed.`
+                                  });
+                              } else {
+                                  instance.notifService.addNotif({
+                                      type: "error",
+                                      html: `Error marking case as Completed.`
+                                  });
+                              }
+                          });
                       }
                   },
                   {
