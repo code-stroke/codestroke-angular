@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { BackendCaseService } from '../backend-case.service';
 import { NotifService } from '../../notif.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HeaderService } from '../../header.service';
+import { faSignOutAlt, faPlus, faTimes, faListAlt, faCog, faHome } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
     selector: 'cs-add-page',
@@ -19,6 +22,7 @@ export class AddPageComponent implements OnInit {
     ];
 
     constructor(private fb : FormBuilder,
+                private hs : HeaderService,
                 private backendService : BackendCaseService,
                 private notifService : NotifService,
                 private router : Router,
@@ -58,4 +62,32 @@ export class AddPageComponent implements OnInit {
             }
         });
     }
+    get active() {
+        return this.hs.subscribeToMenu();
+    }
+
+    clickMenu() {
+        this.hs.toggleMenu();
+    }
+
+    icon_plus = faPlus;
+    icon_times = faTimes;
+    icon_list = faListAlt;
+    icon_cog = faCog;
+    icon_home = faHome
+
+
+    onMenuClick(option : string) {
+        switch (option) {
+            case "home":
+                this.router.navigate([`../list-page/`], { relativeTo: this.route});
+                break;
+            default:
+                this.notifService.addNotif({
+                    type: "error",
+                    html: `Unfortunately, this feature is not enabled yet.`
+                });
+        }
+    }
+
 }
