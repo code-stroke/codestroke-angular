@@ -51,6 +51,7 @@ export class ListPageComponent implements OnInit {
     icon_list = faListAlt;
     icon_cog = faCog;
 
+
     onMenuClick(option : string) {
         switch (option) {
             case "new":
