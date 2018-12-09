@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { trigger, transition, animate, style } from '@angular/animations';
 
-import { faAmbulance, faHospitalAlt, faCalendarCheck, faUserClock } from '@fortawesome/free-solid-svg-icons';
+import { faAmbulance, faHospitalAlt, faCalendarCheck, faUserClock, faSignOutAlt, faPlus, faTimes, faListAlt, faCog, faHome } from '@fortawesome/free-solid-svg-icons';
 
 import { EditStatusService } from './edit-status.service';
 import { BackendCaseService } from '../backend-case.service';
 import { CaseDetails } from '../case-details';
 import { PopupService } from './popup.service';
+import { HeaderService } from '../../header.service';
 
 
 
@@ -84,9 +85,12 @@ export class EditPageComponent implements OnInit {
     popup : any;
 
     constructor(private route: ActivatedRoute,
+                private router : Router,
                 private bs: BackendCaseService,
                 public status : EditStatusService,
-                private popupService : PopupService
+                private popupService : PopupService,
+                private hs : HeaderService,
+
                 ) { }
 
     ngOnInit() {
@@ -127,9 +131,42 @@ export class EditPageComponent implements OnInit {
         })
     }
 
+    get active() {
+        return this.hs.subscribeToMenu();
+    }
+
+    icon_plus = faPlus;
+    icon_times = faTimes;
+    icon_list = faListAlt;
+    icon_cog = faCog;
+    icon_home = faHome
+
+    clickMenu() {
+        this.hs.toggleMenu();
+    }
+
     executePopup(func : any) {
         func();
         this.popupService.popup.next(false);
     }
+
+    onMenuClick(option : string) {
+        switch (option) {
+            case "home":
+                this.router.navigate([`../../case`], { relativeTo: this.route});
+                break;
+            case "new":
+                this.router.navigate([`../../add/`], { relativeTo: this.route});
+                break;
+
+
+            default:
+                this.notifs.addNotif({
+                    type: "error",
+                    html: `Unfortunately, this feature is not enabled yet.`
+                });
+        }
+    }
+
 
 }
