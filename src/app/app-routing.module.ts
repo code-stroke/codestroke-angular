@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MainLayoutComponent } from './main-layout.component';
 import { LoginLayoutComponent } from './login-layout.component';
+
 import { AuthGuard } from './auth.guard';
 import { LoginLayoutGuard } from './login-layout.guard';
 
@@ -29,7 +30,7 @@ const routes: Routes = [
         component: LoginLayoutComponent,
         canActivate: [LoginLayoutGuard]
     },
-    { path: '**', redirectTo: '/login'}
+    { path: '**', redirectTo: '/login'},
 ];
 
 @NgModule({

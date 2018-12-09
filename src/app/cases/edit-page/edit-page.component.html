@@ -1,25 +1,5 @@
 <div class="edit-container">
-    <nav id="js-menu" class="global-menu" [class.active]="active | async">
-        <div id="js-menu-close" class="global-menu-close" (click)="clickMenu()">
-            <fa-icon [icon]="icon_times"></fa-icon>
-        </div>
-        <!-- <div class="list-menu-welcome">
-            <span>Welcome Back,</span> <strong>Daniel Shell</strong>
-        </div> -->
-        <button class="global-menu-button" (click)="onMenuClick('home')">
-            <fa-icon [icon]="icon_home" ></fa-icon> <span>HOME</span>
-        </button>
-        <button class="global-menu-button" (click)="onMenuClick('new')">
-            <fa-icon [icon]="icon_plus" ></fa-icon> <span>NEW PATIENT</span>
-        </button>
-        <button class="global-menu-button" (click)="onMenuClick('events')">
-            <fa-icon [icon]="icon_list"></fa-icon> <span>EVENT LOG</span>
-        </button>
 
-        <button class="global-menu-button" (click)="onMenuClick('settings')">
-            <fa-icon [icon]="icon_cog"></fa-icon> <span>SETTINGS</span>
-        </button>
-    </nav>
     <nav class="edit-nav">
         <a *ngFor="let tab of nav" routerLink="./{{tab.path}}" routerLinkActive="selected">
             {{tab.name}}
