@@ -26,10 +26,10 @@
     "@fortawesome/free-solid-svg-icons": "^5.3.1",
     "core-js": "^2.5.4",
     "rxjs": "~6.2.0",
-    "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
+<<<<<<< HEAD
 <<<<<<< HEAD
     "@angular-devkit/build-angular": "^0.8.8",
     "@angular/cli": "~6.2.2",
@@ -37,6 +37,10 @@
     "@angular-devkit/build-angular": "~0.11.0",
     "@angular/cli": "~7.1.0",
 >>>>>>> b93e20442c0f43b72c8f0a0c55acd11b3452123a
+=======
+    "@angular-devkit/build-angular": "~0.8.0",
+    "@angular/cli": "~6.2.2",
+>>>>>>> parent of b93e204... update
     "@angular/compiler-cli": "^6.1.0",
     "@angular/language-service": "^6.1.0",
     "@types/jasmine": "~2.8.8",
