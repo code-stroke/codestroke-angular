@@ -14,15 +14,17 @@ import { HeaderComponent } from './header.component';
 
 
 
+
 @NgModule({
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
         FontAwesomeModule,
-        //CasesModule,
+    //    CasesModule,
         ReactiveFormsModule,
-        AppRoutingModule
+        AppRoutingModule,
+
     ],
     declarations: [
         AppComponent,

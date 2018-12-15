@@ -5,6 +5,8 @@ import { faBars, faBell, faBellSlash, faSignOutAlt, faPlus, faHome, faListAlt, f
 
 
 import { HeaderService } from './header.service';
+import { NotifService } from './notif.service';
+
 
 @Component({
   selector: 'cs-header',
@@ -24,7 +26,8 @@ export class HeaderComponent implements OnInit {
 
     constructor(private hs : HeaderService,
                 private route: ActivatedRoute,
-                private router : Router,) { }
+                private router : Router,
+                private notifs : NotifService,) { }
 
     ngOnInit() {
     }
@@ -40,10 +43,10 @@ export class HeaderComponent implements OnInit {
     onMenuClick(option : string) {
         switch (option) {
             case "home":
-                this.router.navigate([`case`], { relativeTo: this.route});
+                this.router.navigate([``]);
                 break;
             case "new":
-                this.router.navigate([`../add/`], { relativeTo: this.route});
+                this.router.navigate([`/cases/add/`]);
                 break;
             default:
                 this.notifs.addNotif({

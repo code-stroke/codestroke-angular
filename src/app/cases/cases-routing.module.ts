@@ -40,7 +40,7 @@ const routes: Routes = [
                     { path: 'radiology', component: CaseRadiologyComponent, resolve: caseResolver},
                     { path: 'assessment', component: CaseAssessmentComponent, resolve: caseResolver},
                     { path: 'management', component: CaseManagementComponent, resolve: caseResolver},
-                    { path: 'refresh' }
+                //    { path: 'refresh' }
                 ]
             }
         ]
@@ -51,4 +51,8 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CasesRoutingModule { }
+export class CasesRoutingModule { };
+export const routes: Routes = [
+    {path: 'list', component: ListPageComponent},
+    {path: 'add', component: AddPageComponent},
+];
