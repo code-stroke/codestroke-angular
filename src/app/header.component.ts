@@ -24,12 +24,15 @@ export class HeaderComponent implements OnInit {
     icon_home = faHome;
     icon_times = faTimes;
 
+    pushNotifActive: boolean = true;
+
     constructor(private hs : HeaderService,
                 private route: ActivatedRoute,
                 private router : Router,
                 private notifs : NotifService,) { }
 
     ngOnInit() {
+
     }
 
     get active() {
@@ -55,5 +58,25 @@ export class HeaderComponent implements OnInit {
                 });
         }
     }
+    pushnotifClick(){
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
+            console.log('Service Worker and Push is supported')
+        } else{
+            console.warn('Push messaging is not supported');
+        }
+    }
+    getSubscriptionState() {
+        return Promise.all([
+          OneSignal.isPushNotificationsEnabled(),
+          OneSignal.isOptedOut()
+        ]).then(function(result) {
+            var isPushEnabled = result[0];
+            var isOptedOut = result[1];
 
+            return {
+                isPushEnabled: isPushEnabled,
+                isOptedOut: isOptedOut
+            };
+        });
+    }
 }

@@ -13,6 +13,7 @@ import { HeaderService } from '../../header.service';
 
 
 
+
 @Component({
     selector: 'cs-edit-page',
     templateUrl: './edit-page.component.html',
@@ -131,9 +132,7 @@ export class EditPageComponent implements OnInit {
         })
     }
 
-    get active() {
-        return this.hs.subscribeToMenu();
-    }
+
 
     icon_plus = faPlus;
     icon_times = faTimes;
@@ -141,31 +140,11 @@ export class EditPageComponent implements OnInit {
     icon_cog = faCog;
     icon_home = faHome
 
-    clickMenu() {
-        this.hs.toggleMenu();
-    }
+
 
     executePopup(func : any) {
         func();
         this.popupService.popup.next(false);
-    }
-
-    onMenuClick(option : string) {
-        switch (option) {
-            case "home":
-                this.router.navigate([`../../case`], { relativeTo: this.route});
-                break;
-            case "new":
-                this.router.navigate([`../../add/`], { relativeTo: this.route});
-                break;
-
-
-            default:
-                this.notifs.addNotif({
-                    type: "error",
-                    html: `Unfortunately, this feature is not enabled yet.`
-                });
-        }
     }
 
 

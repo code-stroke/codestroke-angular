@@ -52,7 +52,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class CasesRoutingModule { };
-export const routes: Routes = [
-    {path: 'list', component: ListPageComponent},
-    {path: 'add', component: AddPageComponent},
-];
