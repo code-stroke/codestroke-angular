@@ -65,18 +65,5 @@ export class HeaderComponent implements OnInit {
             console.warn('Push messaging is not supported');
         }
     }
-    getSubscriptionState() {
-        return Promise.all([
-          OneSignal.isPushNotificationsEnabled(),
-          OneSignal.isOptedOut()
-        ]).then(function(result) {
-            var isPushEnabled = result[0];
-            var isOptedOut = result[1];
 
-            return {
-                isPushEnabled: isPushEnabled,
-                isOptedOut: isOptedOut
-            };
-        });
-    }
 }
