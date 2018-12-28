@@ -11,7 +11,7 @@ import { AuthService } from '../auth.service';
     providedIn: 'root'
 })
 export class BackendCaseService {
-    server_url : string = "http://codestroke.pythonanywhere.com"
+    server_url : string = "https://codestroke.pythonanywhere.com"
     cases : Array<CaseDetails>
 
     constructor(private http: HttpClient, private auth: AuthService) { }
