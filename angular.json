@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "codestroke-angular": {
-      "root": "",
+      "root": "codestroke-angular",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "cs",
@@ -109,7 +109,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets"
-              
+
             ]
           }
         },
