@@ -9,35 +9,9 @@
   <link rel="icon" type="image/x-icon" href="assets/logo-black.png">
   <link rel="manifest" href="./manifest.json">
   <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
-  <script>
-      var OneSignal = window['OneSignal'] || [];
-      console.log("Init OneSignal");
-      OneSignal.push(["init", {
-        appId: "968844fa-98a8-4c65-9c5f-9e26c66410d4",
-        autoRegister: false,
-        allowLocalhostAsSecureOrigin: true,
-        notifyButton: {
-          enable: true
-        }
-      }]);
 
-      console.log('OneSignal Initialized');
-      OneSignal.push(function () {
-        console.log('Register For Push');
-        OneSignal.push(["registerForPushNotifications"])
-      });
-      OneSignal.push(function () {
-        // Occurs when the user's subscription changes to a new value.
-        OneSignal.on('subscriptionChange', function (isSubscribed) {
-          console.log("The user's subscription state is now:", isSubscribed);
-          OneSignal.getUserId().then(function (userId) {
-            console.log("User ID is", userId);
-          });
-        });
-      });
- </script>
 <link rel="stylesheet" href="styles.9628b753b17396c68e2f.css"></head>
 <body>
   <cs-root></cs-root>
-<script type="text/javascript" src="runtime.9d5d24029adef35b0371.js"></script><script type="text/javascript" src="polyfills.f898bbefcbeabe5d2363.js"></script><script type="text/javascript" src="main.f8d16dbb29242adee748.js"></script></body>
+<script type="text/javascript" src="runtime.9d5d24029adef35b0371.js"></script><script type="text/javascript" src="polyfills.f898bbefcbeabe5d2363.js"></script><script type="text/javascript" src="main.aa6fa4c37d1a9a047f88.js"></script></body>
 </html>
