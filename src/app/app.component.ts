@@ -46,15 +46,16 @@ export class AppComponent {
     ngOnInit() {
 
             var OneSignal = window['OneSignal'] || [];
-            console.log("Init OneSignal");
             OneSignal.SERVICE_WORKER_PARAM = { scope: '/codestroke-angular' };
+            console.log("scope set");
             OneSignal.push(["init", {
               appId: "968844fa-98a8-4c65-9c5f-9e26c66410d4",
               autoRegister: true,
               allowLocalhostAsSecureOrigin: true,
               notifyButton: {
-                enable: true,
-              }
+                enable: false,
+              },
+              path: '/codestroke-angular/',
             }]);
 
             console.log('OneSignal Initialized');
