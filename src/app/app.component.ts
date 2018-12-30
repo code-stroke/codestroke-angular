@@ -57,7 +57,11 @@ export class AppComponent {
               },
               path: '/codestroke-angular/',
             }]);
-
+            if ('serviceWorker' in navigator && 'PushManager' in window) {
+                console.log('Service Worker and Push is supported')
+            } else{
+                console.warn('Push messaging is not supported');
+            }
             console.log('OneSignal Initialized');
             OneSignal.push(function () {
               console.log('Register For Push');

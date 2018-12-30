@@ -59,11 +59,38 @@ export class HeaderComponent implements OnInit {
         }
     }
     pushnotifClick(){
-        if ('serviceWorker' in navigator && 'PushManager' in window) {
-            console.log('Service Worker and Push is supported')
-        } else{
-            console.warn('Push messaging is not supported');
-        }
+        var OneSignal = window['OneSignal'] || [];
+        this.getSubscriptionState().then(function(state) {
+            if (state.isPushEnabled) {
+                OneSignal.push(function() {
+                    OneSignal.setSubscription(false);
+                });
+                console.log('user unsubscribed');
+            } else {
+                if (state.isOptedOut) {
+                    OneSignal.push(function() {
+                        OneSignal.setSubscription(true);
+                    });
+                    console.log('user subscribed')
+                }
+            }
+        });
+
+    }
+    getSubscriptionState(){
+        var OneSignal = window['OneSignal'] || [];
+        return Promise.all([
+          OneSignal.isPushNotificationsEnabled(),
+          OneSignal.isOptedOut()
+        ]).then(function(result) {
+            var isPushEnabled = result[0];
+            var isOptedOut = result[1];
+
+            return {
+                isPushEnabled: isPushEnabled,
+                isOptedOut: isOptedOut
+            };
+        });
     }
 
 }
