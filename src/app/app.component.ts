@@ -53,7 +53,7 @@ export class AppComponent {
               autoRegister: true,
               allowLocalhostAsSecureOrigin: true,
               notifyButton: {
-                enable: false,
+                enable: true,
               }
             }]);
 
