@@ -35,11 +35,30 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {
 
-        console.log("bell state is " + this.pushNotifActive);
-        if (this.pushNotifActive) {
-            console.log("start disabled");
-            this.pushNotifActive = !this.pushNotifActive;
-        }
+        var that = this;
+        var OneSignal = window['OneSignal'] || [];
+        console.log("bell state is " + this.pushNotifActive)
+
+         this.getSubscriptionState().then((state) => {
+            if (state.isPushEnabled) {
+                console.log(this.pushNotifActive)
+                if (!that.pushNotifActive) {
+                    console.log("button init state on");
+                    that.pushNotifActive = !that.pushNotifActive;
+                }
+            } else {
+                if (state.isOptedOut) {
+                    OneSignal.push(function() {
+                        OneSignal.setSubscription(true);
+                    });
+                    if (!that.pushNotifActive) {
+                        console.log("button toggled on and onesignal activated");
+                        that.pushNotifActive = !that.pushNotifActive;
+                    }
+
+                }
+            }
+        });
 
     }
 
@@ -68,10 +87,7 @@ export class HeaderComponent implements OnInit {
     }
     pushnotifClick(){
         var that = this;
-
-
         var OneSignal = window['OneSignal'] || [];
-        // this.getSubscriptionState().then(function(state) {
         console.log("bell state is " + this.pushNotifActive)
 
          this.getSubscriptionState().then((state) => {
