@@ -29,7 +29,8 @@
     <strong>CODE</strong> STROKE
 </article>
 <nav class="global-header-options">
-    <div class="notif-toggle" (click)="pushNotifActive=!pushNotifActive; pushnotifClick()">
+    <!-- <div class="notif-toggle" (click)="pushNotifActive=!pushNotifActive; pushnotifClick()"> -->
+    <div class="notif-toggle" (click)="pushnotifClick()">
         <fa-icon *ngIf="!pushNotifActive" [icon]="icon_bell_slash"></fa-icon>
         <fa-icon *ngIf="pushNotifActive" [icon]="icon_bell"></fa-icon>
     </div>

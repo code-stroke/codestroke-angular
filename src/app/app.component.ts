@@ -44,7 +44,7 @@ export class AppComponent {
     }
 
     ngOnInit() {
-
+// CHANGE THE SCOPE UNDER PARAM AND PATH WHEN HOSTING ON HOSPITAL SERVER
             var OneSignal = window['OneSignal'] || [];
             OneSignal.SERVICE_WORKER_PARAM = { scope: '/codestroke-angular/' };
             console.log("scope set");

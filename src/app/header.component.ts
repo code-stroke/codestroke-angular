@@ -32,6 +32,25 @@ export class HeaderComponent implements OnInit {
                 private notifs : NotifService,) { }
 
     ngOnInit() {
+        var OneSignal = window['OneSignal'] || [];
+        this.getSubscriptionState().then(function(state) {
+            if (state.isPushEnabled) {
+                OneSignal.push(function() {
+                    OneSignal.setSubscription(false);
+                });
+                this.pushNotifActive = false;
+                console.log('user unsubscribed');
+            } else {
+                if (state.isOptedOut) {
+                    OneSignal.push(function() {
+                        OneSignal.setSubscription(true);
+                    });
+                    this.pushNotifActive = true;
+                    console.log('user subscribed')
+                }
+            }
+        });
+
 
     }
 
@@ -65,12 +84,14 @@ export class HeaderComponent implements OnInit {
                 OneSignal.push(function() {
                     OneSignal.setSubscription(false);
                 });
+                this.pushNotifActive = false;
                 console.log('user unsubscribed');
             } else {
                 if (state.isOptedOut) {
                     OneSignal.push(function() {
                         OneSignal.setSubscription(true);
                     });
+                    this.pushNotifActive = true;
                     console.log('user subscribed')
                 }
             }
