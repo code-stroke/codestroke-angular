@@ -64,14 +64,16 @@ export class HeaderComponent implements OnInit {
     }
     pushnotifClick(){
         var OneSignal = window['OneSignal'] || [];
-        this.getSubscriptionState().then(function(state) {
+        // this.getSubscriptionState().then(function(state) {
+         this.getSubscriptionState().then(function(state) {
+             let self = this;
             if (state.isPushEnabled) {
                 OneSignal.push(function() {
                     OneSignal.setSubscription(false);
                 });
-                if (this.pushNotifActive) {
+                if (self.pushNotifActive) {
                     console.log("button toggled off");
-                    this.pushNotifActive = !this.pushNotifActive;
+                    self.pushNotifActive = !self.pushNotifActive;
                 }
                 console.log('user unsubscribed');
             } else {
@@ -79,9 +81,9 @@ export class HeaderComponent implements OnInit {
                     OneSignal.push(function() {
                         OneSignal.setSubscription(true);
                     });
-                    if (!this.pushNotifActive) {
+                    if (!self.pushNotifActive) {
                         console.log("button toggled on");
-                        this.pushNotifActive = !this.pushNotifActive;
+                        self.pushNotifActive = !self.pushNotifActive;
                     }
                     console.log('user subscribed')
                 }
