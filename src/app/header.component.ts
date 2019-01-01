@@ -65,8 +65,9 @@ export class HeaderComponent implements OnInit {
     pushnotifClick(){
         var OneSignal = window['OneSignal'] || [];
         // this.getSubscriptionState().then(function(state) {
+        var self = this;
+        console.log('self=this');
          this.getSubscriptionState().then(function(state) {
-             let self = this;
             if (state.isPushEnabled) {
                 OneSignal.push(function() {
                     OneSignal.setSubscription(false);
