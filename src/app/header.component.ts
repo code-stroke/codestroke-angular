@@ -29,9 +29,13 @@ export class HeaderComponent implements OnInit {
     constructor(private hs : HeaderService,
                 private route: ActivatedRoute,
                 private router : Router,
-                private notifs : NotifService,) { }
+                private notifs : NotifService,
+
+            ) { }
 
     ngOnInit() {
+
+        console.log("bell state is " + this.pushNotifActive);
         if (this.pushNotifActive) {
             console.log("start disabled");
             this.pushNotifActive = !this.pushNotifActive;
@@ -63,18 +67,22 @@ export class HeaderComponent implements OnInit {
         }
     }
     pushnotifClick(){
+        var that = this;
+
+
         var OneSignal = window['OneSignal'] || [];
         // this.getSubscriptionState().then(function(state) {
-        var self = this;
-        console.log('self=this');
-         this.getSubscriptionState().then(function(state) {
+        console.log("bell state is " + this.pushNotifActive)
+
+         this.getSubscriptionState().then((state) => {
             if (state.isPushEnabled) {
+                console.log(this.pushNotifActive)
                 OneSignal.push(function() {
                     OneSignal.setSubscription(false);
                 });
-                if (self.pushNotifActive) {
+                if (that.pushNotifActive) {
                     console.log("button toggled off");
-                    self.pushNotifActive = !self.pushNotifActive;
+                    that.pushNotifActive = !that.pushNotifActive;
                 }
                 console.log('user unsubscribed');
             } else {
@@ -82,9 +90,9 @@ export class HeaderComponent implements OnInit {
                     OneSignal.push(function() {
                         OneSignal.setSubscription(true);
                     });
-                    if (!self.pushNotifActive) {
+                    if (!that.pushNotifActive) {
                         console.log("button toggled on");
-                        self.pushNotifActive = !self.pushNotifActive;
+                        that.pushNotifActive = !that.pushNotifActive;
                     }
                     console.log('user subscribed')
                 }
