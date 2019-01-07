@@ -31,8 +31,8 @@
 <nav class="global-header-options">
     <!-- <div class="notif-toggle" (click)="pushNotifActive=!pushNotifActive; pushnotifClick()"> -->
     <div class="notif-toggle" (click)="pushnotifClick()">
-        <fa-icon *ngIf="!pushNotifActive" [icon]="icon_bell_slash"></fa-icon>
-        <fa-icon *ngIf="pushNotifActive" [icon]="icon_bell"></fa-icon>
+        <fa-icon *ngIf="!pushNotifActive" [icon]="icon_bell_slash" style="color: red;"></fa-icon>
+        <fa-icon *ngIf="pushNotifActive" [icon]="icon_bell" style="color: green;"></fa-icon>
     </div>
     <fa-icon [icon]="icon_signout"></fa-icon>
 </nav>

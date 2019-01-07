@@ -35,6 +35,7 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
 
         this.form = this.fb.group({
               thrombolysis: [null],
+              
               new_trauma_haemorrhage: [null],
               uncontrolled_htn: [null],
               history_ich: [null],
