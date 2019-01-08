@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
     icon_home = faHome;
     icon_times = faTimes;
 
-    pushNotifActive: boolean = false;
+    pushNotifActive: boolean = true;
 
     constructor(private hs : HeaderService,
                 private route: ActivatedRoute,

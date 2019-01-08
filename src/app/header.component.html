@@ -21,18 +21,18 @@
     </button>
 </nav>
 
-<button id="js-menu-open" class="global-header-menu" (click)="onClick()">
+<button id="js-menu-open" class="global-header-menu headeritem" (click)="onClick()">
     <fa-icon [icon]="icon_bars"></fa-icon>
 </button>
 <article class="global-header-logo" [routerLink]="''">
     <img src="assets/logo-white.png"/>
     <strong>CODE</strong> STROKE
 </article>
-<nav class="global-header-options">
-    <!-- <div class="notif-toggle" (click)="pushNotifActive=!pushNotifActive; pushnotifClick()"> -->
-    <div class="notif-toggle" (click)="pushnotifClick()">
+<nav class="global-header-options headeritem">
+    <div class="notif-toggle" (click)="pushNotifActive=!pushNotifActive; pushnotifClick()">
+    <!-- <div class="notif-toggle" (click)="pushnotifClick()"> -->
         <fa-icon *ngIf="!pushNotifActive" [icon]="icon_bell_slash" style="color: red;"></fa-icon>
-        <fa-icon *ngIf="pushNotifActive" [icon]="icon_bell" style="color: green;"></fa-icon>
+        <fa-icon *ngIf="pushNotifActive" [icon]="icon_bell" style="color: white;"></fa-icon>
     </div>
     <fa-icon [icon]="icon_signout"></fa-icon>
 </nav>

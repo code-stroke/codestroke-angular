@@ -40,7 +40,8 @@
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: margin-left;
+
 
     cursor: pointer;
 
@@ -163,3 +164,12 @@
 .notif-toggle{
     cursor: pointer;
 }
+
+.headeritem {
+    flex:1;
+    display: flex;
+}
+
+.headeritem:first-child > span { margin-right: auto; }
+
+.headeritem:last-child  > span { margin-left: auto;  }
