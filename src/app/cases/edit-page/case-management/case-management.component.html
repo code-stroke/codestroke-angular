@@ -13,19 +13,19 @@
         </div>
         <div class="manage-row">
             <label>Age > 18</label>
-            <cs-toggle [name]="'18'" [options]="radioYN" formControlName="thrombolysis"></cs-toggle>
+            <cs-toggle [name]="'18'" [options]="radioYN" formControlName="age18"></cs-toggle>
         </div>
         <div class="manage-row">
             <label>LVO</label>
-            <cs-toggle [name]="'lvo'" [options]="radioYN" formControlName="thrombolysis"></cs-toggle>
+            <cs-toggle [name]="'lvo'" [options]="radioYN" formControlName="lvo"></cs-toggle>
         </div>
         <div class="manage-row">
             <label>Time of Onset < 4.5hr</label>
-            <cs-toggle [name]="'onset'" [options]="radioYN" formControlName="thrombolysis"></cs-toggle>
+            <cs-toggle [name]="'onset'" [options]="radioYN" formControlName="onset"></cs-toggle>
         </div>
         <div class="manage-row">
             <label>No Evidence of ICH</label>
-            <cs-toggle [name]="ich" [options]="radioYN" formControlName="thrombolysis"></cs-toggle>
+            <cs-toggle [name]="ich" [options]="radioYN" formControlName="ich"></cs-toggle>
         </div>
 
         <div class="manage-row">
@@ -126,7 +126,7 @@
         <cs-toggle [name]="'conservative_rx'" [options]="radioYN" formControlName="conservative_rx"></cs-toggle>
     </div>
     <div class="manage-row" *ngIf="statusService.status.value != 'completed'">
-        <label></label>
+        <label>Mark Complete</label>
         <button class="complete" (click)="onComplete()">Mark Case as Completed</button>
     </div>
 

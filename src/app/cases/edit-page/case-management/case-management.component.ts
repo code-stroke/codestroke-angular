@@ -35,7 +35,12 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
 
         this.form = this.fb.group({
               thrombolysis: [null],
-              
+              //added these in, not sure if i have to link these to anything else
+              age18: [null],
+              lvo: [null],
+              onset: [null],
+              ich: [null],
+
               new_trauma_haemorrhage: [null],
               uncontrolled_htn: [null],
               history_ich: [null],
@@ -55,7 +60,9 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
               thrombolysis_time_given: [null],
               ecr: [null],
               surgical_rx: [null],
-              conservative_rx: [null]
+              conservative_rx: [null],
+
+
           });
 
           this.route = ar;
@@ -101,6 +108,7 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
                                       type: "success",
                                       html: `Succesfully marked this case as Completed.`
                                   });
+                                  location.reload();
                               } else {
                                   instance.notifService.addNotif({
                                       type: "error",

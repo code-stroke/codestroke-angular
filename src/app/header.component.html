@@ -19,6 +19,9 @@
     <button class="global-menu-button" (click)="onMenuClick('settings')">
         <fa-icon [icon]="icon_cog"></fa-icon> <span>SETTINGS</span>
     </button>
+    <button class="global-menu-button" (click)="onMenuClick('settings')">
+        <fa-icon [icon]="icon_signout"></fa-icon> <span> LOGOUT </span>
+    </button>
 </nav>
 
 <button id="js-menu-open" class="global-header-menu headeritem" (click)="onClick()">
@@ -34,5 +37,5 @@
         <fa-icon *ngIf="!pushNotifActive" [icon]="icon_bell_slash" style="color: red;"></fa-icon>
         <fa-icon *ngIf="pushNotifActive" [icon]="icon_bell" style="color: white;"></fa-icon>
     </div>
-    <fa-icon [icon]="icon_signout"></fa-icon>
+    <!-- <fa-icon [icon]="icon_signout"></fa-icon> -->
 </nav>
