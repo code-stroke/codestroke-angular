@@ -1,37 +1,47 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Subject, Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, Subject, Observable, of } from 'rxjs';
+import { map, tap, switchMap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-    server_url : string = "http://codestroke.pythonanywhere.com"
-    httpOptions = {
-        headers: new HttpHeaders({
-            "Authorization": "Basic " + btoa("henrietta:lacks")
-        })
+    public loginState = new BehaviorSubject<boolean | Signoff>(false);
+
+    constructor(private api : ApiService, private router : Router) {
+
+        /** Catch any Auth Errors **/
+        this.api.errorStream.subscribe( error => {
+            if (error.status == 401) {
+                this.loginState.next(false);
+                this.router.navigate(["/login"]);
+            }
+        });
+
     }
-    public loginState = new BehaviorSubject<boolean | Signoff>(true);
 
-    constructor(private http: HttpClient, private router : Router) {    }
+    authenticate (username : string, password : string) {
+        this.api.setAuthorizationHeader("Basic " + btoa(`${username}:${password}`));
 
-    login (username : string, password : string) : Observable<boolean | Signoff>{
-        this.httpOptions.headers = this.httpOptions.headers
-                                    .set("Authorization", "Basic " + btoa(`${username}:${password}`));
-
-        return this.http.get(`${this.server_url}/login/`, this.httpOptions).pipe(
-            map(val => {
-                if (val["success"]) {
-                    this.loginState.next(val["user_info"]);
-                    return this.loginState.value;
-                } else {
-                    return false;
-                }
-            })
+        return this.api.performRequest("get", "/clinicians/profile/").pipe(
+            tap({
+                next: response => this.loginState.next(response["user_info"]),
+                error: () => this.loginState.next(false)
+            }),
+            map(() => true),
+            catchError(() => of(false))
         );
+    }
+
+    handleAuthError(obs : Observable<any>) {
+        obs.pipe(
+            catchError(error => {
+                return of(error);
+            })
+        )
     }
 
     checkResult(data : any) {
@@ -51,4 +61,5 @@ export class Signoff {
     signoff_first_name : string;
     signoff_last_name : string;
     signoff_role : string;
+    signoff_username : string;
 }
