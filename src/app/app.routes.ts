@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { MainLayoutComponent } from './main-layout.component';
 import { LoginLayoutComponent } from './login-layout.component';
 
 import { AuthGuard } from './auth.guard';
 import { LoginLayoutGuard } from './login-layout.guard';
+import { CASES_ROUTES } from './cases/cases.routes';
 
-const routes: Routes = [
+export const APP_ROUTES : Routes = [
     {
         path: '',
         component: MainLayoutComponent,
@@ -16,7 +16,7 @@ const routes: Routes = [
         children: [
             {
                 path: 'cases',
-                loadChildren: './cases/cases.module#CasesModule'
+                children: CASES_ROUTES
             },
             {
                 path: '',
@@ -32,9 +32,3 @@ const routes: Routes = [
     },
     { path: '**', redirectTo: '/login'},
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes,{ enableTracing: false })],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

@@ -25,7 +25,6 @@ import { DateTimeComponent } from './edit-page/ui/date-time.component';
 @NgModule({
     imports: [
         CommonModule,
-        CasesRoutingModule,
         FontAwesomeModule,
         RouterModule,
         ReactiveFormsModule,
