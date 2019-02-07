@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounce, debounceTime } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
 
@@ -10,35 +12,41 @@ import { AuthService } from './auth.service';
     styleUrls: ['./login-layout.component.scss']
 })
 export class LoginLayoutComponent implements OnInit, OnDestroy {
+    loginForm = this.fb.group({
+        username: ['test_users', Validators.required],
+        password: ['password']
+    });
+
+    onSubmit = new Subject<any>();
 
     constructor(private auth : AuthService, private router : Router,
-                private fb : FormBuilder) { }
+                private fb : FormBuilder) {
 
-    loginForm = this.fb.group({
-        username: ['henrietta', Validators.required],
-        password: ['lacks']
-    });
+        // All submits (clicks, pressing enters) are observed here
+        this.onSubmit.pipe(
+            debounceTime(200)
+        ).subscribe( () => {
+            this.checkForm();
+        });
+    }
 
     ngOnInit() {
         if (this.auth.loginState.value) {
             this.router.navigate([""]);
         }
+
     }
 
-    private loadingLogin = false;
-    onSubmit() {
-        //TODO: Display loading
-        //TODO: Display Errors
-        if (!this.loadingLogin) {
-            this.loadingLogin = true;
-            this.auth.login(this.loginForm.get("username").value,
-                            this.loginForm.get("password").value).subscribe(val => {
-                                this.loadingLogin = false;
-                                if (val) {
-                                    this.router.navigate([""]);
-                                }
-                            });
-        }
+    private checkForm() {
+        let user = this.loginForm.get("username").value;
+        let pass = this.loginForm.get("password").value;
+
+        this.auth.authenticate(user, pass).subscribe(val => {
+            console.log(val);
+            if (val) {
+                this.router.navigate([""]);
+            }
+        });
     }
 
     ngOnDestroy() {}
