@@ -59,7 +59,6 @@ export class CaseDetailsComponent extends AbstractCaseComponent implements OnIni
         // When the Case is saved, update the Status at the top with the new details
         this.save(CaseDetailsComponent.backendTable).subscribe(
             () => {
-                this.case = this.form.getRawValue();
                 this.updateStatus();
             }
         );

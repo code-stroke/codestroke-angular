@@ -11,6 +11,7 @@ export class AbstractCaseComponent implements OnInit {
     form : FormGroup;
     backendService : BackendCaseService;
     route: ActivatedRoute;
+    case_id : number;
     case : any;
     notifService : NotifService;
     popupService : PopupService;
@@ -19,6 +20,7 @@ export class AbstractCaseComponent implements OnInit {
         this.route.data
         .subscribe((data : any) => {
             this.case = data.case;
+            this.case_id = this.case.case_id;
             this.form.patchValue(data.case);
             console.log(this.form.getRawValue());
             for (let [key, value] of Object.entries(data.case)) {
@@ -28,7 +30,7 @@ export class AbstractCaseComponent implements OnInit {
     }
 
     public save = (table : string) => {
-        let response = this.backendService.updateCase(this.case.case_id, table, this.form.getRawValue());
+        let response = this.backendService.updateCase(this.case_id, table, this.form.getRawValue());
         response.subscribe((data) => {
             if (data["success"]) {
                 switch (data["message"]) {
@@ -45,7 +47,7 @@ export class AbstractCaseComponent implements OnInit {
                             html: `Succesfully saved to {${table}}`
                         });
                 }
-
+                this.case = this.form.getRawValue();
             } else {
                 this.notifService.addNotif({
                     type: "error",
