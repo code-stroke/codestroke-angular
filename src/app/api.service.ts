@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
     providedIn: 'root'
 })
 export class ApiService {
-    private server_url : string = "http://codefactor.pythonanywhere.com"
+    private server_url : string = "https://codefactor.pythonanywhere.com"
     private httpHeader = new HttpHeaders({
         "Authorization": "Basic " + btoa("test_user:password")
     });
