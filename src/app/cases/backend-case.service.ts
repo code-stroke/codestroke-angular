@@ -28,7 +28,7 @@ export class BackendCaseService {
     }
 
     updateCase(id : number, table : string, data : any) {
-        return this.api.performRequest("post", `/${table}/${id}/edit/`, data).pipe(
+        return this.api.performRequest("put", `/${table}/${id}/edit/`, data).pipe(
             tap((data) => console.log(data))
         );
     }

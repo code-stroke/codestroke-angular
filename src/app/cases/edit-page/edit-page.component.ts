@@ -10,6 +10,7 @@ import { BackendCaseService } from '../backend-case.service';
 import { CaseDetails } from '../case-details';
 import { PopupService } from './popup.service';
 import { HeaderService } from '../../header.service';
+import { ApiService } from '../../api.service';
 
 
 
@@ -42,15 +43,8 @@ export class EditPageComponent implements OnInit {
     static parent = true;
     static backendTable = "cases";
 
-    icon_incoming = faAmbulance;
-    icon_active = faHospitalAlt;
-    icon_completed = faCalendarCheck;
-
-    icon_status = this.icon_incoming;
-    status_text = "ETA";
-
-    //icon_well = faUserInjured;
-    icon_well = faUserClock;
+    case_id : number;
+    caseDetail : CaseDetails;
 
     nav = [
         {
@@ -79,33 +73,41 @@ export class EditPageComponent implements OnInit {
         }
     ];
 
-    case_id : number;
-    caseDetail : CaseDetails;
-
-    displayPopup = false;
-    popup : any;
-
     constructor(private route: ActivatedRoute,
                 private router : Router,
                 private bs: BackendCaseService,
-                public status : EditStatusService,
+                public statusService : EditStatusService,
                 private popupService : PopupService,
                 private hs : HeaderService,
-
+                private api : ApiService
                 ) { }
 
     ngOnInit() {
+        this.setupStatus();
+
+        this.setupPopups();
+    }
+
+    icon_incoming = faAmbulance;
+    icon_active = faHospitalAlt;
+    icon_completed = faCalendarCheck;
+    //
+    icon_status = this.icon_incoming;
+    status_text = "ETA";
+    //
+    icon_well = faUserClock;
+    private setupStatus() {
         this.route.data
         .subscribe((data : any) => {
             this.caseDetail = Object.assign(new CaseDetails(), data.case);
 
-            this.status.name.next(this.caseDetail.getName() + " " + this.caseDetail.getAgeGender());
-            this.status.status.next(this.caseDetail.status);
-            this.status.statusTime.next(this.caseDetail.getStatusTime());
-            this.status.lastWell.next(this.caseDetail.last_well);
+            this.statusService.name.next(this.caseDetail.getName() + " " + this.caseDetail.getAgeGender());
+            this.statusService.status.next(this.caseDetail.status);
+            this.statusService.statusTime.next(this.caseDetail.getStatusTime());
+            this.statusService.lastWell.next(this.caseDetail.last_well);
         });
 
-        this.status.status.subscribe((stat : string) => {
+        this.statusService.status.subscribe((stat : string) => {
             switch (stat) {
                 case "incoming":
                     this.status_text = "ETA";
@@ -121,7 +123,11 @@ export class EditPageComponent implements OnInit {
                     break;
             }
         });
+    }
 
+    displayPopup = false;
+    popup : any;
+    private setupPopups() {
         this.popupService.popup.subscribe((pop : any) => {
             if (pop) {
                 this.popup = pop;
@@ -129,18 +135,8 @@ export class EditPageComponent implements OnInit {
             } else {
                 this.displayPopup = false;
             }
-        })
+        });
     }
-
-
-
-    icon_plus = faPlus;
-    icon_times = faTimes;
-    icon_list = faListAlt;
-    icon_cog = faCog;
-    icon_home = faHome
-
-
 
     executePopup(func : any) {
         func();

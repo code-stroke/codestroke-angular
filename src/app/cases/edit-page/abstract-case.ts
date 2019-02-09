@@ -28,8 +28,8 @@ export class AbstractCaseComponent implements OnInit {
     }
 
     public save = (table : string) => {
-        this.backendService.updateCase(this.case.case_id, table, this.form.getRawValue())
-        .subscribe((data) => {
+        let response = this.backendService.updateCase(this.case.case_id, table, this.form.getRawValue());
+        response.subscribe((data) => {
             if (data["success"]) {
                 switch (data["message"]) {
                     case "no change":
@@ -54,6 +54,7 @@ export class AbstractCaseComponent implements OnInit {
 
             }
         });
+        return response;
     }
 
     onReset = () => {

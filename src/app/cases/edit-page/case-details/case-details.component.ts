@@ -23,8 +23,6 @@ export class CaseDetailsComponent extends AbstractCaseComponent implements OnIni
         { value: "u", text: "Unknown", class: "unknown" }
     ];
 
-    caseDetail : CaseDetails;
-
     constructor(private fb : FormBuilder,
                 private ar: ActivatedRoute,
                 private statusService : EditStatusService,
@@ -54,16 +52,24 @@ export class CaseDetailsComponent extends AbstractCaseComponent implements OnIni
     ngOnInit() {
         super.ngOnInit();
 
-        this.caseDetail = Object.assign(new CaseDetails(), this.case);
-
-        this.statusService.name.next(this.caseDetail.getName() + " " + this.caseDetail.getAgeGender());
-        this.statusService.status.next(this.caseDetail.status);
-        this.statusService.statusTime.next(this.caseDetail.getStatusTime());
-        this.statusService.lastWell.next(this.caseDetail.last_well);
+        this.updateStatus();
     }
 
     onSave = () => {
-        this.save(CaseDetailsComponent.backendTable);
+        // When the Case is saved, update the Status at the top with the new details
+        this.save(CaseDetailsComponent.backendTable).subscribe(
+            () => {
+                this.case = this.form.getRawValue();
+                this.updateStatus();
+            }
+        );
+    }
+
+    private updateStatus() {
+        let caseDetail = Object.assign(new CaseDetails(), this.case);
+
+        this.statusService.name.next(caseDetail.getName() + " " + caseDetail.getAgeGender());
+        this.statusService.lastWell.next(caseDetail.last_well);
     }
 
 }

@@ -8,13 +8,13 @@
     <main class="edit-main">
         <header class="edit-status">
             <header>
-                {{status.name | async}}
+                {{statusService.name | async}}
             </header>
-            <div class="{{status.status | async}}">
-                <fa-icon [icon]="icon_status"></fa-icon> {{status_text}} {{(status.statusTime | async) | date:"HH:mm (dd/MM)"}}
+            <div class="{{statusService.status | async}}">
+                <fa-icon [icon]="icon_status"></fa-icon> {{status_text}} {{(statusService.statusTime | async) | date:"HH:mm (dd/MM)"}}
             </div>
             <div>
-                <fa-icon [icon]="icon_well"></fa-icon> Last Well {{(status.lastWell | async) | date:"HH:mm (dd/MM)"}}
+                <fa-icon [icon]="icon_well"></fa-icon> Last Well {{(statusService.lastWell | async) | date:"HH:mm (dd/MM)"}}
             </div>
         </header>
         <article class="edit-content">

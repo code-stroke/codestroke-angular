@@ -9,9 +9,11 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class AuthService {
-    public loginState = new BehaviorSubject<boolean | Signoff>(false);
+    public loginState = new BehaviorSubject<boolean | Signoff>(true);
 
     constructor(private api : ApiService, private router : Router) {
+        /** For DEBUG only **/
+        this.api.setAuthorizationHeader("Basic " + btoa(`test_user:password`));
 
         /** Catch any Auth Errors **/
         this.api.errorStream.subscribe( error => {

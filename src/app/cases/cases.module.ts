@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { CasesRoutingModule } from './cases-routing.module';
 import { ListPageComponent } from './list-page/list-page.component';
 import { ListContainerComponent } from './list-page/list-container/list-container.component';
 import { EditPageComponent } from './edit-page/edit-page.component';

@@ -9,6 +9,7 @@ import { NotifService } from '../../../notif.service';
 import { PopupService } from '../popup.service';
 import { CaseDetailsComponent } from '../case-details/case-details.component';
 import { formatDate } from '@angular/common';
+import { CaseDetails } from '../../case-details';
 
 @Component({
   selector: 'cs-case-management',
@@ -95,27 +96,9 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
                       class: "primary",
                       text: "Complete",
                       click: function() {
-                          instance.save(CaseManagementComponent.backendTable);
-                          instance.backendService.updateCase(instance.case.case_id,
-                              CaseDetailsComponent.backendTable,
-                              {
-                                  status: "completed",
-                                  completed_timestamp: formatDate(new Date(), "yyyy-MM-dd HH:mm", instance.locale)
-                              })
-                          .subscribe((data) => {
-                              if (data["success"]) {
-                                  instance.notifService.addNotif({
-                                      type: "success",
-                                      html: `Succesfully marked this case as Completed.`
-                                  });
-                                  location.reload();
-                              } else {
-                                  instance.notifService.addNotif({
-                                      type: "error",
-                                      html: `Error marking case as Completed.`
-                                  });
-                              }
-                          });
+                          instance.save(CaseManagementComponent.backendTable).subscribe(
+                              () => instance.completeCase()
+                          );
                       }
                   },
                   {
@@ -126,6 +109,37 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
                       }
                   }
               ]
-          })
+          });
+      }
+
+      private completeCase() {
+          let statusData = {
+              status: "completed",
+              completed_timestamp: formatDate(new Date(), "yyyy-MM-dd HH:mm", this.locale)
+          };
+
+          this.backendService.updateCase(this.case.case_id, CaseDetailsComponent.backendTable, statusData)
+          .subscribe(
+              () => {
+                  this.notifService.addNotif({
+                      type: "success",
+                      html: `Succesfully marked this case as Completed.`
+                  });
+                  this.updateStatus(statusData);
+              },
+              () => {
+                  this.notifService.addNotif({
+                      type: "error",
+                      html: `Error marking case as Completed.`
+                  });
+              }
+          );
+      }
+
+      private updateStatus(statusData) {
+          let caseDetail = Object.assign(new CaseDetails(), statusData);
+
+          this.statusService.status.next(caseDetail.status);
+          this.statusService.statusTime.next(caseDetail.getStatusTime());
       }
 }

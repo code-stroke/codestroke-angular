@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject, merge } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Subject, merge, ReplaySubject } from 'rxjs';
+import { tap, shareReplay } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -13,8 +13,8 @@ export class ApiService {
         "Authorization": "Basic " + btoa("test_user:password")
     });
 
-    responseStream = new Subject<any>();
-    errorStream = new Subject<any>();
+    responseStream = new ReplaySubject<any>(1);
+    errorStream = new ReplaySubject<any>(1);
 
     constructor(private http : HttpClient) { }
 
@@ -31,7 +31,8 @@ export class ApiService {
             tap(
                 response => this.responseStream.next(response),
                 error => this.errorStream.next(error)
-            )
+            ),
+            shareReplay(1)
         );
     }
 
