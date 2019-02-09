@@ -15,6 +15,10 @@ div {
 
     display: flex;
 
+    &.disabled {
+        color: #D8D8D8;
+    }
+
     input[type="radio"] {
         margin: 0;
         padding: 0;
@@ -23,9 +27,13 @@ div {
         appearance: none;
 
         &:checked {
-            +label.yes {background: lightgreen;}
-            +label.no {background: lightcoral;}
-            +label.unknown {background: lightgray;}
+            +label.yes {background: lightgreen; color:black}
+            +label.no {background: lightcoral; color: black}
+            +label.unknown {background: lightgray; color: black}
+        }
+
+        &:disabled {
+            +label {cursor: not-allowed;}
         }
     }
 
@@ -43,8 +51,11 @@ div {
             border-right: 2px solid #D8D8D8;
         }
 
-        &:hover {
-            background: #EEEEEE;
+        &.enabled {
+            &:hover {
+                background: #EEEEEE;
+            }
         }
+
     }
 }

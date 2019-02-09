@@ -24,6 +24,12 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
         { value: 0, text: "No", class: "no" }
     ];
 
+    radioYNU = [
+        { value: "yes", text: "Yes", class: "yes" },
+        { value: "no", text: "No", class: "no" },
+        { value: "unknown", text: "Unknown", class: "unknown" }
+    ];
+
     constructor(private fb : FormBuilder,
                 private ar: ActivatedRoute,
                 public statusService : EditStatusService,
@@ -36,11 +42,11 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
 
         this.form = this.fb.group({
               thrombolysis: [null],
-              //added these in, not sure if i have to link these to anything else
-              age18: [null],
-              lvo: [null],
-              onset: [null],
-              ich: [null],
+
+              age18: [{value: null, disabled: true}],
+              lvo: [{value: null, disabled: true}],
+              onset: [{value: null, disabled: true}],
+              ich: [{value: null, disabled: true}],
 
               new_trauma_haemorrhage: [null],
               uncontrolled_htn: [null],
@@ -74,6 +80,55 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
 
       ngOnInit() {
           super.ngOnInit();
+
+          this.setupInclusionCriteria();
+      }
+
+      private setupInclusionCriteria() {
+          if (this.case.dob) {
+              let agemilli = new Date().getTime() - new Date(this.case.dob).getTime();
+              let age = Math.floor(agemilli / 31536000000);
+              if (age > 17) {
+                  this.form.patchValue({age18: "yes"});
+              } else {
+                  this.form.patchValue({age18: "no"});
+              }
+          } else {
+              this.form.patchValue({age18: "unknown"});
+          }
+
+          if (this.case.large_vessel_occlusion || this.case.large_vessel_occlusion === 0) {
+              if (this.case.large_vessel_occlusion == "1") {
+                  this.form.patchValue({lvo: "yes"});
+              } else {
+                  this.form.patchValue({lvo: "no"});
+              }
+          } else {
+              this.form.patchValue({lvo: "unknown"});
+          }
+
+          if (this.case.last_well) {
+              let wellmilli = new Date().getTime() - new Date(this.case.last_well).getTime();
+              let wellminutes = Math.floor(wellmilli / 60000);
+              // 270 mintues is 4.5 hours
+              if (wellminutes < 270) {
+                  this.form.patchValue({onset: "yes"});
+              } else {
+                  this.form.patchValue({onset: "no"});
+              }
+          } else {
+              this.form.patchValue({onset: "unknown"});
+          }
+
+          if (this.case.ich_found || this.case.ich_found === 0) {
+              if (this.case.ich_found == "0") {
+                  this.form.patchValue({ich: "yes"});
+              } else {
+                  this.form.patchValue({ich: "no"});
+              }
+          } else {
+              this.form.patchValue({ich: "unknown"});
+          }
       }
 
       onSave = () => {

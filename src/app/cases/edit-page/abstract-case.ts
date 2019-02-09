@@ -22,7 +22,7 @@ export class AbstractCaseComponent implements OnInit {
             this.case = data.case;
             this.case_id = this.case.case_id;
             this.form.patchValue(data.case);
-            console.log(this.form.getRawValue());
+            console.log(data.case);
             for (let [key, value] of Object.entries(data.case)) {
                 //TODO:
             }

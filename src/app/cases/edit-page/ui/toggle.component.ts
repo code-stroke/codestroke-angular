@@ -19,6 +19,8 @@ export class ToggleComponent implements OnInit, ControlValueAccessor {
 
     val : any;
 
+    disabled : boolean = false;
+
     constructor() { }
 
     ngOnInit() {
@@ -33,6 +35,7 @@ export class ToggleComponent implements OnInit, ControlValueAccessor {
 
     setDisabledState?(isDisabled: boolean): void {
         //TODO:
+        this.disabled = isDisabled;
     }
     registerOnTouched(fn: any): void {
         this.onTouched = fn;
@@ -41,7 +44,9 @@ export class ToggleComponent implements OnInit, ControlValueAccessor {
         this.onChange = fn;
     }
     writeValue(obj: any): void {
-        this.val = obj;
+        if (!this.disabled) {
+            this.val = obj;
+        }
     }
 
 
