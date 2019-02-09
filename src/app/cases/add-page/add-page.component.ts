@@ -36,7 +36,8 @@ export class AddPageComponent implements OnInit {
             address: [''],
             nok: [''],
             nok_phone: [''],
-            last_well: ['']
+            last_well: [''],
+            status: ['active']
         });
     }
 
