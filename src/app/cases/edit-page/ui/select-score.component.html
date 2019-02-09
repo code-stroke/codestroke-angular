@@ -2,7 +2,8 @@
 <fa-icon [icon]="icon_down" class="down"></fa-icon>
 <div class="box" [hidden]="hidden">
     <span *ngFor="let o of options"
-    (click)="onOption(o)">
+    (click)="onOption(o)"
+    [class.selected]="o.selected">
     {{o.text}} <a>{{o.value}}</a>
     </span>
 </div>

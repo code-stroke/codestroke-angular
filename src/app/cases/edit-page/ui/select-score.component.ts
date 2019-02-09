@@ -17,9 +17,13 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 export class SelectScoreComponent implements OnInit, ControlValueAccessor {
     icon_down = faSortDown;
 
+    current : any = {text: "", value: ""};
     main : string = "";
     value : any = "";
-    @Input() options : Array<any>;
+
+    // The actual options are a COPY of the array passed in
+    @Input("options") _options : Array<any>;
+    options : Array<any>;
 
     hidden = true;
     @HostBinding('class.active')
@@ -30,6 +34,11 @@ export class SelectScoreComponent implements OnInit, ControlValueAccessor {
     constructor(private _ef : ElementRef) { }
 
     ngOnInit() {
+        // Deep copies the Options array passed in
+        // This ensures that the 'selected' characteristic can be tracked without
+        // affecting any other Select entity
+        this.options = JSON.parse(JSON.stringify(this._options));
+
         for (let o of this.options) {
             if (o.default) {
                 this.onOption(o);
@@ -57,6 +66,11 @@ export class SelectScoreComponent implements OnInit, ControlValueAccessor {
      * Updates the select box value
      */
     onOption(o : any) {
+        this.current.selected = false;
+
+        this.current = o;
+        this.current.selected = true;
+
         this.main = o.text;
         this.value = o.value;
 
@@ -76,6 +90,12 @@ export class SelectScoreComponent implements OnInit, ControlValueAccessor {
         this.onChange = fn;
     }
     writeValue(obj: any): void {
+        // This sets the value to *empty* when eg. clicking the reset button
+        if (!obj && obj !== 0) {
+            this.onOption({text: "", value: ""});
+            return;
+        }
+
         for (let o of this.options) {
             if (o.value == obj) {
                 this.onOption(o);
