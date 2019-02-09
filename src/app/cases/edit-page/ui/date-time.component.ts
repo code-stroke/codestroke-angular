@@ -53,9 +53,9 @@ export class DateTimeComponent implements OnInit, ControlValueAccessor {
   writeValue(obj: any): void {
       if (obj) {
           let d = new Date(obj);
-          this.val = formatDate(d, "yyyy-MM-dd HH:mm", this.locale);
           this.date = formatDate(d, "yyyy-MM-dd", this.locale);
           this.time = formatDate(d, "HH:mm", this.locale);
+          this.update();
       }
   }
 

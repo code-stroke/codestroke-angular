@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BackendCaseService } from '../backend-case.service';
 import { NotifService } from '../../notif.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderService } from '../../header.service';
-import { faSignOutAlt, faPlus, faTimes, faListAlt, faCog, faHome } from '@fortawesome/free-solid-svg-icons';
+import { formatDate } from '../../../../node_modules/@angular/common';
 
 
 @Component({
@@ -21,12 +21,18 @@ export class AddPageComponent implements OnInit {
         { value: "u", text: "Unknown", class: "unknown" }
     ];
 
+    radioStatus = [
+        { value: "incoming", text: "Incoming", class: "incoming"},
+        { value: "active", text: "Active", class: "active"}
+    ];
+
     constructor(private fb : FormBuilder,
                 private hs : HeaderService,
                 private backendService : BackendCaseService,
                 private notifService : NotifService,
                 private router : Router,
-                private route : ActivatedRoute) {
+                private route : ActivatedRoute,
+                @Inject(LOCALE_ID) private locale: string) {
 
         this.form = this.fb.group({
             first_name: [''],
@@ -37,7 +43,9 @@ export class AddPageComponent implements OnInit {
             nok: [''],
             nok_phone: [''],
             last_well: [''],
-            status: ['active']
+            status: ['active'],
+            eta: [''],
+            active_timestamp: [formatDate(new Date(), "yyyy-MM-dd HH:mm", this.locale)]
         });
     }
 
@@ -46,6 +54,13 @@ export class AddPageComponent implements OnInit {
     }
 
     onAdd = () => {
+        // Make sure that if Active is set, send only ETA + vice versa
+        if (this.form.get('status').value == 'active') {
+            this.form.patchValue({eta: ''});
+        } else if (this.form.get('status').value == 'incoming') {
+            this.form.patchValue({active_timestamp: ''});
+        }
+
         this.backendService.addCase(this.form.getRawValue())
         .subscribe((data) => {
             this.notifService.addNotif({

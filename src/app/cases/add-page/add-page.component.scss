@@ -1,6 +1,7 @@
 @import 'variables';
 @import 'mixins';
-@import '../edit-page/case.scss';
+
+@import '../edit-page/case';
 
 :host {
     position: relative;
@@ -363,4 +364,8 @@ form {
 
 .add-button:hover{
     background-color: #cccccc;
+}
+
+.group {
+    @include row-group;
 }

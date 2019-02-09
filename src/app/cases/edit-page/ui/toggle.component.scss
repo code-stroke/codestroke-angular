@@ -30,6 +30,9 @@ div {
             +label.yes {background: lightgreen; color:black}
             +label.no {background: lightcoral; color: black}
             +label.unknown {background: lightgray; color: black}
+
+            +label.incoming {background: $colour-incoming-light; color: black}
+            +label.active {background: $colour-active-light; color: black}
         }
 
         &:disabled {
