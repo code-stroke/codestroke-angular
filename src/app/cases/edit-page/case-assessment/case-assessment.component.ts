@@ -181,7 +181,7 @@ export class CaseAssessmentComponent extends AbstractCaseComponent implements On
 
         this.checkScore(this.form.getRawValue());
 
-        this.form.valueChanges.subscribe(val => {
+        this.form.valueChanges.subscribe((val) => {
             this.checkScore(val);
         });
     }

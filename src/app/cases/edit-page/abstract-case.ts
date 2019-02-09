@@ -32,29 +32,28 @@ export class AbstractCaseComponent implements OnInit {
     public save = (table : string) => {
         let response = this.backendService.updateCase(this.case_id, table, this.form.getRawValue());
         response.subscribe((data) => {
-            if (data["success"]) {
-                switch (data["message"]) {
-                    case "no change":
-                        this.notifService.addNotif({
-                            type: "warning",
-                            html: `No changes were made to {${table}}`
-                        });
-                        break;
+            this.case = this.form.getRawValue();
+            switch (data["message"]) {
+                case "no change":
+                    this.notifService.addNotif({
+                        type: "warning",
+                        html: `No changes were made to {${table}}`
+                    });
+                    break;
 
-                    default:
-                        this.notifService.addNotif({
-                            type: "success",
-                            html: `Succesfully saved to {${table}}`
-                        });
-                }
-                this.case = this.form.getRawValue();
-            } else {
-                this.notifService.addNotif({
-                    type: "error",
-                    html: `Error saving to {${table}}`
-                });
-
+                default:
+                    this.notifService.addNotif({
+                        type: "success",
+                        html: `Succesfully saved to {${table}}`
+                    });
             }
+        },
+        () => {
+            //TODO: Better error reporting
+            this.notifService.addNotif({
+                type: "error",
+                html: `Error saving to {${table}}`
+            });
         });
         return response;
     }

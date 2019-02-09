@@ -47,47 +47,18 @@ export class AddPageComponent implements OnInit {
     onAdd = () => {
         this.backendService.addCase(this.form.getRawValue())
         .subscribe((data) => {
-            if (data["success"]) {
-                this.notifService.addNotif({
-                    type: "success",
-                    html: `Succesfully added new case.`
-                });
-                this.router.navigate([`../edit/${data["case_id"]}`], { relativeTo: this.route});
-            } else {
-                this.notifService.addNotif({
-                    type: "error",
-                    html: `Error Adding new case. Please quote the error in the console.`
-                });
-
-            }
+            this.notifService.addNotif({
+                type: "success",
+                html: `Succesfully added new case.`
+            });
+            this.router.navigate([`../edit/${data["case_id"]}`], { relativeTo: this.route});
+        },
+        (error) => {
+            this.notifService.addNotif({
+                type: "error",
+                html: `Error Adding new case. Please quote the error in the console.`
+            });
         });
-    }
-    get active() {
-        return this.hs.subscribeToMenu();
-    }
-
-    clickMenu() {
-        this.hs.toggleMenu();
-    }
-
-    icon_plus = faPlus;
-    icon_times = faTimes;
-    icon_list = faListAlt;
-    icon_cog = faCog;
-    icon_home = faHome
-
-
-    onMenuClick(option : string) {
-        switch (option) {
-            case "home":
-                this.router.navigate([`../list-page/`], { relativeTo: this.route});
-                break;
-            default:
-                this.notifService.addNotif({
-                    type: "error",
-                    html: `Unfortunately, this feature is not enabled yet.`
-                });
-        }
     }
 
 }
