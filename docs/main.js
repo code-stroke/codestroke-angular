@@ -53,7 +53,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var ApiService = /** @class */ (function () {
     function ApiService(http) {
         this.http = http;
-        this.server_url = "http://codefactor.pythonanywhere.com";
+        this.server_url = "https://codefactor.pythonanywhere.com";
         this.httpHeader = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
             "Authorization": "Basic " + btoa("test_user:password")
         });
