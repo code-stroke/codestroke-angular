@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { distinctUntilChanged, startWith, skip } from 'rxjs/operators';
+import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 
 import { AbstractCaseComponent } from '../abstract-case';
 import { EditStatusService } from '../edit-status.service';
@@ -184,6 +186,34 @@ export class CaseAssessmentComponent extends AbstractCaseComponent implements On
         this.form.valueChanges.subscribe((val) => {
             this.checkScore(val);
         });
+
+        this.form.controls['likely_lvo'].valueChanges.pipe(
+            startWith(this.form.get('likely_lvo').value),
+            distinctUntilChanged(),
+            skip(1)
+        )
+        .subscribe((val) => {
+            if (val) {
+                let data = {likely_lvo: 1};
+                this.backendService.updateCase(this.case_id,
+                                                CaseAssessmentComponent.backendTable,
+                                                data).subscribe(
+                    () => {
+                        this.notifService.addNotif({
+                            type: "success",
+                            html: `Angiography staff notified about potential LVO`
+                        });
+                        this.case = this.form.getRawValue();
+                    },
+                    () => {
+                        this.notifService.addNotif({
+                            type: "error",
+                            html: `Error notifying angiography staff about potential LVO`
+                        });
+                    }
+                );
+            }
+        });
     }
 
     race = 0;
@@ -217,6 +247,7 @@ export class CaseAssessmentComponent extends AbstractCaseComponent implements On
         this.rankin += parseInt(val.rankin_conscious);
     }
 
+    icon_sent = faBullhorn;
     onLVO = () => {
         this.form.get("likely_lvo").setValue(1);
     }

@@ -74,3 +74,15 @@ form {
         justify-content: center;
     }
 }
+
+.angio_notified {
+    label {
+        font-size: 2rem;
+    }
+    span {
+        margin-left: 0;
+        @include for-tablet-portrait-up {
+            margin-left: 2rem;
+        }
+    }
+}

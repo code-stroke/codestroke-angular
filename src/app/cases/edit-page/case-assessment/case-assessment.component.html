@@ -183,6 +183,10 @@
                 <cs-double-click [func]="onLVO"></cs-double-click>
             </button>
         </div>
+        <div class="assess-row angio_notified" *ngIf="form.get('likely_lvo').value">
+            <label><fa-icon [icon]="icon_sent"></fa-icon></label>
+            <span class="case_input">Angiography staff have been notified of a likely LVO</span>
+        </div>
     </article>
 
     <div class="assess-row options">

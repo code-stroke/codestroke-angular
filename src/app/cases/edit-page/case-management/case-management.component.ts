@@ -173,7 +173,7 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
               completed_timestamp: formatDate(new Date(), "yyyy-MM-dd HH:mm", this.locale)
           };
 
-          this.backendService.updateCase(this.case.case_id, CaseDetailsComponent.backendTable, statusData)
+          this.backendService.updateCase(this.case_id, CaseDetailsComponent.backendTable, statusData)
           .subscribe(
               () => {
                   this.notifService.addNotif({
