@@ -6,6 +6,7 @@ import { faBars, faBell, faBellSlash, faSignOutAlt, faPlus, faHome, faListAlt, f
 
 import { HeaderService } from './header.service';
 import { NotifService } from './notif.service';
+import { AuthService } from './auth.service';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class HeaderComponent implements OnInit {
                 private route: ActivatedRoute,
                 private router : Router,
                 private notifs : NotifService,
-
+                private auth : AuthService
             ) { }
 
     ngOnInit() {
@@ -78,6 +79,9 @@ export class HeaderComponent implements OnInit {
             case "new":
                 this.router.navigate([`/cases/add/`]);
                 break;
+            case "logout":
+                this.auth.loginState.next(false);
+                this.router.navigate([`/login`]);
             default:
                 this.notifs.addNotif({
                     type: "error",

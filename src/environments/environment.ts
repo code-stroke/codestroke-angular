@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  server_url: "http://codefactor.pythonanywhere.com",
+  default_user: "test_user:password"
 };
 
 /*

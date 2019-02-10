@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { debounce, debounceTime } from 'rxjs/operators';
+import { debounce, debounceTime, takeUntil } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
 
@@ -13,8 +13,8 @@ import { AuthService } from './auth.service';
 })
 export class LoginLayoutComponent implements OnInit, OnDestroy {
     loginForm = this.fb.group({
-        username: ['test_users', Validators.required],
-        password: ['password']
+        username: ['', Validators.required],
+        password: ['']
     });
 
     onSubmit = new Subject<any>();
@@ -24,7 +24,8 @@ export class LoginLayoutComponent implements OnInit, OnDestroy {
 
         // All submits (clicks, pressing enters) are observed here
         this.onSubmit.pipe(
-            debounceTime(200)
+            debounceTime(200),
+            takeUntil(this._onDestroy)
         ).subscribe( () => {
             this.checkForm();
         });
@@ -42,13 +43,16 @@ export class LoginLayoutComponent implements OnInit, OnDestroy {
         let pass = this.loginForm.get("password").value;
 
         this.auth.authenticate(user, pass).subscribe(val => {
-            console.log(val);
             if (val) {
                 this.router.navigate([""]);
             }
         });
     }
 
-    ngOnDestroy() {}
+    // Clean up the open Subscription
+    _onDestroy = new Subject<any>();
+    ngOnDestroy() {
+        this._onDestroy.next();
+    }
 
 }

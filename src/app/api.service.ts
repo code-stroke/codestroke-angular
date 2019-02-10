@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject, merge, ReplaySubject } from 'rxjs';
+import { merge, ReplaySubject } from 'rxjs';
 import { tap, shareReplay } from 'rxjs/operators';
-import { AuthService } from './auth.service';
+import { environment } from '../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
-    private server_url : string = "https://codefactor.pythonanywhere.com"
+    private server_url : string = environment.server_url;
     private httpHeader = new HttpHeaders({
-        "Authorization": "Basic " + btoa("test_user:password")
+        "Authorization": "Basic " + btoa("placeholder")
     });
 
     responseStream = new ReplaySubject<any>(1);

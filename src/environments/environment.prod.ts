@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  server_url: "https://codefactor.pythonanywhere.com",
+  default_user: ""
 };
