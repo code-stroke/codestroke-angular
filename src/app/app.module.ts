@@ -6,17 +6,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-
 import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './main-layout.component';
 import { LoginLayoutComponent } from './login-layout.component';
 import { CasesModule } from './cases/cases.module';
 import { HeaderComponent } from './header.component';
 import { APP_ROUTES } from './app.routes';
-
-
-
-
+import { ClickElsewhereDirective } from './util/click-elsewhere.directive';
 
 @NgModule({
     imports: [
@@ -32,7 +28,8 @@ import { APP_ROUTES } from './app.routes';
         AppComponent,
         MainLayoutComponent,
         LoginLayoutComponent,
-        HeaderComponent
+        HeaderComponent,
+        ClickElsewhereDirective
     ],
     providers: [],
     bootstrap: [AppComponent]

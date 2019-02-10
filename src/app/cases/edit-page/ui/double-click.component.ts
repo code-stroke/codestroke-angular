@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Component, OnInit, HostListener, Input, ElementRef } from '@angular/core';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
@@ -66,17 +66,31 @@ export class DoubleClickComponent implements OnInit {
     down = "start";
     green = "inactive";
 
-    constructor() { }
+    constructor(private elementRef : ElementRef) { }
 
     ngOnInit() {
     }
 
+    // When button is clicked either:
+    // 1. Change state from Inactive to active
+    // 2. Execute function
     @HostListener('click') onClick() {
         if (this.active == "inactive") {
             this.active = "active";
         } else {
             this.green = "active";
             this.func();
+        }
+    }
+
+    // Reset the button to original state when you click out
+    @HostListener('document:click', ['$event'])
+    onClickOut(event : MouseEvent) {
+        const targetElement = event.target as HTMLElement
+
+        if (targetElement && !this.elementRef.nativeElement.contains(targetElement)) {
+            this.active = "inactive";
+            this.down = "start";
         }
     }
 

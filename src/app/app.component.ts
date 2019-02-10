@@ -1,47 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faBellSlash } from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
-import { HeaderService } from './header.service';
+import { LoadingService } from './loading.service';
+import { NotifService } from './notif.service';
+
 
 @Component({
     selector: 'cs-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    styleUrls: ['./app.component.scss'],
+    animations: [
+
+        trigger(
+            'notif',
+            [
+                transition(
+                    ':enter', [
+                        style({transform: 'translateY(100%)', opacity: 0}),
+                        animate('0.2s', style({transform: 'translateY(0)', 'opacity': 1}))
+                    ]
+                ),
+                transition(
+                    ':leave', [
+                        style({transform: 'translateY(0)', 'opacity': 1}),
+                        animate('0.2s', style({transform: 'translateY(100%)', 'opacity': 0}))
+                    ]
+                )
+            ]
+        )
+
+    ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     icon_bars = faBars;
     icon_bell_slash = faBellSlash;
     icon_signout = faSignOutAlt;
 
-    loading : boolean = false;
-
-    constructor(private router: Router, private hs : HeaderService) {
-        this.router.events.subscribe((event: RouterEvent) => {
-            this.interceptNav(event)
-        })
-    }
-
-    interceptNav(event) {
-        if (event instanceof NavigationStart) {
-            this.loading = true
-            this.hs.hideMenu();
-        }
-        if (event instanceof NavigationEnd) {
-            this.loading = false
-        }
-
-        // Set loading state to false in both of the below events to hide the spinner in case a request fails
-        if (event instanceof NavigationCancel) {
-          this.loading = false
-        }
-        if (event instanceof NavigationError) {
-          this.loading = false
-        }
-    }
+    constructor(private loading : LoadingService, private notifService : NotifService) { }
 
     ngOnInit() {
 // CHANGE THE SCOPE UNDER PARAM AND PATH WHEN HOSTING ON HOSPITAL SERVER

@@ -5,6 +5,8 @@ import { Subject } from 'rxjs';
 import { debounce, debounceTime, takeUntil } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
+import { LoadingService } from './loading.service';
+import { NotifService } from './notif.service';
 
 @Component({
     selector: 'cs-login-layout',
@@ -20,7 +22,8 @@ export class LoginLayoutComponent implements OnInit, OnDestroy {
     onSubmit = new Subject<any>();
 
     constructor(private auth : AuthService, private router : Router,
-                private fb : FormBuilder) {
+                private fb : FormBuilder, private loading : LoadingService,
+                private notifService : NotifService) {
 
         // All submits (clicks, pressing enters) are observed here
         this.onSubmit.pipe(
@@ -42,9 +45,21 @@ export class LoginLayoutComponent implements OnInit, OnDestroy {
         let user = this.loginForm.get("username").value;
         let pass = this.loginForm.get("password").value;
 
+        this.loading.showLoading();
         this.auth.authenticate(user, pass).subscribe(val => {
+            this.loading.hideLoading();
             if (val) {
+                let state = this.auth.loginState.value;
+                this.notifService.addNotif({
+                    type: "success",
+                    html: `Welcome Back, ${state["signoff_first_name"]} ${state["signoff_last_name"]}`
+                })
                 this.router.navigate([""]);
+            } else {
+                this.notifService.addNotif({
+                    type: "error",
+                    html: `Incorrect login details` 
+                })
             }
         });
     }

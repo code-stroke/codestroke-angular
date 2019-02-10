@@ -27,4 +27,8 @@ export class HeaderService {
     public subscribeToMenu() {
         return this.menuStatus.asObservable();
     }
+
+    public getMenuStatus() {
+        return this.menuStatus.value;
+    }
 }

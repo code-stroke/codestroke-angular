@@ -1,4 +1,4 @@
-<nav id="js-menu" class="global-menu" [class.active]="active | async">
+<nav id="js-menu" class="global-menu" [class.active]="active | async" (clickElsewhere)="onClickOut()">
     <div id="js-menu-close" class="global-menu-close" (click)="onClick()">
         <fa-icon [icon]="icon_times"></fa-icon>
     </div>

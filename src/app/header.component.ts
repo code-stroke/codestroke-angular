@@ -69,6 +69,15 @@ export class HeaderComponent implements OnInit {
 
     onClick() {
         this.hs.toggleMenu();
+        
+        // Stops the onClickOut() method being called
+        event.stopPropagation();
+    }
+
+    onClickOut() {
+        if (this.hs.getMenuStatus()) {
+            this.hs.hideMenu();
+        }
     }
 
     onMenuClick(option : string) {
@@ -82,6 +91,7 @@ export class HeaderComponent implements OnInit {
             case "logout":
                 this.auth.loginState.next(false);
                 this.router.navigate([`/login`]);
+                break;
             default:
                 this.notifs.addNotif({
                     type: "error",

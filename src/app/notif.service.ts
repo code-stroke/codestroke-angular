@@ -13,8 +13,11 @@ export class NotifService {
     deleteQueue = new Subject();
     triggerDeleteQueue = new Subject();
 
+    notifs = [];
+
     constructor() {
-        this.addQueue.subscribe(val => {
+        this.addQueue.subscribe(notif => {
+            this.notifs.push(notif);
             this.triggerDeleteQueue.next(true);
         });
 
@@ -23,18 +26,40 @@ export class NotifService {
         ).subscribe(val => {
             this.deleteQueue.next(true);
         });
+
+        this.deleteQueue.subscribe(val => {
+            // If we are deleting a certain Notif with a specific ID
+            if (typeof val === 'string') {
+                let index = false;
+                for (let i = 0; i < this.notifs.length; i++) {
+                    if (this.notifs[i].id == val) {
+                        this.notifs.splice(i, 1);
+                        break;
+                    }
+                }
+
+            // Else we are just deleting the most recent Notif
+            } else {
+                this.notifs.pop();
+            }
+
+            if (this.notifs.length > 0) {
+                this.triggerDelete();
+            }
+
+        });
     }
 
-    addNotif(notif : Notif) {
+    public addNotif(notif : Notif) {
         notif.id = Guid.newGuid();
         this.addQueue.next(notif);
     }
 
-    deleteNotif(id : string) {
-        this.deleteQueue.next(true);
+    public deleteNotif(id : string) {
+        this.deleteQueue.next(id);
     }
 
-    triggerDelete() {
+    private triggerDelete() {
         this.triggerDeleteQueue.next(true);
     }
 }
