@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { AbstractCaseComponent } from '../abstract-case';
 import { CaseDetails } from '../../case-details';
 import { EditStatusService } from '../edit-status.service';
-import { BackendCaseService } from '../../backend-case.service';
-import { NotifService } from '../../../notif.service';
-import { PopupService } from '../popup.service';
 
 @Component({
   selector: 'cs-case-details',
@@ -47,6 +44,32 @@ export class CaseDetailsComponent extends AbstractCaseComponent implements OnIni
     }
 
     getBackendTable() { return CaseDetailsComponent.backendTable}
+
+    onStatus = () => {
+        let statusData = {
+            status: "active"
+        };
+        let time = new Date();
+
+        this.backendService.updateCase(this.case_id, this.getBackendTable(), statusData)
+        .subscribe(
+            () => {
+                this.notifService.addNotif({
+                    type: "success",
+                    html: `Succesfully marked this case as Active.`
+                });
+                this.case.status = "active";
+                this.statusService.status.next(this.case.status);
+                this.statusService.statusTime.next(time);
+            },
+            () => {
+                this.notifService.addNotif({
+                    type: "error",
+                    html: `Error marking case as Active.`
+                });
+            }
+        );
+    }
 
     onSave = () => {
         // When the Case is saved, update the Status at the top with the new details

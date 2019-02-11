@@ -31,6 +31,17 @@
         <label>Last Well</label>
         <cs-date-time formControlName="last_well"></cs-date-time>
     </div>
+    <article class="group" *ngIf="this.case.status == 'incoming'">
+        <header>
+            Patient Status
+        </header>
+        <div class="details-row">
+            <label>Patient arrived?</label>
+            <button>Click to manually set patient's status to Active
+                <cs-double-click [func]="onStatus"></cs-double-click>
+            </button>
+        </div>
+    </article>
 
     <div class="details-row options">
         <label></label>
