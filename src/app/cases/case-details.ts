@@ -23,10 +23,14 @@ export class CaseDetails {
         return Object.assign(new CaseDetails(), obj);
     }
 
-
+    // TODO: Cleaner/smarter way of doing this?
     getName() {
         if (this.first_name && this.last_name) {
             return `${this.first_name} ${this.last_name}`;
+        } else if (this.first_name) {
+            return `${this.first_name}`;
+        } else if (this.last_name) {
+            return `${this.last_name}`;
         } else {
             return '';
         }

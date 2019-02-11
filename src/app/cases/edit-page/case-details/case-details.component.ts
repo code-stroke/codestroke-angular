@@ -25,12 +25,8 @@ export class CaseDetailsComponent extends AbstractCaseComponent implements OnIni
 
     constructor(private fb : FormBuilder,
                 private ar: ActivatedRoute,
-                private statusService : EditStatusService,
-                private bs : BackendCaseService,
-                private router : Router,
-                private ns : NotifService,
-                private ps : PopupService) {
-        super();
+                private statusService : EditStatusService) {
+        super(ar);
 
         this.form = this.fb.group({
             first_name: [''],
@@ -42,11 +38,6 @@ export class CaseDetailsComponent extends AbstractCaseComponent implements OnIni
             nok_phone: [''],
             last_well: ['']
         });
-
-        this.route = ar;
-        this.backendService = bs;
-        this.notifService = ns;
-        this.ps = ps;
     }
 
     ngOnInit() {
@@ -55,9 +46,11 @@ export class CaseDetailsComponent extends AbstractCaseComponent implements OnIni
         this.updateStatus();
     }
 
+    getBackendTable() { return CaseDetailsComponent.backendTable}
+
     onSave = () => {
         // When the Case is saved, update the Status at the top with the new details
-        this.save(CaseDetailsComponent.backendTable).subscribe(
+        this.save().subscribe(
             () => {
                 this.updateStatus();
             }

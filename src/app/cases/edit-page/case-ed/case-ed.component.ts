@@ -17,13 +17,8 @@ export class CaseEdComponent extends AbstractCaseComponent implements OnInit {
     static backendTable = "case_eds";
 
     constructor(private fb : FormBuilder,
-                private ar: ActivatedRoute,
-                private statusService : EditStatusService,
-                private bs : BackendCaseService,
-                private router : Router,
-                private ns : NotifService,
-                private ps : PopupService) {
-        super();
+                private ar: ActivatedRoute) {
+        super(ar);
 
         this.form = this.fb.group({
             location: [''],
@@ -31,18 +26,15 @@ export class CaseEdComponent extends AbstractCaseComponent implements OnInit {
             triaged: [0],
             primary_survey: [0]
         });
-
-        this.route = ar;
-        this.backendService = bs;
-        this.notifService = ns;
-        this.ps = ps;
     }
 
     ngOnInit() {
         super.ngOnInit();
     }
 
+    getBackendTable() { return CaseEdComponent.backendTable}
+
     onSave = () => {
-        this.save(CaseEdComponent.backendTable);
+        this.save();
     }
 }

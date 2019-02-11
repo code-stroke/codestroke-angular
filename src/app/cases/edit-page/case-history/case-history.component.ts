@@ -23,13 +23,8 @@ export class CaseHistoryComponent extends AbstractCaseComponent implements OnIni
     ];
 
     constructor(private fb : FormBuilder,
-                private ar: ActivatedRoute,
-                private statusService : EditStatusService,
-                private bs : BackendCaseService,
-                private router : Router,
-                private ns : NotifService,
-                private ps : PopupService) {
-        super();
+                private ar: ActivatedRoute) {
+        super(ar);
 
         this.form = this.fb.group({
             pmhx: [''],
@@ -41,18 +36,15 @@ export class CaseHistoryComponent extends AbstractCaseComponent implements OnIni
             last_meal: [''],
             test: ['']
         });
-
-        this.route = ar;
-        this.backendService = bs;
-        this.notifService = ns;
-        this.ps = ps;
     }
 
     ngOnInit() {
         super.ngOnInit();
     }
 
+    getBackendTable() { return CaseHistoryComponent.backendTable}
+
     onSave = () => {
-        this.save(CaseHistoryComponent.backendTable);
+        this.save();
     }
 }

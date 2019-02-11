@@ -1,20 +1,33 @@
 import { FormGroup, Validators, ValidatorFn, AbstractControl } from "@angular/forms";
-import { BackendCaseService } from "../backend-case.service";
 import { OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { Observable, Subject } from "rxjs";
+
+import { ServiceLocator } from "src/app/util/service-locator";
+
+import { BackendCaseService } from "../backend-case.service";
 import { PopupService } from "./popup.service";
 import { NotifService } from "../../notif.service";
+import { LoadingService } from "../../loading.service";
+
+
 
 export class AbstractCaseComponent implements OnInit {
     static backendTable : string;
 
-    form : FormGroup;
-    backendService : BackendCaseService;
     route: ActivatedRoute;
     case_id : number;
     case : any;
-    notifService : NotifService;
-    popupService : PopupService;
+    form : FormGroup;
+
+    backendService : BackendCaseService = ServiceLocator.get(BackendCaseService);
+    notifService : NotifService = ServiceLocator.get(NotifService);
+    popupService : PopupService = ServiceLocator.get(PopupService);
+    loadingService : LoadingService = ServiceLocator.get(LoadingService);
+
+    constructor (r : ActivatedRoute) {
+        this.route = r;
+    }
 
     ngOnInit() {
         this.route.data
@@ -37,7 +50,10 @@ export class AbstractCaseComponent implements OnInit {
         }
     }
 
-    public save = (table : string) => {
+    public getBackendTable() : string {return null}
+
+    public save = () => {
+        let table = this.getBackendTable()
         let response = this.backendService.updateCase(this.case_id, table, this.form.getRawValue());
         response.subscribe((data) => {
             this.case = this.form.getRawValue();
@@ -73,6 +89,53 @@ export class AbstractCaseComponent implements OnInit {
             type: "success",
             html: "All recent changes have been reset."
         });
+    }
+
+    public canDeactivate() : Observable<boolean> | boolean {
+        // If there have been no changes, then can change page
+        if (this.form.valid) {
+            return true;
+        }
+
+        // If there have been changes, need to confirm the move
+        let result = new Subject<boolean>();
+        this.loadingService.hideLoading();
+        this.popupService.popup.next({
+            html: `You have unsaved changes on this page which will be lost if you navigate away.
+                    Are you sure you want to continue?`,
+            buttons: [
+                {
+                    class: "primary",
+                    text: "Discard Changes",
+                    click: () => {
+                        this.onReset();
+                        result.next(true);
+                    }
+                },
+                {
+                    class: "secondary",
+                    text: "Save Changes",
+                    click: () => {
+                        this["onSave"]();
+                        result.next(true);
+                        /*this.save().subscribe(() => {
+                            result.next(true);
+                        },
+                        () => {
+                            result.next(false);
+                        });*/
+                    }
+                },
+                {
+                    class: "tertiary",
+                    text: "Cancel",
+                    click: () => {
+                        result.next(false);
+                    }
+                }
+            ]
+        });
+        return result;
     }
 }
 

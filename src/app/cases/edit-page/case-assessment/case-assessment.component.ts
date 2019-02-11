@@ -125,13 +125,8 @@ export class CaseAssessmentComponent extends AbstractCaseComponent implements On
     ]
 
     constructor(private fb : FormBuilder,
-                private ar: ActivatedRoute,
-                private statusService : EditStatusService,
-                private bs : BackendCaseService,
-                private router : Router,
-                private ns : NotifService,
-                private ps : PopupService) {
-        super();
+                private ar: ActivatedRoute) {
+        super(ar);
 
         this.form = this.fb.group({
             facial_droop: [,Validators.pattern('(no|yes|unknown)')],
@@ -171,11 +166,6 @@ export class CaseAssessmentComponent extends AbstractCaseComponent implements On
             rankin_conscious: [null],
             likely_lvo: []
         });
-
-        this.route = ar;
-        this.backendService = bs;
-        this.notifService = ns;
-        this.ps = ps;
     }
 
     ngOnInit() {
@@ -255,7 +245,9 @@ export class CaseAssessmentComponent extends AbstractCaseComponent implements On
         this.form.get("likely_lvo").setValue(1);
     }
 
+    getBackendTable() { return CaseAssessmentComponent.backendTable}
+
     onSave = () => {
-        this.save(CaseAssessmentComponent.backendTable);
+        this.save();
     }
 }

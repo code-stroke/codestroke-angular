@@ -23,13 +23,8 @@ export class CaseRadiologyComponent extends AbstractCaseComponent implements OnI
     ];
 
     constructor(private fb : FormBuilder,
-                private ar: ActivatedRoute,
-                private statusService : EditStatusService,
-                private bs : BackendCaseService,
-                private router : Router,
-                private ns : NotifService,
-                private ps : PopupService) {
-        super();
+                private ar: ActivatedRoute) {
+        super(ar);
 
         this.form = this.fb.group({
           ct_available: [null],
@@ -41,11 +36,6 @@ export class CaseRadiologyComponent extends AbstractCaseComponent implements OnI
           cta_ctp_complete: [null],
           large_vessel_occlusion: [null]
         });
-
-        this.route = ar;
-        this.backendService = bs;
-        this.notifService = ns;
-        this.ps = ps;
     }
 
     ngOnInit() {
@@ -81,7 +71,9 @@ export class CaseRadiologyComponent extends AbstractCaseComponent implements OnI
         } else {return;}
     }
 
+    getBackendTable() { return CaseRadiologyComponent.backendTable}
+
     onSave = () => {
-        this.save(CaseRadiologyComponent.backendTable);
+        this.save();
     }
 }

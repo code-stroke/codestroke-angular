@@ -1,12 +1,9 @@
 import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { AbstractCaseComponent } from '../abstract-case';
 import { EditStatusService } from '../edit-status.service';
-import { BackendCaseService } from '../../backend-case.service';
-import { NotifService } from '../../../notif.service';
-import { PopupService } from '../popup.service';
 import { CaseDetailsComponent } from '../case-details/case-details.component';
 import { formatDate } from '@angular/common';
 import { CaseDetails } from '../../case-details';
@@ -33,12 +30,8 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
     constructor(private fb : FormBuilder,
                 private ar: ActivatedRoute,
                 public statusService : EditStatusService,
-                private bs : BackendCaseService,
-                private router : Router,
-                private ns : NotifService,
-                private ps : PopupService,
                 @Inject(LOCALE_ID) private locale: string) {
-        super();
+        super(ar);
 
         this.form = this.fb.group({
               thrombolysis: [null],
@@ -71,11 +64,6 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
 
 
           });
-
-          this.route = ar;
-          this.backendService = bs;
-          this.notifService = ns;
-          this.popupService = ps;
       }
 
       ngOnInit() {
@@ -131,8 +119,10 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
           }
       }
 
+      getBackendTable() { return CaseManagementComponent.backendTable}
+
       onSave = () => {
-          this.save(CaseManagementComponent.backendTable);
+          this.save();
       }
 
       onThromb = () => {
@@ -141,8 +131,6 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
       }
 
       onComplete() {
-          console.log(this.statusService.status.value);
-          let instance = this;
           this.popupService.popup.next({
               html: `Are you sure you want to mark the case as completed?
                     The current time of completion will be recorded and in future versions, this will lock all data from future editing.`,
@@ -150,16 +138,16 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
                   {
                       class: "primary",
                       text: "Complete",
-                      click: function() {
-                          instance.save(CaseManagementComponent.backendTable).subscribe(
-                              () => instance.completeCase()
+                      click: () => {
+                          this.save().subscribe(
+                              () => this.completeCase()
                           );
                       }
                   },
                   {
                       class: "tertiary",
                       text: "Cancel",
-                      click: function() {
+                      click: () => {
                           //TODO
                       }
                   }

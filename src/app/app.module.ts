@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ import { CasesModule } from './cases/cases.module';
 import { HeaderComponent } from './header.component';
 import { APP_ROUTES } from './app.routes';
 import { ClickElsewhereDirective } from './util/click-elsewhere.directive';
+import { setServiceLocator } from './util/service-locator';
 
 @NgModule({
     imports: [
@@ -34,4 +35,8 @@ import { ClickElsewhereDirective } from './util/click-elsewhere.directive';
     providers: [],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+    constructor (injector : Injector) {
+        setServiceLocator(injector);
+    }
+}
