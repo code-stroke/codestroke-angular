@@ -8,6 +8,8 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from './loading.service';
 import { NotifService } from './notif.service';
 
+import { environment } from 'src/environments/environment';
+
 
 @Component({
     selector: 'cs-root',
@@ -43,39 +45,33 @@ export class AppComponent implements OnInit {
     constructor(private loading : LoadingService, private notifService : NotifService) { }
 
     ngOnInit() {
-// CHANGE THE SCOPE UNDER PARAM AND PATH WHEN HOSTING ON HOSPITAL SERVER
-            var OneSignal = window['OneSignal'] || [];
-            OneSignal.SERVICE_WORKER_PARAM = { scope: '/codestroke-angular/' };
-            console.log("scope set");
-            OneSignal.push(["init", {
-              appId: "968844fa-98a8-4c65-9c5f-9e26c66410d4",
-              autoRegister: true,
-              allowLocalhostAsSecureOrigin: true,
-              notifyButton: {
-                enable: false,
-              },
-              path: '/codestroke-angular/',
-            }]);
-            if ('serviceWorker' in navigator && 'PushManager' in window) {
-                console.log('Service Worker and Push is supported')
-            } else{
-                console.warn('Push messaging is not supported');
-            }
-            console.log('OneSignal Initialized');
-            OneSignal.push(function () {
-              console.log('Register For Push');
-              OneSignal.push(["registerForPushNotifications"])
-            });
-            OneSignal.push(function () {
-              // Occurs when the user's subscription changes to a new value.
-              OneSignal.on('subscriptionChange', function (isSubscribed) {
+        // CHANGE THE SCOPE UNDER PARAM AND PATH WHEN HOSTING ON HOSPITAL SERVER
+        var OneSignal = window['OneSignal'] || [];
+        //OneSignal.SERVICE_WORKER_PARAM = { scope: '/codestroke-angular/' };
+        console.log("scope set");
+
+        OneSignal.push(["init", environment.onesignal_init]);
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
+            console.log('Service Worker and Push is supported')
+        } else{
+            console.warn('Push messaging is not supported');
+        }
+        console.log('OneSignal Initialized');
+
+        OneSignal.push(function () {
+            console.log('Register For Push');
+            OneSignal.push(["registerForPushNotifications"])
+        });
+        OneSignal.push(function () {
+            // Occurs when the user's subscription changes to a new value.
+            OneSignal.on('subscriptionChange', function (isSubscribed) {
                 console.log("The user's subscription state is now:", isSubscribed);
                 OneSignal.getUserId().then(function (userId) {
-                  console.log("User ID is", userId);
+                    console.log("User ID is", userId);
                 });
-              });
             });
+        });
 
 
-        }
+    }
 }
