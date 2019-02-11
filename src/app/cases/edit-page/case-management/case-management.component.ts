@@ -136,7 +136,7 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
       }
 
       onThromb = () => {
-          this.form.get("thrombolysis_time_given").setValue(new Date());
+          this.form.get("thrombolysis_time_given").setValue(formatDate(new Date(), "yyyy-MM-dd HH:mm", this.locale));
 
       }
 

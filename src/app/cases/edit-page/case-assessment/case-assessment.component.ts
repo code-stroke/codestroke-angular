@@ -134,7 +134,7 @@ export class CaseAssessmentComponent extends AbstractCaseComponent implements On
         super();
 
         this.form = this.fb.group({
-            facial_droop: ['',Validators.pattern('(no|yes|unknown)')],
+            facial_droop: [,Validators.pattern('(no|yes|unknown)')],
             arm_drift: ['',Validators.pattern('(no|yes|unknown)')],
             weak_grip: ['',Validators.pattern('(no|yes|unknown)')],
             speech_difficulty: ['',Validators.pattern('(no|yes|unknown)')],
@@ -167,9 +167,9 @@ export class CaseAssessmentComponent extends AbstractCaseComponent implements On
             sensation: [''],
             aphasia: [''],
             dysarthria: [''],
-            neglect: [''],
-            rankin_conscious: [''],
-            likely_lvo: ['']
+            neglect: [null],
+            rankin_conscious: [null],
+            likely_lvo: []
         });
 
         this.route = ar;
@@ -210,6 +210,9 @@ export class CaseAssessmentComponent extends AbstractCaseComponent implements On
                             type: "error",
                             html: `Error notifying angiography staff about potential LVO`
                         });
+
+                        // Resets the value on error
+                        this.form.get('likely_lvo').setValue(0);
                     }
                 );
             }

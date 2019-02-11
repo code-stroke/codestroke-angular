@@ -1,6 +1,10 @@
 @import 'variables';
 @import 'mixins';
 
+:host(.ng-invalid) > div {
+    border-color: $colour-ng-invalid;
+}
+
 div {
     margin-left: 0;
     @include for-tablet-portrait-up {

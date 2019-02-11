@@ -26,8 +26,8 @@
     align-items: center;
 }
 
-:host(.invalid) {
-    border-color: red;
+:host(.invalid.invalid.invalid) {
+    border-color: red !important;
 }
 
 input {
