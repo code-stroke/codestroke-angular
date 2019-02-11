@@ -42,6 +42,13 @@ export class ListContainerComponent implements OnInit {
                 }
                 break;
             case "completed":
+                // First removes any dates that are *more than 24 hours old*
+                // Threshold is in milliseconds - Currently set to {1 hour}
+                let threshold = Date.now() - (24 * 60 * 60 * 1000)
+                this._cases = this._cases.filter(c => {
+                    return new Date(c.completed_timestamp).getTime() > threshold;
+                });
+
                 // Orders by the latest completion time (ie. most recently completed)
                 // If a time is null, it should go to the bottom
                 sortFn = (a,b) => {
