@@ -104,9 +104,9 @@
         </div>
         <div class="manage-row" *ngIf="!form.get('thrombolysis_time_given').value">
             <label></label>
-            <button>Click when Thrombolysis has been delivered
+            <div class="button">Click when Thrombolysis has been delivered
                 <cs-double-click [func]="onThromb"></cs-double-click>
-            </button>
+            </div>
         </div>
         <div class="manage-row" *ngIf="form.get('thrombolysis_time_given').value">
             <label>Time given</label>
@@ -127,16 +127,16 @@
     </div>
     <div class="manage-row" *ngIf="statusService.status.value != 'completed'">
         <label>Mark Complete</label>
-        <button class="complete" (click)="onComplete()">Mark Case as Completed</button>
+        <button class="complete button" (click)="onComplete()">Mark Case as Completed</button>
     </div>
 
     <div class="manage-row options">
         <label></label>
-        <button>SAVE
+        <div class="button">SAVE
             <cs-double-click [func]="onSave"></cs-double-click>
-        </button>
-        <button>RESET
+        </div>
+        <div class="button">RESET
             <cs-double-click [func]="onReset"></cs-double-click>
-        </button>
+        </div>
     </div>
 </form>

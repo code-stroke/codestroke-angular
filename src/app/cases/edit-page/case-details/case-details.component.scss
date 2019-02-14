@@ -19,7 +19,9 @@ form {
         @include case-row-options;
     }
 
-    button {
+    .button {
+        @include flex-center;
+
         position: relative;
 
         border: 2px solid #D8D8D8;

@@ -107,7 +107,9 @@
         }
     }
 
-    button {
+    .button {
+        @include flex-center;
+
         position: relative;
 
         margin-bottom: 0.5rem;

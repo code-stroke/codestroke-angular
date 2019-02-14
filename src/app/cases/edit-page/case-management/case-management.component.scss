@@ -19,7 +19,9 @@ form {
         @include case-row-options;
     }
 
-    button {
+    .button {
+        @include flex-center;
+
         position: relative;
 
         border: 2px solid #D8D8D8;
@@ -39,7 +41,7 @@ form {
             margin-left: 2rem;
         }
 
-        .comnplete {
+        .complete {
             @include for-tablet-portrait-up {
                 margin-top: 1.5rem;
             }
