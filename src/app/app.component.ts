@@ -22,14 +22,14 @@ import { environment } from 'src/environments/environment';
             [
                 transition(
                     ':enter', [
-                        style({transform: 'translateY(100%)', opacity: 0}),
-                        animate('0.2s', style({transform: 'translateY(0)', 'opacity': 1}))
+                        style({transform: 'translateY(20%)', opacity: 0}),
+                        animate('0.3s', style({transform: 'translateY(0)', 'opacity': 1}))
                     ]
                 ),
                 transition(
                     ':leave', [
                         style({transform: 'translateY(0)', 'opacity': 1}),
-                        animate('0.2s', style({transform: 'translateY(100%)', 'opacity': 0}))
+                        animate('0.3s', style({transform: 'translateY(20%)', 'opacity': 0}))
                     ]
                 )
             ]
@@ -50,7 +50,20 @@ export class AppComponent implements OnInit {
         //OneSignal.SERVICE_WORKER_PARAM = { scope: '/codestroke-angular/' };
         console.log("scope set");
 
-        OneSignal.push(["init", environment.onesignal_init]);
+        OneSignal.push(() => {
+            OneSignal.init(environment.onesignal_init);
+        });
+        if (Notification["permission"] === "granted") {
+            // Automatically subscribe user if deleted cookies and browser shows "Allow"
+            OneSignal.getUserId().then(function(userId) {
+                if (!userId) {
+                  OneSignal.registerForPushNotifications();
+                }
+            });
+        } else {
+            OneSignal.showHttpPrompt();
+        }
+
         if ('serviceWorker' in navigator && 'PushManager' in window) {
             console.log('Service Worker and Push is supported')
         } else{
@@ -60,7 +73,8 @@ export class AppComponent implements OnInit {
 
         OneSignal.push(function () {
             console.log('Register For Push');
-            OneSignal.push(["registerForPushNotifications"])
+            OneSignal.registerForPushNotifications();
+            OneSignal.push(["registerForPushNotifications"]);
         });
         OneSignal.push(function () {
             // Occurs when the user's subscription changes to a new value.

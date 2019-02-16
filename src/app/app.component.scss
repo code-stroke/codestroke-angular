@@ -77,10 +77,12 @@
     left: 0;
     right: 0;
 
-    height: 5rem;
+    //height: 5rem;
 
     background: transparent;
     pointer-events: none;
+
+	overflow-y: visible;
 
     &.active {
         box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.3);
@@ -88,8 +90,18 @@
 }
 
 .notif {
-    position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
+    margin: auto;
+	margin-bottom: 1rem;
+    min-height: 5rem;
+	@include for-phone-only {
+	  width: 80%;
+	}
+	@include for-tablet-portrait-up {
+		width: 95%;
+	}
+	@include for-desktop-up {
+		width: 1000px;
+	}
 
     @include pad-hor(4vw);
 
@@ -105,16 +117,16 @@
 
     &.success {
         background: lighten(#28a745, 20);
-        border-top: 1px solid lighten(#28a745, 5);
+        border: 1px solid lighten(#28a745, 5);
 
     }
     &.warning {
         background: lighten(#ffc107, 20);
-        border-top: 1px solid lighten(#ffc107, 5);
+        border: 1px solid lighten(#ffc107, 5);
     }
     &.error {
         background: lighten(#dc3545, 20);
-        border-top: 1px solid lighten(#dc3545, 5);
+        border: 1px solid lighten(#dc3545, 5);
     }
 }
 
