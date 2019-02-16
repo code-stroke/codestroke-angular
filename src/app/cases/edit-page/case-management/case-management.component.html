@@ -125,7 +125,7 @@
         <label>Conservative Mx</label>
         <cs-toggle [name]="'conservative_rx'" [options]="radioYN" formControlName="conservative_rx"></cs-toggle>
     </div>
-    <div class="manage-row" *ngIf="statusService.status.value != 'completed'">
+    <div class="manage-row complete" *ngIf="statusService.status.value != 'completed'">
         <label>Mark Complete</label>
         <button class="complete button" (click)="onComplete()">Mark Case as Completed</button>
     </div>

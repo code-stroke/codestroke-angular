@@ -93,6 +93,29 @@
 
         @include pad-vert(0.6rem);
     }
+
+    .button {
+        @include flex-center;
+
+        position: relative;
+
+        border: 2px solid #D8D8D8;
+
+        min-height: 3.5rem;
+        min-width: 95%;
+        max-width: 500px;
+        @include for-tablet-portrait-up {
+            min-width: unset;
+            width: 500px;
+        }
+        flex-shrink: 0;
+
+        @include pad-hor(1rem);
+
+        @include for-tablet-portrait-up {
+            margin-left: 2rem;
+        }
+    }
 }
 
 @mixin case-row-options {
@@ -125,6 +148,8 @@
         @include for-tablet-portrait-up {
             margin-left: 2rem;
         }
+
+        cursor: pointer;
     }
 }
 
