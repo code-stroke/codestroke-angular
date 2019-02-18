@@ -1,5 +1,5 @@
 <nav id="js-menu" class="global-menu" [class.active]="active | async" (clickElsewhere)="onClickOut()">
-    <div id="js-menu-close" class="global-menu-close" (click)="onClick()">
+    <div id="js-menu-close" class="global-menu-close" (click)="onClick($event)">
         <fa-icon [icon]="icon_times"></fa-icon>
     </div>
     <!-- <div class="list-menu-welcome">
@@ -24,18 +24,21 @@
     </button>
 </nav>
 
-<button id="js-menu-open" class="global-header-menu headeritem" (click)="onClick()">
+<button id="js-menu-open" class="global-header-menu" (click)="onClick($event)">
     <fa-icon [icon]="icon_bars"></fa-icon>
 </button>
 <article class="global-header-logo" [routerLink]="''">
     <img src="assets/logo-white.png"/>
     <strong>CODE</strong> STROKE
 </article>
-<nav class="global-header-options headeritem">
-    <div class="notif-toggle" (click)="pushNotifActive=!pushNotifActive; pushnotifClick()">
-    <!-- <div class="notif-toggle" (click)="pushnotifClick()"> -->
-        <fa-icon *ngIf="!pushNotifActive" [icon]="icon_bell_slash" style="color: red;"></fa-icon>
-        <fa-icon *ngIf="pushNotifActive" [icon]="icon_bell" style="color: white;"></fa-icon>
-    </div>
-    <!-- <fa-icon [icon]="icon_signout"></fa-icon> -->
+<nav class="global-header-options"
+(click)="onBellClick($event)"
+[ngClass]="{
+    'opted_in': os.bellState.value == 'Opted In',
+    'opted_out': os.bellState.value == 'Opted Out',
+    'disabled': os.bellState.value == 'Disabled'
+}">
+    <fa-icon *ngIf="os.bellState.value == 'Opted In'" [icon]="icon_bell"></fa-icon>
+    <fa-icon *ngIf="os.bellState.value != 'Opted In'" [icon]="icon_bell_empty"></fa-icon>
+    <span>{{os.bellState | async}}</span>
 </nav>

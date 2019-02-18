@@ -3,12 +3,13 @@ export const environment = {
     server_url: "https://codefactor.pythonanywhere.com",
     default_user: "",
     onesignal_init: {
-        appId: "968844fa-98a8-4c65-9c5f-9e26c66410d4",
+        appId: "8805e48a-f3e3-4d26-9ce4-0288165c7a72",
         autoRegister: true,
         allowLocalhostAsSecureOrigin: true,
         notifyButton: {
           enable: false,
         },
         path: '/codestroke-angular/'
-    }
+    },
+    onesignal_service_worker_param: '/codestroke-angular/',
 };

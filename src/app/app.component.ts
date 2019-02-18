@@ -7,8 +7,10 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { LoadingService } from './loading.service';
 import { NotifService } from './notif.service';
+import { OneSignalService } from './one-signal.service';
 
 import { environment } from 'src/environments/environment';
+
 
 
 @Component({
@@ -42,50 +44,10 @@ export class AppComponent implements OnInit {
     icon_bell_slash = faBellSlash;
     icon_signout = faSignOutAlt;
 
-    constructor(private loading : LoadingService, private notifService : NotifService) { }
+    constructor(private loading : LoadingService,
+                private notifService : NotifService,
+                private oneSignal : OneSignalService) { }
 
     ngOnInit() {
-        // CHANGE THE SCOPE UNDER PARAM AND PATH WHEN HOSTING ON HOSPITAL SERVER
-        var OneSignal = window['OneSignal'] || [];
-        //OneSignal.SERVICE_WORKER_PARAM = { scope: '/codestroke-angular/' };
-        console.log("scope set");
-
-        OneSignal.push(() => {
-            OneSignal.init(environment.onesignal_init);
-        });
-        if (Notification["permission"] === "granted") {
-            // Automatically subscribe user if deleted cookies and browser shows "Allow"
-            OneSignal.getUserId().then(function(userId) {
-                if (!userId) {
-                  OneSignal.registerForPushNotifications();
-                }
-            });
-        } else {
-            OneSignal.showHttpPrompt();
-        }
-
-        if ('serviceWorker' in navigator && 'PushManager' in window) {
-            console.log('Service Worker and Push is supported')
-        } else{
-            console.warn('Push messaging is not supported');
-        }
-        console.log('OneSignal Initialized');
-
-        OneSignal.push(function () {
-            console.log('Register For Push');
-            OneSignal.registerForPushNotifications();
-            OneSignal.push(["registerForPushNotifications"]);
-        });
-        OneSignal.push(function () {
-            // Occurs when the user's subscription changes to a new value.
-            OneSignal.on('subscriptionChange', function (isSubscribed) {
-                console.log("The user's subscription state is now:", isSubscribed);
-                OneSignal.getUserId().then(function (userId) {
-                    console.log("User ID is", userId);
-                });
-            });
-        });
-
-
     }
 }

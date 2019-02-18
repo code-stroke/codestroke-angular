@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { faBars, faBell, faBellSlash, faSignOutAlt, faPlus, faHome, faListAlt, faCog, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faSignOutAlt, faPlus, faHome, faListAlt, faCog, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBell as faBellEmpty} from '@fortawesome/free-regular-svg-icons';
 
 
 import { HeaderService } from './header.service';
 import { NotifService } from './notif.service';
 import { AuthService } from './auth.service';
+import { OneSignalService } from './one-signal.service';
 
 
 @Component({
@@ -17,7 +19,8 @@ import { AuthService } from './auth.service';
 export class HeaderComponent implements OnInit {
     icon_bars = faBars;
     icon_bell = faBell;
-    icon_bell_slash = faBellSlash;
+    icon_bell_empty = faBellEmpty;
+
     icon_signout = faSignOutAlt;
     icon_plus = faPlus;
     icon_list = faListAlt;
@@ -31,45 +34,27 @@ export class HeaderComponent implements OnInit {
                 private route: ActivatedRoute,
                 private router : Router,
                 private notifs : NotifService,
-                private auth : AuthService
+                private auth : AuthService,
+                private os : OneSignalService
             ) { }
 
     ngOnInit() {
 
-        var that = this;
-        var OneSignal = window['OneSignal'] || [];
-        console.log("bell state is " + this.pushNotifActive)
+    }
 
-         this.getSubscriptionState().then((state) => {
-            if (state.isPushEnabled) {
-                console.log(this.pushNotifActive)
-                if (!that.pushNotifActive) {
-                    console.log("button init state on");
-                    that.pushNotifActive = !that.pushNotifActive;
-                }
-            } else {
-                if (state.isOptedOut) {
-                    OneSignal.push(function() {
-                        OneSignal.setSubscription(true);
-                    });
-                    if (!that.pushNotifActive) {
-                        console.log("button toggled on and onesignal activated");
-                        that.pushNotifActive = !that.pushNotifActive;
-                    }
+    onBellClick(event) {
+        this.os.toggleSubscription();
 
-                }
-            }
-        });
-
+        event.stopPropagation();
     }
 
     get active() {
         return this.hs.subscribeToMenu();
     }
 
-    onClick() {
+    onClick(event) {
         this.hs.toggleMenu();
-        
+
         // Stops the onClickOut() method being called
         event.stopPropagation();
     }
@@ -88,6 +73,9 @@ export class HeaderComponent implements OnInit {
             case "new":
                 this.router.navigate([`/cases/add/`]);
                 break;
+            case "events":
+                this.router.navigate([`/cases/events`]);
+                break;
             case "logout":
                 this.auth.loginState.next(false);
                 this.router.navigate([`/login`]);
@@ -98,52 +86,6 @@ export class HeaderComponent implements OnInit {
                     html: `Unfortunately, this feature is not enabled yet.`
                 });
         }
-    }
-    pushnotifClick(){
-        var that = this;
-        var OneSignal = window['OneSignal'] || [];
-        console.log("bell state is " + this.pushNotifActive)
-
-         this.getSubscriptionState().then((state) => {
-            if (state.isPushEnabled) {
-                console.log(this.pushNotifActive)
-                OneSignal.push(function() {
-                    OneSignal.setSubscription(false);
-                });
-                if (that.pushNotifActive) {
-                    console.log("button toggled off");
-                    that.pushNotifActive = !that.pushNotifActive;
-                }
-                console.log('user unsubscribed');
-            } else {
-                if (state.isOptedOut) {
-                    OneSignal.push(function() {
-                        OneSignal.setSubscription(true);
-                    });
-                    if (!that.pushNotifActive) {
-                        console.log("button toggled on");
-                        that.pushNotifActive = !that.pushNotifActive;
-                    }
-                    console.log('user subscribed')
-                }
-            }
-        });
-
-    }
-    getSubscriptionState(){
-        var OneSignal = window['OneSignal'] || [];
-        return Promise.all([
-          OneSignal.isPushNotificationsEnabled(),
-          OneSignal.isOptedOut()
-        ]).then(function(result) {
-            var isPushEnabled = result[0];
-            var isOptedOut = result[1];
-
-            return {
-                isPushEnabled: isPushEnabled,
-                isOptedOut: isOptedOut
-            };
-        });
     }
 
 }

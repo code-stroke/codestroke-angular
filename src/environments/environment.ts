@@ -7,13 +7,14 @@ export const environment = {
     server_url: "http://codefactor.pythonanywhere.com",
     default_user: "test_user:password",
     onesignal_init: {
-        appId: "a704a88e-9e37-41f6-99b8-6ded41926c03",
+        appId: "8805e48a-f3e3-4d26-9ce4-0288165c7a72",
         autoRegister: true,
         notifyButton: {
             enable: false,
         },
         allowLocalhostAsSecureOrigin: true,
-    }
+    },
+    onesignal_service_worker_param: '/',
 };
 
 /*

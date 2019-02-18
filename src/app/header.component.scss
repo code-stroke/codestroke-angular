@@ -18,6 +18,10 @@
 }
 
 .global-header-menu {
+    flex: 0;
+    display: flex;
+
+
     font-size: 2rem;
     @include for-tablet-portrait-up {
         font-size: 3rem;
@@ -27,14 +31,6 @@
     fa-icon {
         margin-left: 2vw;
     }
-}
-
-.global-menu-button {
-
-    &:hover{
-        background-color: #e57820;
-    }
-
 }
 
 .global-header-logo {
@@ -63,19 +59,52 @@
 }
 
 .global-header-options {
+    position: relative;
+    margin-right: 2vw;
+
+    padding: 2px;
+
     font-size: 2rem;
     @include for-tablet-portrait-up {
         font-size: 2.5rem;
     }
+
     color: #FFF5EE;
+    &.opted_in { color: olivedrab}
+    &.opted_out { color: crimson}
+    &.disabled { color: gray}
 
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
 
     fa-icon {
-        margin-right: 2vw;
+        margin-right: 0;
     }
+
+    span {
+        display: none;
+        @include for-tablet-portrait-up {
+            display: block;
+        }
+
+        position: absolute;
+        bottom: calc(-1rem + 2px);
+
+        font-size: 1rem;
+        font-weight: bold;
+
+        width: 200%;
+        text-align: center;
+    }
+
+    cursor: pointer;
+}
+
+.notif-toggle{
+    display: flex;
+
+    cursor: pointer;
 }
 
 .global-menu {
@@ -169,15 +198,9 @@
         }
     }
 }
-.notif-toggle{
-    cursor: pointer;
+
+.global-menu-button {
+    &:hover{
+        background-color: #e57820;
+    }
 }
-
-.headeritem {
-    flex: 0;
-    display: flex;
-}
-
-.headeritem:first-child > span { margin-right: auto; }
-
-.headeritem:last-child  > span { margin-left: auto;  }
