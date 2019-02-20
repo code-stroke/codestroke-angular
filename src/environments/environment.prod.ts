@@ -5,11 +5,11 @@ export const environment = {
     onesignal_init: {
         appId: "8805e48a-f3e3-4d26-9ce4-0288165c7a72",
         autoRegister: true,
-        allowLocalhostAsSecureOrigin: true,
         notifyButton: {
           enable: false,
         },
-        path: '/codestroke-angular/'
+        path: '/codestroke-angular/',
+        //notificationClickHandlerAction: 'focus',
     },
     onesignal_service_worker_param: '/codestroke-angular/',
 };

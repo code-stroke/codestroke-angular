@@ -44,6 +44,7 @@ export class AppComponent implements OnInit {
     icon_bell_slash = faBellSlash;
     icon_signout = faSignOutAlt;
 
+    // These Services are used in the Template only and SHOULD NOT be removed
     constructor(private loading : LoadingService,
                 private notifService : NotifService,
                 private oneSignal : OneSignalService) { }
