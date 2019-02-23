@@ -30,12 +30,12 @@ export class HeaderComponent implements OnInit {
 
     pushNotifActive: boolean = true;
 
-    constructor(private hs : HeaderService,
-                private route: ActivatedRoute,
-                private router : Router,
-                private notifs : NotifService,
-                private auth : AuthService,
-                private os : OneSignalService
+    constructor(public hs : HeaderService,
+                public route: ActivatedRoute,
+                public router : Router,
+                public notifs : NotifService,
+                public auth : AuthService,
+                public os : OneSignalService
             ) { }
 
     ngOnInit() {
