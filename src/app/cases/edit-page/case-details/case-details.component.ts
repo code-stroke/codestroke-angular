@@ -76,6 +76,7 @@ export class CaseDetailsComponent extends AbstractCaseComponent implements OnIni
         this.save().subscribe(
             () => {
                 this.updateStatus();
+                this.case.status = this.statusService.status.value;
             }
         );
     }
