@@ -18,6 +18,8 @@ import { ToggleComponent } from './edit-page/ui/toggle.component';
 import { DoubleClickComponent } from './edit-page/ui/double-click.component';
 import { AddPageComponent } from './add-page/add-page.component';
 import { DateTimeComponent } from './edit-page/ui/date-time.component';
+import { EventPageComponent } from './event-page/event-page.component';
+import { EventComponent } from './event-page/event.component';
 
 
 
@@ -43,7 +45,9 @@ import { DateTimeComponent } from './edit-page/ui/date-time.component';
         ToggleComponent,
         DoubleClickComponent,
         AddPageComponent,
-        DateTimeComponent
+        DateTimeComponent,
+        EventPageComponent,
+        EventComponent
     ]
 })
 export class CasesModule { }

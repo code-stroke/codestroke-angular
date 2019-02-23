@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
@@ -45,6 +47,18 @@ export class BackendCaseService {
         this.loading.showLoading();
         return this.api.performRequest("post", `/cases/add/`, data).pipe(
             tap(() => this.loading.hideLoading(), () => this.loading.hideLoading()),
+            tap((data) => console.log(data))
+        );
+    }
+
+    getEvents() : Observable<any> {
+        let params = new HttpParams().set("start", "1").set("number", "50");
+        console.log(params.toString());
+
+        return this.api.performRequest("get", "/event_log/limit/", null, params).pipe(
+            // Hide the loading when results come back (either normal or error)
+            tap(() => this.loading.hideLoading(), () => this.loading.hideLoading()),
+            map((data) => data["result"]),
             tap((data) => console.log(data))
         );
     }

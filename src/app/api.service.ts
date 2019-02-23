@@ -18,14 +18,15 @@ export class ApiService {
 
     constructor(private http : HttpClient) { }
 
-    performRequest(method : string, url : string, data ?: any) {
+    performRequest(method : string, url : string, data ?: any, params ?: any) {
         return this.http.request(
             method,
             `${this.server_url}${url}`,
             {
                 responseType: "json",
                 headers: this.httpHeader,
-                body: data
+                body: data,
+                params: params
             }
         ).pipe(
             tap(

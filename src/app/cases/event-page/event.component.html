@@ -1,0 +1,27 @@
+<main (click)="onClick()" [class.active]="active">
+    <span class="patient">
+        <b [class]="getStatus()">{{createFullName(metadata.first_name, metadata.last_name)}} <i>{{getAgeGender()}}</i></b>
+    </span>
+    <span class="clinician">
+        <fa-icon [icon]="icon_roles[event.signoff_role]" ></fa-icon> {{createFullName(event.signoff_first_name, event.signoff_last_name)}}
+    </span>
+    <span class="action">
+        <span *ngIf="event.event_type == 'edit'"><fa-icon [icon]="icon_edit" ></fa-icon>Edited <b>{{getTableName()}}</b> info</span>
+        <span *ngIf="event.event_type == 'add'"><fa-icon [icon]="icon_add" ></fa-icon><b>Added </b> new case</span>
+    </span>
+    <span class="time">
+        {{event.event_timestamp | date:"HH:mm (dd/MM)"}}
+    </span>
+</main>
+<aside [class.active]="active" (click)="onClick()">
+    <div *ngFor="let num of [1,2,3]; index as i" class="aside-row">
+        <ng-container *ngFor="let item of data | keyvalue; index as j;">
+            <div class="item" *ngIf="(j % 3) == (i)">
+                <strong>{{humaniseString(item.key)}}:</strong> <span>{{item.value}}</span>
+            </div>
+        </ng-container>
+    </div>
+    <a class="gotocase" [routerLink]="getRouterLink()">
+        <fa-icon [icon]="icon_go"></fa-icon><span>Go</span>
+    </a>
+</aside>

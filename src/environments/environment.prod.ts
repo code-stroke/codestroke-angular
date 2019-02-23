@@ -9,7 +9,8 @@ export const environment = {
           enable: false,
         },
         path: '/codestroke-angular/',
-        //notificationClickHandlerAction: 'focus',
+        notificationClickHandlerMatch: 'origin',
+        notificationClickHandlerAction: 'focus'
     },
     onesignal_service_worker_param: '/codestroke-angular/',
 };

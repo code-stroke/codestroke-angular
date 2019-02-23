@@ -126,7 +126,7 @@ export class OneSignalService {
             // ^^According to the OneSignal spec: https://documentation.onesignal.com/docs/web-push-sdk#section--addlistenerfornotificationopened-
             os.push(() => {
                 os.addListenerForNotificationOpened(function (data) {
-                    this.$notificationOpen.next(data as OSNotification)
+                    instance.$notificationOpen.next(data as OSNotification)
                 });
             });
 

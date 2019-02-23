@@ -1,0 +1,110 @@
+@import 'variables';
+@import 'mixins';
+
+@import '../cases-box';
+@import '../edit-page/case';
+@import './event.component';
+
+:host {
+    @include host;
+}
+
+.container {
+    @include container;
+}
+
+.nav {
+    @include nav;
+}
+
+.main {
+    @include main;
+}
+
+.status {
+    @include status;
+}
+.status-header {
+    color: white;
+    font-weight: 600;
+    font-size: 2.5rem;
+    padding: 2rem;
+}
+
+.sub-status {
+    position: relative;
+
+    width: 100%;
+    height: 5rem;
+
+    background: lighten(#ff8324,10);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    @include pad-hor(2rem);
+
+    & > span {
+        @include flex-center;
+        justify-content: flex-start;
+
+        font-size: 1.7rem;
+        color: white;
+    }
+}
+
+//$width-patient: 30%;
+.sub-status-patient {
+    width: $width-patient;
+}
+//$width-clinician: 30%;
+.sub-status-clinician {
+    width: $width-clinician;
+}
+//$width-action: 25%;
+.sub-status-action {
+    width: $width-action;
+}
+//$width-time: 15%;
+.sub-status-time {
+    width: $width-time;
+}
+
+.content {
+    @include content;
+
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.event-row {
+    width: 100%;
+}
+
+.popup {
+    @include popup-container;
+}
+
+.popup-main {
+    @include popup;
+}
+
+form {
+    @include form;
+
+    height: 100%;
+    width: 100%;
+}
+
+.details-row {
+    @include case-row;
+
+    &.options {
+        @include case-row-options;
+    }
+}
+
+.group {
+    @include row-group;
+}

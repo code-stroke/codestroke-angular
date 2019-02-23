@@ -13,7 +13,8 @@ export const environment = {
             enable: false,
         },
         allowLocalhostAsSecureOrigin: true,
-        //notificationClickHandlerAction: 'focus',
+        notificationClickHandlerMatch: 'origin',
+        notificationClickHandlerAction: 'focus'
     },
     onesignal_service_worker_param: '/',
 };
