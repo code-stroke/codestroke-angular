@@ -2,6 +2,8 @@
 @import 'variables';
 
 :host {
+    display: table;
+
     margin-bottom: 5%;
 
     width: 95%;
@@ -18,8 +20,8 @@
 
     font-size: 1.35rem;
 
-    tr:not(.list-table-divider) {background: #E8E8E8;}
-    tr:nth-of-type(odd) {background: rgba(#E8E8E8, 0.4)};
+    a:not(.list-table-divider) {background: #E8E8E8;}
+    a:nth-of-type(even) {background: rgba(#E8E8E8, 0.4)};
 
     &.incoming {
         .list-table-title {background: $colour-incoming-dark;}
@@ -32,6 +34,8 @@
     }
 
     td {
+        display: table-cell;
+
         vertical-align: middle;
         text-align: center;
 
@@ -40,7 +44,7 @@
     }
 
     /* ROUNDED CORNERS */
-    tr:last-child {
+    a:last-child {
         td:first-child {border-bottom-left-radius: 10px;}
         td:last-child {border-bottom-right-radius: 10px;}
     }
@@ -65,19 +69,26 @@
 }
 
 .list-table-header {
+    display: table-row;
+
     font-weight: 600;
     color: #707070;
     font-size: 1.5rem;
     @include for-tablet-portrait-up {
         font-size: 1.5rem;
     }
+
+    background: rgba(#E8E8E8, 0.4)
 }
 
 .list-table-divider {
+    display: table-row;
     height: 0.5rem;
 }
 
 .list-table-row {
+    display: table-row;
+
     cursor: pointer;
 
     &:hover {

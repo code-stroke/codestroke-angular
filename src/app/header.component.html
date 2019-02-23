@@ -5,21 +5,21 @@
     <!-- <div class="list-menu-welcome">
         <span>Welcome Back,</span> <strong>Daniel Shell</strong>
     </div> -->
-    <button class="global-menu-button" (click)="onMenuClick('home')">
+    <a class="global-menu-button" [routerLink]="getMenuLink('home')">
         <fa-icon [icon]="icon_home" ></fa-icon> <span>HOME</span>
-    </button>
-    <button class="global-menu-button" (click)="onMenuClick('new')">
+    </a>
+    <a class="global-menu-button" [routerLink]="getMenuLink('new')">
         <fa-icon [icon]="icon_plus" ></fa-icon> <span>NEW PATIENT</span>
-    </button>
+    </a>
 
-    <button class="global-menu-button" (click)="onMenuClick('events')">
+    <a class="global-menu-button" [routerLink]="getMenuLink('events')" (click)="onMenuClick('events')">
         <fa-icon [icon]="icon_list"></fa-icon> <span>EVENT LOG</span>
-    </button>
+    </a>
 
-    <button class="global-menu-button" (click)="onMenuClick('settings')">
+    <button class="global-menu-button" [routerLink]="getMenuLink('settings')" (click)="onMenuClick('settings')">
         <fa-icon [icon]="icon_cog"></fa-icon> <span>SETTINGS</span>
     </button>
-    <button class="global-menu-button" (click)="onMenuClick('logout')">
+    <button class="global-menu-button" [routerLink]="getMenuLink('logout')" (click)="onMenuClick('logout')">
         <fa-icon [icon]="icon_signout"></fa-icon> <span> LOGOUT </span>
     </button>
 </nav>
@@ -27,10 +27,10 @@
 <button id="js-menu-open" class="global-header-menu" (click)="onClick($event)">
     <fa-icon [icon]="icon_bars"></fa-icon>
 </button>
-<article class="global-header-logo" [routerLink]="''">
+<a class="global-header-logo" [routerLink]="''">
     <img src="assets/logo-white.png"/>
     <strong>CODE</strong> STROKE
-</article>
+</a>
 <nav class="global-header-options"
 (click)="onBellClick($event)"
 [ngClass]="{

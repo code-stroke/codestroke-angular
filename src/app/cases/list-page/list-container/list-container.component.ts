@@ -84,4 +84,8 @@ export class ListContainerComponent implements OnInit {
         this.router.navigate([`../edit/${case_id}`], { relativeTo: this.route});
     }
 
+    getRouterLink(case_id : number) {
+        return `/cases/edit/${case_id}`;
+    }
+
 }

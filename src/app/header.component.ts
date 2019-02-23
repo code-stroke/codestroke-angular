@@ -65,20 +65,39 @@ export class HeaderComponent implements OnInit {
         }
     }
 
+    getMenuLink(option : string) {
+        switch (option) {
+            case "home":
+                return '';
+                break;
+            case "new":
+                return '/cases/add';
+                break;
+            case "events":
+                return '/cases/events';
+                break;
+            case "logout":
+                return '/login';
+                break;
+            default:
+                return './';
+        }
+    }
+
     onMenuClick(option : string) {
         switch (option) {
             case "home":
-                this.router.navigate([``]);
                 break;
             case "new":
-                this.router.navigate([`/cases/add/`]);
                 break;
             case "events":
-                this.router.navigate([`/cases/events`]);
+                this.notifs.addNotif({
+                    type: "warning",
+                    html: `This feature is in Beta and still a work in progress.`
+                });
                 break;
             case "logout":
                 this.auth.loginState.next(false);
-                this.router.navigate([`/login`]);
                 break;
             default:
                 this.notifs.addNotif({

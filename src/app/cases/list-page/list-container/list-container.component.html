@@ -15,7 +15,7 @@
             {{time}}
         </td>
     </tr>
-    <tr class="list-table-row" *ngFor="let case of cases" (click)="onClick(case.case_id)">
+    <a class="list-table-row" *ngFor="let case of cases" [routerLink]="getRouterLink(case.case_id)">
         <td>
             {{case.getName()}}
         </td>
@@ -25,4 +25,4 @@
         <td>
             {{case.getStatusTime() | date:"HH:mm (dd/MM)"}}
         </td>
-    </tr>
+    </a>
