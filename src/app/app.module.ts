@@ -5,6 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { LocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './main-layout.component';
@@ -14,6 +15,8 @@ import { HeaderComponent } from './header.component';
 import { APP_ROUTES } from './app.routes';
 import { ClickElsewhereDirective } from './util/click-elsewhere.directive';
 import { setServiceLocator } from './util/service-locator';
+import { environment } from 'src/environments/environment';
+
 
 @NgModule({
     imports: [
@@ -32,7 +35,7 @@ import { setServiceLocator } from './util/service-locator';
         HeaderComponent,
         ClickElsewhereDirective
     ],
-    providers: [],
+    providers: [{provide: LocationStrategy, useClass: environment.location_strategy}],
     bootstrap: [AppComponent]
 })
 export class AppModule {

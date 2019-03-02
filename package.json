@@ -1,0 +1,27 @@
+{
+  "name": "codestroke-angular",
+  "version": "1.0.0",
+  "description": "Codestroke web app built in Angular",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ng-build-dev": "ng build",
+    "ng-build-github": "ng build --configuration=github",
+    "ng-build-austin": "ng build --configuration=austin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-stroke/codestroke-angular.git"
+  },
+  "author": "Codestroke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/code-stroke/codestroke-angular/issues"
+  },
+  "homepage": "https://github.com/code-stroke/codestroke-angular#readme"
+}

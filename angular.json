@@ -35,7 +35,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/codestroke-angular",
+            "outputPath": "dist/dev",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -56,13 +56,34 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
+            "github": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.github.ts"
                 }
               ],
+              "baseHref": "/codestroke-angular/",
+              "outputPath": "docs",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            },
+            "austin": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.austin.ts"
+                }
+              ],
+              "baseHref": "/codestroke/",
+              "outputPath": "dist/austin",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
