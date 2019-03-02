@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { merge, ReplaySubject } from 'rxjs';
-import { tap, shareReplay } from 'rxjs/operators';
+import { tap, shareReplay, catchError } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 
 @Injectable({

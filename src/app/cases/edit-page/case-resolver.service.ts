@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 import { BackendCaseService } from '../backend-case.service';
 import { AuthService } from '../../auth.service';
@@ -16,7 +16,16 @@ export class CaseResolverService implements Resolve<any> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
         let params = route.component["parent"] ? route.params : route.parent.params;
-        return this.backend.getCase(params.id, route.component["backendTable"]);
-        //return of(false);
+        return this.backend.getCase(params.id, route.component["backendTable"]).pipe(
+            catchError(error => {
+                if (error.status && error.status === 401) {
+                    console.warn(`Attempted unauthorised access to: Case Page`);
+                } else {
+                    console.error(`Error loading case details:`);
+                    console.error(error);
+                }
+                return of([]);
+            })
+        );
     }
 }

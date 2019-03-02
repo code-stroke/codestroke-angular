@@ -48,7 +48,7 @@ export class LoginLayoutComponent implements OnInit, OnDestroy {
         this.loading.showLoading();
         this.auth.authenticate(user, pass).subscribe(val => {
             this.loading.hideLoading();
-            if (val) {
+            if (val.status) {
                 let state = this.auth.loginState.value;
                 this.notifService.addNotif({
                     type: "success",
@@ -56,10 +56,19 @@ export class LoginLayoutComponent implements OnInit, OnDestroy {
                 })
                 this.router.navigate([""]);
             } else {
-                this.notifService.addNotif({
-                    type: "error",
-                    html: `Incorrect login details` 
-                })
+                if (val["error"].status && val["error"].status === 401) {
+                    this.notifService.addNotif({
+                        type: "error",
+                        html: `Incorrect login details`
+                    })
+                } else {
+                    this.notifService.addNotif({
+                        type: "error",
+                        html: `Error connecting to the server. See console log.`
+                    })
+                    console.error(val["error"]);
+                }
+
             }
         });
     }

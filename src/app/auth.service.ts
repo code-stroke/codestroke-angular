@@ -9,11 +9,12 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-    public loginState = new BehaviorSubject<boolean | Signoff>(true);
+    public loginState = new BehaviorSubject<boolean | Signoff>(false);
 
     constructor(private api : ApiService, private router : Router) {
         if (isDevMode()) {
             this.api.setAuthorizationHeader("Basic " + btoa(environment.default_user));
+            this.loginState.next(true);
         }
 
         /** Catch any Auth Errors **/
@@ -34,8 +35,8 @@ export class AuthService {
                 next: response => this.loginState.next(response["user_info"]),
                 error: () => this.loginState.next(false)
             }),
-            map(() => true),
-            catchError(() => of(false))
+            map(() => { return {status: true}}),
+            catchError((error) => of({status: false, error: error}))
         );
     }
 }
