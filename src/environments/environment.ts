@@ -1,4 +1,4 @@
-import { PathLocationStrategy } from "@angular/common";
+import { PathLocationStrategy, HashLocationStrategy } from "@angular/common";
 
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
@@ -6,7 +6,7 @@ import { PathLocationStrategy } from "@angular/common";
 
 export const environment = {
     envName: 'dev',
-    production: false,
+    production: true,
 
     server_url: "http://codefactor.pythonanywhere.com",
     default_user: "test_user:password",

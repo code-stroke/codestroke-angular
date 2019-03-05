@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounce, debounceTime, takeUntil } from 'rxjs/operators';
@@ -21,9 +21,11 @@ export class LoginLayoutComponent implements OnInit, OnDestroy {
 
     onSubmit = new Subject<any>();
 
+    returnUrl : string;
+
     constructor(private auth : AuthService, private router : Router,
                 private fb : FormBuilder, private loading : LoadingService,
-                private notifService : NotifService) {
+                private notifService : NotifService, private route : ActivatedRoute) {
 
         // All submits (clicks, pressing enters) are observed here
         this.onSubmit.pipe(
@@ -35,8 +37,9 @@ export class LoginLayoutComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || "";
         if (this.auth.loginState.value) {
-            this.router.navigate([""]);
+            this.router.navigate([this.returnUrl]);
         }
 
     }
@@ -54,7 +57,7 @@ export class LoginLayoutComponent implements OnInit, OnDestroy {
                     type: "success",
                     html: `Welcome Back, ${state["signoff_first_name"]} ${state["signoff_last_name"]}`
                 })
-                this.router.navigate([""]);
+                this.router.navigate([this.returnUrl]);
             } else {
                 if (val["error"].status && val["error"].status === 401) {
                     this.notifService.addNotif({
