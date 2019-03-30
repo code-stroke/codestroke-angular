@@ -51,15 +51,34 @@ export class BackendCaseService {
         );
     }
 
-    getEvents() : Observable<any> {
-        let params = new HttpParams().set("start", "1").set("number", "50");
-        console.log(params.toString());
+    getEvents(data: any): Observable<any> {
+        switch (data.type) {
+            case 'date':
+                //TODO
+                break;
+            case 'limit':
+            default:
+                let params = new HttpParams();
+                if (data.start) {
+                    params = params.set("start", data.start);
+                } else {
+                    params = params.set("start", "1");
+                }
 
-        return this.api.performRequest("get", "/event_log/limit/", null, params).pipe(
-            // Hide the loading when results come back (either normal or error)
-            tap(() => this.loading.hideLoading(), () => this.loading.hideLoading()),
-            map((data) => data["result"]),
-            tap((data) => console.log(data))
-        );
+                if (data.number) {
+                    params = params.set("number", data.number);
+                } else {
+                    params = params.set("number", "50");
+                }
+
+                console.log(params.toString());
+
+                return this.api.performRequest("get", "/event_log/limit/", null, params).pipe(
+                    // Hide the loading when results come back (either normal or error)
+                    tap(() => this.loading.hideLoading(), () => this.loading.hideLoading()),
+                    map((data) => data["result"]),
+                    tap((data) => console.log(data))
+                );
+        }
     }
 }

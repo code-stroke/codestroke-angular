@@ -9,15 +9,26 @@ import { BackendCaseService } from '../backend-case.service';
     styleUrls: ['./event-page.component.scss']
 })
 export class EventPageComponent implements OnInit {
-    _events : BehaviorSubject<any[]>;
+    nav = [
+        {
+            name: 'By Number',
+            path: 'number'
+        },
+        {
+            name: 'By Date',
+            path: 'date'
+        }
+    ];
 
-    constructor(private backendService : BackendCaseService,
+    _events: BehaviorSubject<any[]>;
+
+    constructor(private backendService: BackendCaseService,
                 private route: ActivatedRoute,
-                private router : Router) { }
+                private router: Router) { }
 
     ngOnInit() {
         this._events = new BehaviorSubject(new Array<any>());
-        this.route.data.subscribe((data : any) => {
+        this.route.data.subscribe((data: any) => {
             this._events.next(data.events);
         });
     }
@@ -26,7 +37,7 @@ export class EventPageComponent implements OnInit {
         return this._events.value;
     }
 
-    getClass(event : any) {
-        return "event-row " + JSON.parse(event.event_metadata).status;
+    getClass(event: any) {
+        return 'event-row ' + JSON.parse(event.event_metadata).status;
     }
 }

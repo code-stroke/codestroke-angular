@@ -1,0 +1,28 @@
+<header class="status" [formGroup]="form">
+    <span>
+        <label>Start:</label>
+        <input formControlName="start" type="number" min="1"/>
+    </span>
+    <span>
+        <label>End:</label>
+        <input formControlName="end" type="number" min="2"/>
+    </span>
+    <button class="search" (click)="onSearch()"><fa-icon [icon]="icon_search"></fa-icon>Search</button>
+    <button class="nav left" (click)="onPrev()"><fa-icon [icon]="icon_left"></fa-icon>Prev</button>
+    <button class="nav right" (click)="onNext()">Next<fa-icon [icon]="icon_right"></fa-icon></button>
+</header>
+<header class="sub-status">
+    <span class="sub-status-patient">Patient</span>
+    <span class="sub-status-clinician">Clinician</span>
+    <span class="sub-status-action">Action</span>
+    <span class="sub-status-time">Time</span>
+</header>
+<article class="content">
+    <div class="event-row" *ngFor="let event of events">
+        <cs-event [event]="event"></cs-event>
+    </div>
+</article>
+<!-- footer class="status">
+    <button>Prev Page</button>
+    <button>Next Page</button>
+</footer> -->

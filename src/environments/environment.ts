@@ -6,7 +6,7 @@ import { PathLocationStrategy, HashLocationStrategy } from "@angular/common";
 
 export const environment = {
     envName: 'dev',
-    production: true,
+    production: false,
 
     server_url: "http://codefactor.pythonanywhere.com",
     default_user: "test_user:password",

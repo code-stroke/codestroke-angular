@@ -31,6 +31,8 @@ export class EventComponent implements OnInit {
 
     icon_go = faArrowCircleRight;
 
+    state : "number"|"date" = "number";
+
 
     constructor() {
 

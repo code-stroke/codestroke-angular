@@ -1,32 +1,10 @@
 <div class="container">
+    <nav class="nav">
+        <a *ngFor="let tab of nav" routerLink="./{{tab.path}}" routerLinkActive="selected">
+            {{tab.name}}
+        </a>
+    </nav>
     <main class="main">
-        <header class="status">
-            <a class="status-header"> Event Log </a>
-        </header>
-        <header class="sub-status">
-            <span class="sub-status-patient">Patient</span>
-            <span class="sub-status-clinician">Clinician</span>
-            <span class="sub-status-action">Action</span>
-            <span class="sub-status-time">Time</span>
-        </header>
-        <article class="content">
-            <div class="event-row" *ngFor="let event of events">
-                <cs-event [event]="event"></cs-event>
-            </div>
-            <!-- <div [class]="getClass(event)" *ngFor="let event of events">
-                <span class="event-row-patient">
-                    {{event.event_metadata.first_name}}
-                </span>
-                <span class="event-row-clinician">
-                    {{event.signoff_first_name}}
-                </span>
-                <span class="event-row-action">
-                    {{event.event_type}}
-                </span>
-                <span class="event-row-time">
-                    {{event.event_timestamp | date:"HH:mm (dd/MM)"}}
-                </span>
-            </div> -->
-        </article>
+        <router-outlet></router-outlet>
     </main>
 </div>

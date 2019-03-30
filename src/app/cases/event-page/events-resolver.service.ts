@@ -15,7 +15,7 @@ export class EventsResolverService implements Resolve<any> {
     constructor(private backend: BackendCaseService, private auth: AuthService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
-        return this.backend.getEvents().pipe(
+        return this.backend.getEvents({}).pipe(
             catchError(error => {
                 if (error.status && error.status === 401) {
                     console.warn(`Attempted unauthorised access to: Events Page`);

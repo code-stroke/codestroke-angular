@@ -41,45 +41,45 @@ import { ApiService } from '../../api.service';
 })
 export class EditPageComponent implements OnInit {
     static parent = true;
-    static backendTable = "cases";
+    static backendTable = 'cases';
 
-    case_id : number;
-    caseDetail : CaseDetails;
+    case_id: number;
+    caseDetail: CaseDetails;
 
     nav = [
         {
-            name: "Details",
-            path: "details"
+            name: 'Details',
+            path: 'details'
         },
         {
-            name: "History",
-            path: "history"
+            name: 'History',
+            path: 'history'
         },
         {
-            name: "Emergency",
-            path: "ed"
+            name: 'Emergency',
+            path: 'ed'
         },
         {
-            name: "Assessment",
-            path: "assessment"
+            name: 'Assessment',
+            path: 'assessment'
         },
         {
-            name: "Radiology",
-            path: "radiology"
+            name: 'Radiology',
+            path: 'radiology'
         },
         {
-            name: "Management",
-            path: "management"
+            name: 'Management',
+            path: 'management'
         }
     ];
 
     constructor(private route: ActivatedRoute,
-                private router : Router,
+                private router: Router,
                 private bs: BackendCaseService,
-                public statusService : EditStatusService,
-                private popupService : PopupService,
-                private hs : HeaderService,
-                private api : ApiService
+                public statusService: EditStatusService,
+                private popupService: PopupService,
+                private hs: HeaderService,
+                private api: ApiService
                 ) { }
 
     ngOnInit() {
@@ -93,32 +93,32 @@ export class EditPageComponent implements OnInit {
     icon_completed = faCalendarCheck;
     //
     icon_status = this.icon_incoming;
-    status_text = "ETA";
+    status_text = 'ETA';
     //
     icon_well = faUserClock;
     private setupStatus() {
         this.route.data
-        .subscribe((data : any) => {
+        .subscribe((data: any) => {
             this.caseDetail = Object.assign(new CaseDetails(), data.case);
 
-            this.statusService.name.next(this.caseDetail.getName() + " " + this.caseDetail.getAgeGender());
+            this.statusService.name.next(this.caseDetail.getName() + ' ' + this.caseDetail.getAgeGender());
             this.statusService.status.next(this.caseDetail.status);
             this.statusService.statusTime.next(this.caseDetail.getStatusTime());
             this.statusService.lastWell.next(this.caseDetail.last_well);
         });
 
-        this.statusService.status.subscribe((stat : string) => {
+        this.statusService.status.subscribe((stat: string) => {
             switch (stat) {
-                case "incoming":
-                    this.status_text = "ETA";
+                case 'incoming':
+                    this.status_text = 'ETA';
                     this.icon_status = this.icon_incoming;
                     break;
-                case "active":
-                    this.status_text = "Arrived";
+                case 'active':
+                    this.status_text = 'Arrived';
                     this.icon_status = this.icon_active;
                     break;
-                case "completed":
-                    this.status_text = "Completed";
+                case 'completed':
+                    this.status_text = 'Completed';
                     this.icon_status = this.icon_completed;
                     break;
             }
@@ -126,9 +126,9 @@ export class EditPageComponent implements OnInit {
     }
 
     displayPopup = false;
-    popup : any;
+    popup: any;
     private setupPopups() {
-        this.popupService.popup.subscribe((pop : any) => {
+        this.popupService.popup.subscribe((pop: any) => {
             if (pop) {
                 this.popup = pop;
                 this.displayPopup = true;
@@ -138,7 +138,7 @@ export class EditPageComponent implements OnInit {
         });
     }
 
-    executePopup(func : any) {
+    executePopup(func: any) {
         func();
         this.popupService.popup.next(false);
     }

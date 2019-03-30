@@ -1,8 +1,8 @@
 @import 'variables';
 @import 'mixins';
 
-@import '../cases-box';
-@import '../edit-page/case';
+@import 'event_vars';
+
 
 :host {
     //position: absolute;
@@ -43,11 +43,6 @@ main > span {
 
 }
 
-$width-patient: 30%;
-$width-clinician: 30%;
-$width-action: 25%;
-$width-time: 15%;
-
 .patient {
     width: $width-patient;
 
@@ -87,9 +82,7 @@ $width-time: 15%;
         margin-right: 0.6rem;
     }
 
-    b {
-
-    }
+    //b {}
 }
 
 .time {

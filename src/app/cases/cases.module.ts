@@ -20,6 +20,8 @@ import { AddPageComponent } from './add-page/add-page.component';
 import { DateTimeComponent } from './edit-page/ui/date-time.component';
 import { EventPageComponent } from './event-page/event-page.component';
 import { EventComponent } from './event-page/event.component';
+import { EventNumberComponent } from './event-page/event-number/event-number.component';
+import { EventDateComponent } from './event-page/event-date/event-date.component';
 
 
 
@@ -47,7 +49,9 @@ import { EventComponent } from './event-page/event.component';
         AddPageComponent,
         DateTimeComponent,
         EventPageComponent,
-        EventComponent
+        EventComponent,
+        EventNumberComponent,
+        EventDateComponent
     ]
 })
 export class CasesModule { }

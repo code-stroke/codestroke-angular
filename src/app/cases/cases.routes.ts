@@ -9,24 +9,30 @@ import { AddPageComponent } from './add-page/add-page.component';
 import { EDIT_ROUTES } from './edit-page/edit-page.routes';
 import { EventPageComponent } from './event-page/event-page.component';
 import { EventsResolverService } from './event-page/events-resolver.service';
+import { EVENT_ROUTES } from './event-page/event-page.routes';
 
 const caseResolver = {
     case: CaseResolverService
-}
+};
 
 const listResolver = {
     list: ListResolverService
-}
+};
 
 const eventsResolver = {
     events: EventsResolverService
-}
+};
 
-export const CASES_ROUTES : Routes = [
+export const CASES_ROUTES: Routes = [
     { path: '', redirectTo: 'list', pathMatch: 'full' },
     { path: 'list', component: ListPageComponent, resolve: listResolver },
     { path: 'add', component: AddPageComponent },
-    { path: 'events', component: EventPageComponent, resolve: eventsResolver },
+    {
+        path: 'events',
+        component: EventPageComponent,
+        // TODO: resolve: eventsResolver,
+        children: EVENT_ROUTES
+    },
     {
         path: 'edit/:id',
         component: EditPageComponent,
