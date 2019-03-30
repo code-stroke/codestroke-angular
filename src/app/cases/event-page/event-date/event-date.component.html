@@ -1,3 +1,26 @@
-<p>
-  event-date works!
-</p>
+<header class="status" [formGroup]="form">
+    <span>
+        <label>After:</label>
+        <input class="date" formControlName="after_date" type="date" />
+        <input class="time" formControlName="after_time" type="time" />
+    </span>
+    <span>
+        <label>Before:</label>
+        <input class="date" formControlName="before_date" type="date" />
+        <input class="time" formControlName="before_time" type="time" />
+    </span>
+    <button class="search" (click)="onSearch()">
+        <fa-icon [icon]="icon_search"></fa-icon>Search
+    </button>
+</header>
+<header class="sub-status">
+    <span class="sub-status-patient">Patient</span>
+    <span class="sub-status-clinician">Clinician</span>
+    <span class="sub-status-action">Action</span>
+    <span class="sub-status-time">Time</span>
+</header>
+<article class="content">
+    <div class="event-row" *ngFor="let event of events">
+        <cs-event [event]="event"></cs-event>
+    </div>
+</article>
