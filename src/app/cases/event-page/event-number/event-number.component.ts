@@ -3,7 +3,7 @@ import { BackendCaseService } from './../../backend-case.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faSearch, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { EventsResolverService } from '../events-resolver.service';
 
@@ -21,20 +21,37 @@ export class EventNumberComponent implements OnInit {
 
     form: FormGroup;
 
-    constructor(private route: ActivatedRoute,
-                private fb: FormBuilder,
-                private bs: BackendCaseService,
-                private loading: LoadingService) {}
+    constructor(
+        private route: ActivatedRoute,
+        private fb: FormBuilder,
+        private bs: BackendCaseService,
+        private loading: LoadingService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this._events = new BehaviorSubject(new Array<any>());
-        this.route.data.subscribe((data: any) => {
-            this.events = data.events;
-        });
 
         this.form = this.fb.group({
-            start: [1],
-            end: [50]
+            start: [],
+            end: []
+        });
+
+        this.route.data.subscribe((data: any) => {
+            this.events = data.events;
+            // Sets the search form to the currently searched dates
+            let start;
+            if (this.route.snapshot.queryParams.start) {
+                start = Number.parseInt(this.route.snapshot.queryParams.start, 10);
+                this.form.get('start')
+                .setValue(start);
+            }
+
+            if (this.route.snapshot.queryParams.number) {
+                const end = start + Number.parseInt(this.route.snapshot.queryParams.number, 10) - 1;
+                this.form.get('end')
+                .setValue(end);
+            }
         });
     }
 
@@ -81,11 +98,10 @@ export class EventNumberComponent implements OnInit {
     }
 
     updateEvents(start: number, num: number) {
-        this.loading.showLoading();
-        this.bs
-            .getEvents({ type: 'limit', start: start, number: num })
-            .subscribe(result => {
-                this.events = result;
+        this.router.navigate(
+            [],
+            {
+                queryParams: { start: start, number: num }
             });
     }
 }
