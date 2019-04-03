@@ -18,26 +18,7 @@ import { ApiService } from '../../api.service';
 @Component({
     selector: 'cs-edit-page',
     templateUrl: './edit-page.component.html',
-    styleUrls: ['./edit-page.component.scss'],
-    animations: [
-        trigger(
-            'popup',
-            [
-                transition(
-                    ':enter', [
-                        style({opacity: 0}),
-                        animate('0.3s', style({'opacity': 1}))
-                    ]
-                ),
-                transition(
-                    ':leave', [
-                        style({'opacity': 1}),
-                        animate('0.3s', style({'opacity': 0}))
-                    ]
-                )
-            ]
-        )
-    ]
+    styleUrls: ['./edit-page.component.scss']
 })
 export class EditPageComponent implements OnInit {
     static parent = true;
@@ -77,15 +58,12 @@ export class EditPageComponent implements OnInit {
                 private router: Router,
                 private bs: BackendCaseService,
                 public statusService: EditStatusService,
-                private popupService: PopupService,
                 private hs: HeaderService,
                 private api: ApiService
                 ) { }
 
     ngOnInit() {
         this.setupStatus();
-
-        this.setupPopups();
     }
 
     icon_incoming = faAmbulance;
@@ -124,24 +102,5 @@ export class EditPageComponent implements OnInit {
             }
         });
     }
-
-    displayPopup = false;
-    popup: any;
-    private setupPopups() {
-        this.popupService.popup.subscribe((pop: any) => {
-            if (pop) {
-                this.popup = pop;
-                this.displayPopup = true;
-            } else {
-                this.displayPopup = false;
-            }
-        });
-    }
-
-    executePopup(func: any) {
-        func();
-        this.popupService.popup.next(false);
-    }
-
 
 }

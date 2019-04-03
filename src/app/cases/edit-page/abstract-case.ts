@@ -1,37 +1,37 @@
-import { FormGroup, Validators, ValidatorFn, AbstractControl } from "@angular/forms";
-import { OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { Observable, Subject } from "rxjs";
+import { FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
 
-import { ServiceLocator } from "src/app/util/service-locator";
+import { ServiceLocator } from 'src/app/util/service-locator';
 
-import { BackendCaseService } from "../backend-case.service";
-import { PopupService } from "./popup.service";
-import { NotifService } from "../../notif.service";
-import { LoadingService } from "../../loading.service";
+import { BackendCaseService } from '../backend-case.service';
+import { NotifService } from '../../notif.service';
+import { LoadingService } from '../../loading.service';
+import { PopupService } from 'src/app/popup.service';
 
 
 
 export class AbstractCaseComponent implements OnInit {
-    static backendTable : string;
+    static backendTable: string;
 
     route: ActivatedRoute;
-    case_id : number;
-    case : any;
-    form : FormGroup;
+    case_id: number;
+    case: any;
+    form: FormGroup;
 
-    backendService : BackendCaseService = ServiceLocator.get(BackendCaseService);
-    notifService : NotifService = ServiceLocator.get(NotifService);
-    popupService : PopupService = ServiceLocator.get(PopupService);
-    loadingService : LoadingService = ServiceLocator.get(LoadingService);
+    backendService: BackendCaseService = ServiceLocator.get(BackendCaseService);
+    notifService: NotifService = ServiceLocator.get(NotifService);
+    popupService: PopupService = ServiceLocator.get(PopupService);
+    loadingService: LoadingService = ServiceLocator.get(LoadingService);
 
-    constructor (r : ActivatedRoute) {
+    constructor (r: ActivatedRoute) {
         this.route = r;
     }
 
     ngOnInit() {
         this.route.data
-        .subscribe((data : any) => {
+        .subscribe((data: any) => {
             this.case = data.case;
             this.case_id = this.case.case_id;
             this.form.patchValue(data.case);
@@ -41,8 +41,8 @@ export class AbstractCaseComponent implements OnInit {
     }
 
     setDefaultState() {
-        for (let [key, value] of Object.entries(this.case)) {
-            let control = this.form.get(key);
+        for (const [key, value] of Object.entries(this.case)) {
+            const control = this.form.get(key);
             if (control) {
                 control.setValidators([equalsValidator(value)]);
                 control.updateValueAndValidity();
@@ -50,33 +50,33 @@ export class AbstractCaseComponent implements OnInit {
         }
     }
 
-    public getBackendTable() : string {return null}
+    public getBackendTable(): string {return null;}
 
     public save = () => {
-        let table = this.getBackendTable()
-        let response = this.backendService.updateCase(this.case_id, table, this.form.getRawValue());
+        const table = this.getBackendTable();
+        const response = this.backendService.updateCase(this.case_id, table, this.form.getRawValue());
         response.subscribe((data) => {
             this.case = this.form.getRawValue();
             this.setDefaultState();
-            switch (data["message"]) {
-                case "no change":
+            switch (data['message']) {
+                case 'no change':
                     this.notifService.addNotif({
-                        type: "warning",
+                        type: 'warning',
                         html: `No changes were made to {${table}}`
                     });
                     break;
 
                 default:
                     this.notifService.addNotif({
-                        type: "success",
+                        type: 'success',
                         html: `Succesfully saved to {${table}}`
                     });
             }
         },
         () => {
-            //TODO: Better error reporting
+            // TODO: Better error reporting
             this.notifService.addNotif({
-                type: "error",
+                type: 'error',
                 html: `Error saving to {${table}}`
             });
         });
@@ -86,37 +86,37 @@ export class AbstractCaseComponent implements OnInit {
     onReset = () => {
         this.form.patchValue(this.case);
         this.notifService.addNotif({
-            type: "success",
-            html: "All recent changes have been reset."
+            type: 'success',
+            html: 'All recent changes have been reset.'
         });
     }
 
-    public canDeactivate() : Observable<boolean> | boolean {
+    public canDeactivate(): Observable<boolean> | boolean {
         // If there have been no changes, then can change page
         if (this.form.valid) {
             return true;
         }
 
         // If there have been changes, need to confirm the move
-        let result = new Subject<boolean>();
+        const result = new Subject<boolean>();
         this.loadingService.hideLoading();
         this.popupService.popup.next({
             html: `You have unsaved changes on this page which will be lost if you navigate away.
                     Are you sure you want to continue?`,
             buttons: [
                 {
-                    class: "primary",
-                    text: "Discard Changes",
+                    class: 'primary',
+                    text: 'Discard Changes',
                     click: () => {
                         this.onReset();
                         result.next(true);
                     }
                 },
                 {
-                    class: "secondary",
-                    text: "Save Changes",
+                    class: 'secondary',
+                    text: 'Save Changes',
                     click: () => {
-                        this["onSave"]();
+                        this['onSave']();
                         result.next(true);
                         /*this.save().subscribe(() => {
                             result.next(true);
@@ -127,8 +127,8 @@ export class AbstractCaseComponent implements OnInit {
                     }
                 },
                 {
-                    class: "tertiary",
-                    text: "Cancel",
+                    class: 'tertiary',
+                    text: 'Cancel',
                     click: () => {
                         result.next(false);
                     }
@@ -140,8 +140,8 @@ export class AbstractCaseComponent implements OnInit {
 }
 
 // Checks if the current form value is equal to the previous form value
-function equalsValidator(obj : any) : ValidatorFn {
-    return (control : AbstractControl): {[key: string]: boolean} | null => {
+function equalsValidator(obj: any): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: boolean} | null => {
 
         // Makes sure that null == '' == undefined and no change is noted
         if (!control.value && !obj) {
@@ -155,5 +155,5 @@ function equalsValidator(obj : any) : ValidatorFn {
             return {'equals': true};
         }
         return null;
-    }
+    };
 }

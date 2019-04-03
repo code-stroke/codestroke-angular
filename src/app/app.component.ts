@@ -10,6 +10,7 @@ import { NotifService } from './notif.service';
 import { OneSignalService } from './one-signal.service';
 
 import { environment } from 'src/environments/environment';
+import { OverlayService } from './overlay.service';
 
 
 
@@ -45,9 +46,9 @@ export class AppComponent implements OnInit {
     icon_signout = faSignOutAlt;
 
     // These Services are used in the Template only and SHOULD NOT be removed
-    constructor(public loading : LoadingService,
-                public notifService : NotifService,
-                public oneSignal : OneSignalService) { }
+    constructor(public overlay: OverlayService,
+                public notifService: NotifService,
+                public oneSignal: OneSignalService) { }
 
     ngOnInit() {
     }

@@ -14,22 +14,22 @@ import { CaseDetails } from '../../case-details';
   styleUrls: ['./case-management.component.scss']
 })
 export class CaseManagementComponent extends AbstractCaseComponent implements OnInit {
-    static backendTable = "case_managements";
+    static backendTable = 'case_managements';
 
     radioYN = [
-        { value: 1, text: "Yes", class: "yes" },
-        { value: 0, text: "No", class: "no" }
+        { value: 1, text: 'Yes', class: 'yes' },
+        { value: 0, text: 'No', class: 'no' }
     ];
 
     radioYNU = [
-        { value: "yes", text: "Yes", class: "yes" },
-        { value: "no", text: "No", class: "no" },
-        { value: "unknown", text: "Unknown", class: "unknown" }
+        { value: 'yes', text: 'Yes', class: 'yes' },
+        { value: 'no', text: 'No', class: 'no' },
+        { value: 'unknown', text: 'Unknown', class: 'unknown' }
     ];
 
-    constructor(private fb : FormBuilder,
+    constructor(private fb: FormBuilder,
                 private ar: ActivatedRoute,
-                public statusService : EditStatusService,
+                public statusService: EditStatusService,
                 @Inject(LOCALE_ID) private locale: string) {
         super(ar);
 
@@ -74,70 +74,72 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
 
       private setupInclusionCriteria() {
           if (this.case.dob) {
-              let agemilli = new Date().getTime() - new Date(this.case.dob).getTime();
-              let age = Math.floor(agemilli / 31536000000);
+              const agemilli = new Date().getTime() - new Date(this.case.dob).getTime();
+              const age = Math.floor(agemilli / 31536000000);
               if (age > 17) {
-                  this.form.patchValue({age18: "yes"});
+                  this.form.patchValue({age18: 'yes'});
               } else {
-                  this.form.patchValue({age18: "no"});
+                  this.form.patchValue({age18: 'no'});
               }
           } else {
-              this.form.patchValue({age18: "unknown"});
+              this.form.patchValue({age18: 'unknown'});
           }
 
           if (this.case.large_vessel_occlusion || this.case.large_vessel_occlusion === 0) {
-              if (this.case.large_vessel_occlusion == "1") {
-                  this.form.patchValue({lvo: "yes"});
+              if (this.case.large_vessel_occlusion == '1') {
+                  this.form.patchValue({lvo: 'yes'});
               } else {
-                  this.form.patchValue({lvo: "no"});
+                  this.form.patchValue({lvo: 'no'});
               }
           } else {
-              this.form.patchValue({lvo: "unknown"});
+              this.form.patchValue({lvo: 'unknown'});
           }
 
           if (this.case.last_well) {
-              let wellmilli = new Date().getTime() - new Date(this.case.last_well).getTime();
-              let wellminutes = Math.floor(wellmilli / 60000);
+              const wellmilli = new Date().getTime() - new Date(this.case.last_well).getTime();
+              const wellminutes = Math.floor(wellmilli / 60000);
               // 270 mintues is 4.5 hours
               if (wellminutes < 270) {
-                  this.form.patchValue({onset: "yes"});
+                  this.form.patchValue({onset: 'yes'});
               } else {
-                  this.form.patchValue({onset: "no"});
+                  this.form.patchValue({onset: 'no'});
               }
           } else {
-              this.form.patchValue({onset: "unknown"});
+              this.form.patchValue({onset: 'unknown'});
           }
 
           if (this.case.ich_found || this.case.ich_found === 0) {
-              if (this.case.ich_found == "0") {
-                  this.form.patchValue({ich: "yes"});
+              if (this.case.ich_found == '0') {
+                  this.form.patchValue({ich: 'yes'});
               } else {
-                  this.form.patchValue({ich: "no"});
+                  this.form.patchValue({ich: 'no'});
               }
           } else {
-              this.form.patchValue({ich: "unknown"});
+              this.form.patchValue({ich: 'unknown'});
           }
       }
 
-      getBackendTable() { return CaseManagementComponent.backendTable}
+      getBackendTable() { return CaseManagementComponent.backendTable; }
 
       onSave = () => {
           this.save();
       }
 
       onThromb = () => {
-          this.form.get("thrombolysis_time_given").setValue(formatDate(new Date(), "yyyy-MM-dd HH:mm", this.locale));
+          this.form.get('thrombolysis_time_given').setValue(formatDate(new Date(), 'yyyy-MM-dd HH:mm', this.locale));
 
       }
 
       onComplete() {
-          this.popupService.popup.next({
-              html: `Are you sure you want to mark the case as completed?
-                    The current time of completion will be recorded and in future versions, this will lock all data from future editing.`,
+          this.popupService.showPopup({
+              text: `
+Are you sure you want to mark the case as completed?\n\n
+The current time of completion will be recorded and the case will be locked from any further editing.
+              `,
               buttons: [
                   {
-                      class: "primary",
-                      text: "Complete",
+                      class: 'primary',
+                      text: 'Complete',
                       click: () => {
                           this.save().subscribe(
                               () => this.completeCase()
@@ -145,10 +147,10 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
                       }
                   },
                   {
-                      class: "tertiary",
-                      text: "Cancel",
+                      class: 'tertiary',
+                      text: 'Cancel',
                       click: () => {
-                          //TODO
+                          // TODO
                       }
                   }
               ]
@@ -156,23 +158,23 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
       }
 
       private completeCase() {
-          let statusData = {
-              status: "completed",
-              completed_timestamp: formatDate(new Date(), "yyyy-MM-dd HH:mm", this.locale)
+          const statusData = {
+              status: 'completed',
+              completed_timestamp: formatDate(new Date(), 'yyyy-MM-dd HH:mm', this.locale)
           };
 
           this.backendService.updateCase(this.case_id, CaseDetailsComponent.backendTable, statusData)
           .subscribe(
               () => {
                   this.notifService.addNotif({
-                      type: "success",
+                      type: 'success',
                       html: `Succesfully marked this case as Completed.`
                   });
                   this.updateStatus(statusData);
               },
               () => {
                   this.notifService.addNotif({
-                      type: "error",
+                      type: 'error',
                       html: `Error marking case as Completed.`
                   });
               }
@@ -180,7 +182,7 @@ export class CaseManagementComponent extends AbstractCaseComponent implements On
       }
 
       private updateStatus(statusData) {
-          let caseDetail = Object.assign(new CaseDetails(), statusData);
+          const caseDetail = Object.assign(new CaseDetails(), statusData);
 
           this.statusService.status.next(caseDetail.status);
           this.statusService.statusTime.next(caseDetail.getStatusTime());

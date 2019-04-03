@@ -20,22 +20,5 @@
         <article class="edit-content">
             <router-outlet></router-outlet>
         </article>
-        <aside class="edit-popup" [@popup] *ngIf="displayPopup">
-            <div class="popup-main">
-                <header>
-                    W a r n i n g
-                </header>
-                <article>
-                    {{popup.html}}
-                </article>
-                <nav >
-                    <button *ngFor="let button of popup.buttons"
-                    [class]="button.class"
-                    (click)="executePopup(button.click)">
-                        {{button.text}}
-                    </button>
-                </nav>
-            </div>
-        </aside>
     </main>
 </div>

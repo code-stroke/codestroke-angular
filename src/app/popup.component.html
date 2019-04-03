@@ -1,0 +1,17 @@
+<ng-container *ngIf="ps.popup | async" @popup>
+    <header @popup>
+        W a r n i n g
+    </header>
+    <main @popup>
+        <article>
+            {{ps.popup.value.text }}
+        </article>
+        <nav>
+            <button *ngFor="let button of ps.popup.value.buttons"
+            [class]="button.class"
+            (click)="ps.executePopup(button.click)">
+                {{button.text}}
+            </button>
+        </nav>
+    </main>
+</ng-container>

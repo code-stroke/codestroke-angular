@@ -26,11 +26,3 @@
 .edit-content {
     @include content
 }
-
-.edit-popup {
-    @include popup-container;
-}
-
-.popup-main {
-    @include popup
-}

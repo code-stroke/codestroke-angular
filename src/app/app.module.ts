@@ -16,6 +16,8 @@ import { APP_ROUTES } from './app.routes';
 import { ClickElsewhereDirective } from './util/click-elsewhere.directive';
 import { setServiceLocator } from './util/service-locator';
 import { environment } from 'src/environments/environment';
+import { LoadingComponent } from './loading.component';
+import { PopupComponent } from './popup.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { environment } from 'src/environments/environment';
         MainLayoutComponent,
         LoginLayoutComponent,
         HeaderComponent,
-        ClickElsewhereDirective
+        ClickElsewhereDirective,
+        LoadingComponent,
+        PopupComponent
     ],
     providers: [{provide: LocationStrategy, useClass: environment.location_strategy}],
     bootstrap: [AppComponent]

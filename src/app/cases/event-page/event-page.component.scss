@@ -21,10 +21,3 @@
     @include main;
 }
 
-.popup {
-    @include popup-container;
-}
-
-.popup-main {
-    @include popup;
-}

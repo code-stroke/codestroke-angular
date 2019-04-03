@@ -35,14 +35,6 @@
     @include content;
 }
 
-.popup {
-    @include popup-container;
-}
-
-.popup-main {
-    @include popup;
-}
-
 form {
     @include form;
 
