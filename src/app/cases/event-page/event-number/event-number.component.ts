@@ -4,8 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faSearch, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { EventsResolverService } from '../events-resolver.service';
+import { faSearch, faArrowLeft, faArrowRight, faExclamation } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'cs-event-number',
@@ -18,6 +17,7 @@ export class EventNumberComponent implements OnInit {
     icon_search = faSearch;
     icon_left = faArrowLeft;
     icon_right = faArrowRight;
+    icon_exclaim = faExclamation;
 
     form: FormGroup;
 

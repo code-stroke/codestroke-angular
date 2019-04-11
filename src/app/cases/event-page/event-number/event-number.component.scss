@@ -151,6 +151,30 @@
     width: 100%;
 }
 
+.event-none {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > span {
+        margin-bottom: 1rem;
+
+        font-weight: bold;
+        font-size: 1.7rem;
+
+        & > fa-icon {
+            margin-right: 0.5rem;
+        }
+    }
+
+    & > div {
+        font-size: 1.35rem;
+        color: rgba(141, 134, 134, 1);
+    }
+}
+
 footer.status {
     height: 2rem;
 }

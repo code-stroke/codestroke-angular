@@ -18,6 +18,10 @@
     <span class="sub-status-time">Time</span>
 </header>
 <article class="content">
+    <div class="event-none" *ngIf="!events || events.length < 1">
+        <span><fa-icon [icon]="icon_exclaim"></fa-icon>No Results Found</span>
+        <div>Please search again.</div>
+    </div>
     <div class="event-row" *ngFor="let event of events">
         <cs-event [event]="event"></cs-event>
     </div>
