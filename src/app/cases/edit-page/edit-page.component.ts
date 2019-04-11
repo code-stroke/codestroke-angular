@@ -8,7 +8,6 @@ import { faAmbulance, faHospitalAlt, faCalendarCheck, faUserClock, faSignOutAlt,
 import { EditStatusService } from './edit-status.service';
 import { BackendCaseService } from '../backend-case.service';
 import { CaseDetails } from '../case-details';
-import { PopupService } from './popup.service';
 import { HeaderService } from '../../header.service';
 import { ApiService } from '../../api.service';
 

@@ -171,6 +171,7 @@ The current time of completion will be recorded and the case will be locked from
                       html: `Succesfully marked this case as Completed.`
                   });
                   this.updateStatus(statusData);
+                  this.form.disable();
               },
               () => {
                   this.notifService.addNotif({

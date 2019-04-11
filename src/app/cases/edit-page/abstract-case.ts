@@ -9,6 +9,7 @@ import { BackendCaseService } from '../backend-case.service';
 import { NotifService } from '../../notif.service';
 import { LoadingService } from '../../loading.service';
 import { PopupService } from 'src/app/popup.service';
+import { EditStatusService } from './edit-status.service';
 
 
 
@@ -24,6 +25,7 @@ export class AbstractCaseComponent implements OnInit {
     notifService: NotifService = ServiceLocator.get(NotifService);
     popupService: PopupService = ServiceLocator.get(PopupService);
     loadingService: LoadingService = ServiceLocator.get(LoadingService);
+    editStatusService: EditStatusService = ServiceLocator.get(EditStatusService);
 
     constructor (r: ActivatedRoute) {
         this.route = r;
@@ -47,6 +49,9 @@ export class AbstractCaseComponent implements OnInit {
                 control.setValidators([equalsValidator(value)]);
                 control.updateValueAndValidity();
             }
+        }
+        if (this.editStatusService.status.value === 'completed') {
+            this.form.disable();
         }
     }
 
@@ -93,16 +98,17 @@ export class AbstractCaseComponent implements OnInit {
 
     public canDeactivate(): Observable<boolean> | boolean {
         // If there have been no changes, then can change page
-        if (this.form.valid) {
+        if (this.form.valid || this.form.disabled) {
             return true;
         }
 
         // If there have been changes, need to confirm the move
         const result = new Subject<boolean>();
-        this.loadingService.hideLoading();
         this.popupService.popup.next({
-            html: `You have unsaved changes on this page which will be lost if you navigate away.
-                    Are you sure you want to continue?`,
+            text: `
+You have unsaved changes on this page which will be lost if you navigate away.\n\n
+Are you sure you want to continue?
+                    `,
             buttons: [
                 {
                     class: 'primary',

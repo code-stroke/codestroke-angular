@@ -47,8 +47,10 @@ export class SelectScoreComponent implements OnInit, ControlValueAccessor {
     }
 
     @HostListener('click', ['$event']) onClick(event) {
-        this.hidden = this.hidden ? false : true;
-        event.clickedSelect = true;
+        if (!this.disabled) {
+            this.hidden = this.hidden ? false : true;
+            event.clickedSelect = true;
+        }
     }
 
     /**
@@ -80,8 +82,10 @@ export class SelectScoreComponent implements OnInit, ControlValueAccessor {
     onChange = (value) => {};
     onTouched = () => {};
 
+    @HostBinding('class.disabled') disabled = false;
+
     setDisabledState?(isDisabled: boolean): void {
-        //TODO:
+        this.disabled = isDisabled;
     }
     registerOnTouched(fn: any): void {
         this.onTouched = fn;

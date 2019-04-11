@@ -43,7 +43,7 @@
         </div>
     </article>
 
-    <div class="details-row options">
+    <div class="details-row options" *ngIf='!form.disabled'>
         <label></label>
         <div class="button">SAVE
             <cs-double-click [func]="onSave"></cs-double-click>

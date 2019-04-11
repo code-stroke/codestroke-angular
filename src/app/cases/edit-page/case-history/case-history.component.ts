@@ -6,7 +6,6 @@ import { AbstractCaseComponent } from '../abstract-case';
 import { EditStatusService } from '../edit-status.service';
 import { BackendCaseService } from '../../backend-case.service';
 import { NotifService } from '../../../notif.service';
-import { PopupService } from '../popup.service';
 
 @Component({
     selector: 'cs-case-history',

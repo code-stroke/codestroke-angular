@@ -179,9 +179,10 @@
         </header>
         <div class="assess-row" *ngIf="!form.get('likely_lvo').value">
             <label></label>
-            <div class="button">Click to Notify angiography staff of a likely LVO
+            <div class="button" *ngIf='!form.disabled'>Click to Notify angiography staff of a likely LVO
                 <cs-double-click [func]="onLVO"></cs-double-click>
             </div>
+            <button disabled class="button" *ngIf='form.disabled'>Click to Notify angiography staff of a likely LVO</button>
         </div>
         <div class="assess-row angio_notified" *ngIf="form.get('likely_lvo').value">
             <label><fa-icon [icon]="icon_sent"></fa-icon></label>
@@ -189,7 +190,7 @@
         </div>
     </article>
 
-    <div class="assess-row options">
+    <div class="assess-row options" *ngIf='!form.disabled'>
         <label></label>
         <div class="button">SAVE
             <cs-double-click [func]="onSave"></cs-double-click>

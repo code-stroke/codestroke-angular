@@ -19,7 +19,7 @@ export class ToggleComponent implements OnInit, ControlValueAccessor {
 
     val : any;
 
-    disabled : boolean = false;
+    disabled = false;
 
     constructor() { }
 
@@ -34,7 +34,6 @@ export class ToggleComponent implements OnInit, ControlValueAccessor {
     onTouched;
 
     setDisabledState?(isDisabled: boolean): void {
-        //TODO:
         this.disabled = isDisabled;
     }
     registerOnTouched(fn: any): void {

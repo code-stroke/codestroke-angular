@@ -38,6 +38,11 @@
     &:focus {
         background: #EEEEEE;
     }
+
+    &[disabled] {
+        border: none;
+        background: none;
+    }
 }
 
 @mixin case-row {
@@ -117,6 +122,10 @@
         }
 
         cursor: pointer;
+
+        &[disabled] {
+            cursor: not-allowed;
+        }
     }
 }
 

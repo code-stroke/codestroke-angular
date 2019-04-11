@@ -25,7 +25,7 @@
         </div>
         <div class="manage-row">
             <label>No Evidence of ICH</label>
-            <cs-toggle [name]="ich" [options]="radioYNU" formControlName="ich"></cs-toggle>
+            <cs-toggle [name]="'ich'" [options]="radioYNU" formControlName="ich"></cs-toggle>
         </div>
 
         <div class="manage-row">
@@ -104,9 +104,10 @@
         </div>
         <div class="manage-row" *ngIf="!form.get('thrombolysis_time_given').value">
             <label></label>
-            <div class="button">Click when Thrombolysis has been delivered
+            <div class="button" *ngIf="!form.disabled">Click when Thrombolysis has been delivered
                 <cs-double-click [func]="onThromb"></cs-double-click>
             </div>
+            <button disabled class="button" *ngIf='form.disabled'>Click when Thrombolysis has been delivered</button>
         </div>
         <div class="manage-row" *ngIf="form.get('thrombolysis_time_given').value">
             <label>Time given</label>
@@ -125,12 +126,12 @@
         <label>Conservative Mx</label>
         <cs-toggle [name]="'conservative_rx'" [options]="radioYN" formControlName="conservative_rx"></cs-toggle>
     </div>
-    <div class="manage-row complete" *ngIf="statusService.status.value != 'completed'">
+    <div class="manage-row complete" *ngIf="statusService.status.value != 'completed' && !form.disabled">
         <label>Mark Complete</label>
         <button class="complete button" (click)="onComplete()">Mark Case as Completed</button>
     </div>
 
-    <div class="manage-row options">
+    <div class="manage-row options" *ngIf='!form.disabled'>
         <label></label>
         <div class="button">SAVE
             <cs-double-click [func]="onSave"></cs-double-click>

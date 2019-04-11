@@ -25,7 +25,8 @@ export class DateTimeComponent implements OnInit, ControlValueAccessor {
   date : any;
   time : any;
 
-  @HostBinding('class.invalid') invalid: boolean = false;
+  @HostBinding('class.invalid') invalid = false;
+  @HostBinding('class.disabled') disabled = false;
 
   update() {
       if (this.date && this.time) {
@@ -43,6 +44,7 @@ export class DateTimeComponent implements OnInit, ControlValueAccessor {
 
   setDisabledState?(isDisabled: boolean): void {
       //TODO:
+      this.disabled = isDisabled;
   }
   registerOnTouched(fn: any): void {
       this.onTouched = fn;

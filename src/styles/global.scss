@@ -31,6 +31,10 @@ input, textarea {
     appearance: none;
 }
 
+input:disabled, textarea:disabled {
+    @include disabled;
+}
+
 button {
     outline: 0;
     border: 0;

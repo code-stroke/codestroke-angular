@@ -32,7 +32,7 @@
         <cs-toggle [name]="'lvo'" [options]="radioYN" formControlName="large_vessel_occlusion"></cs-toggle>
     </div>
 
-    <div class="radiology-row options">
+    <div class="radiology-row options" *ngIf='!form.disabled'>
         <label></label>
         <div class="button">SAVE
             <cs-double-click [func]="onSave"></cs-double-click>

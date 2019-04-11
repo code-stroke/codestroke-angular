@@ -47,5 +47,5 @@ input[type="checkbox"] {
 
     &:checked +label {background: lightgreen;}
 
-    &:disabled +label {background: coral;}
+    //&:disabled +label {background: coral;}
 }

@@ -6,7 +6,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EditStatusService } from '../edit-status.service';
 import { BackendCaseService } from '../../backend-case.service';
 import { NotifService } from '../../../notif.service';
-import { PopupService } from '../popup.service';
 
 
 @Component({

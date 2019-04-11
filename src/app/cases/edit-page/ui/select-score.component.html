@@ -1,5 +1,5 @@
 <span class="main" [class.active]="!hidden">{{main}} <a>{{value}}</a></span>
-<fa-icon [icon]="icon_down" class="down"></fa-icon>
+<fa-icon [icon]="icon_down" class="down" *ngIf='!disabled'></fa-icon>
 <div class="box" [hidden]="hidden">
     <span *ngFor="let o of options"
     (click)="onOption(o)"

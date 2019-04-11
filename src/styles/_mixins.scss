@@ -31,3 +31,8 @@
     padding-top: $value;
     padding-bottom: $value;
 }
+
+@mixin disabled {
+    color: rgb(84, 84, 84);
+    background-color: rgb(235, 235, 228);
+}

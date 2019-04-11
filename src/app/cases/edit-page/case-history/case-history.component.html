@@ -33,7 +33,7 @@
         <cs-date-time formControlName="last_meal"></cs-date-time>
     </div>
 
-    <div class="history-row options">
+    <div class="history-row options" *ngIf='!form.disabled'>
         <label></label>
         <div class="button">SAVE
             <cs-double-click [func]="onSave"></cs-double-click>
